@@ -29,7 +29,7 @@ flutter pub get
 | ------------------- | -------------------------------- |
 | 🕹 `flutter run`      | builds the app and runs it               |
 | 🕹 `flutter test` | Runs the unit test cases           |
-| 🕹 `xxxxxxx`      | starts the playstore CI/CD pipeline     |
+| 🕹 `dart pub run build_runner build --delete-conflicting-outputs`      | run the generator     |
 
 
 ### 🕸️ Mocking api's 
@@ -47,3 +47,12 @@ flutter pub get
 | user1 | User1p@word | not verified | 300
 | user2 | User2p@$$word | verified | 100
 | user3 | User3p@$$word | verified | 5000 
+
+
+### The architecture 
+
+    Presentation Layer |  <- ViewModels interact with the Use Cases
+------------------------
+     Domain Layer      |  <- Contains Use Cases, Entities, and Repository interfaces
+------------------------
+      Data Layer       |  <- Implements Repository interfaces, handles data sources
