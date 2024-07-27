@@ -1,6 +1,7 @@
 import 'package:e5d_assesment/features/login/presentation/view/login_screen.dart';
 import 'package:e5d_assesment/features/splash/presentation/splash_screen.dart';
 import 'package:e5d_assesment/features/home/presentation/view/home_screen.dart';
+import 'package:e5d_assesment/features/topup/presentation/view/topup_receipt_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,3 +34,15 @@ class HomeScreenRoute extends GoRouteData {
     return const HomeScreen();
   }
 }
+
+@TypedGoRoute<TopUpScreenRoute>(path: '/receipt', name: 'receipt')
+@immutable
+class TopUpScreenRoute extends GoRouteData {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const TopUpReceiptScreen();
+  }
+}
+
+
+

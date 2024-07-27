@@ -1,5 +1,7 @@
+import 'package:e5d_assesment/common/views/bottom_sheet.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list_item.dart';
+import 'package:e5d_assesment/features/topup/presentation/view/topup_widget.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:flutter/material.dart';
 
@@ -24,9 +26,9 @@ class BeneficiaryListWidget extends StatelessWidget {
       final calculatedWidth =
           ((constraint.maxWidth * 0.8) / 2) - spacingBetweenItems;
       loggerNoStack.d("CalculatedWidth $calculatedWidth ");
-      
+
       return Container(
-          height: 130,
+          height: 110,
           child: ListView.separated(
             separatorBuilder: (context, index) {
               return SizedBox(
@@ -41,6 +43,11 @@ class BeneficiaryListWidget extends StatelessWidget {
                 child: BeneficiaryListItemWidget(
                     beneficiary: _beneficiaries[index],
                     onPressed: () {
+                      showE5DBottomSheet(
+                        context,
+                        const TopUpWidget(),
+                        300,
+                      );
                       print(_beneficiaries[index]);
                     }),
               );

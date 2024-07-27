@@ -24,14 +24,15 @@ class BeneficiaryListItemWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               _beneficiary.nickname,
-              maxLines: 2,
+              maxLines: 1,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.merge(
                     const TextStyle(
-                      color: Colors.white,
+                      color: E5DColors.colorFFF1DB,
                       fontSize: 14,
                     ),
                   ),
@@ -45,7 +46,7 @@ class BeneficiaryListItemWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.merge(
                     const TextStyle(
-                      color: Colors.white,
+                      color: E5DColors.colorFFF1DB,
                       fontSize: 12,
                     ),
                   ),
@@ -67,7 +68,7 @@ class BeneficiaryListItemWidget extends StatelessWidget {
                     .textTheme
                     .labelMedium
                     ?.merge(const TextStyle(
-                      color: Colors.white,
+                      color: E5DColors.colorFFF1DB,
                       fontSize: 11,
                     )),
               ),

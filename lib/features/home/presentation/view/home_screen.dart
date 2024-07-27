@@ -79,18 +79,18 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24.0),
-              child: Text(
-                'Beneficiaries',
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineLarge
-                    ?.merge(const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    )),
-              ),
+            const SizedBox(
+              height: 24,
+            ),
+            Text(
+              'Beneficiaries',
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge
+                  ?.merge(const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  )),
             ),
             const SizedBox(
               height: 12,
@@ -123,6 +123,19 @@ class HomeScreen extends StatelessWidget {
                   phoneNumber: "+971568330446",
                 ),
               ],
+            ),
+            const SizedBox(
+              height: 12,
+            ),
+            Text(
+              "Latest Top Up’s",
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge
+                  ?.merge(const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  )),
             ),
           ],
         ),

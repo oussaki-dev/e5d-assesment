@@ -10,6 +10,7 @@ List<RouteBase> get $appRoutes => [
       $splashScreenRoute,
       $loginScreenRoute,
       $homeScreenRoute,
+      $topUpScreenRoute,
     ];
 
 RouteBase get $splashScreenRoute => GoRouteData.$route(
@@ -70,6 +71,29 @@ extension $HomeScreenRouteExtension on HomeScreenRoute {
 
   String get location => GoRouteData.$location(
         '/home',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $topUpScreenRoute => GoRouteData.$route(
+      path: '/receipt',
+      name: 'receipt',
+      factory: $TopUpScreenRouteExtension._fromState,
+    );
+
+extension $TopUpScreenRouteExtension on TopUpScreenRoute {
+  static TopUpScreenRoute _fromState(GoRouterState state) => TopUpScreenRoute();
+
+  String get location => GoRouteData.$location(
+        '/receipt',
       );
 
   void go(BuildContext context) => context.go(location);
