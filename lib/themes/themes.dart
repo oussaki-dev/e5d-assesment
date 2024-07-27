@@ -12,7 +12,7 @@ enum AppThemes {
         return ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: E5DColors.primaryColor,
-            secondary: E5DColors.secondaryColor,
+            secondary: E5DColors.colorEF5A6F,
           ),
           textTheme: GoogleFonts.interTextTheme(),
           bottomSheetTheme: const BottomSheetThemeData(

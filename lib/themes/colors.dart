@@ -6,7 +6,7 @@ class E5DColors {
   static const Color primaryColor40Percent = Color(0xff98a2be);
   static const Color primaryColor20Percent = Color(0xff7682a9);
 
-  static const Color secondaryColor = Color(0xFFEF5A6F);
+  static const Color colorEF5A6F = Color(0xFFEF5A6F);
   static const Color colorFFF1DB = Color(0xFFFFF1DB);
   static const Color colorD4BDAC = Color(0xFFD4BDAC);
 

@@ -3,7 +3,6 @@ import 'package:e5d_assesment/common/views/half_circle.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class TopUpReceiptScreen extends StatelessWidget {
   const TopUpReceiptScreen({super.key});
