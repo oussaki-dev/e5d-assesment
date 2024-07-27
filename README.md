@@ -36,7 +36,7 @@ flutter pub get
 
 | env        | url                                                                                                  |
 | ---------- | ---------------------------------------------------------------------------------------------------- |
-| BaseUrl | https://api.habiib.club                                |
+| BaseUrl | https://myapi.com                               |
 | Login     |  |
 
 
@@ -56,3 +56,11 @@ flutter pub get
      Domain Layer      |  <- Contains Use Cases, Entities, and Repository interfaces
 ------------------------
       Data Layer       |  <- Implements Repository interfaces, handles data sources
+
+<img src="https://i.ibb.co/VjzXZCQ/Screenshot-2024-07-26-at-4-21-18-PM.png" alt="Flow diagram">
+
+
+
+### Design 
+
+Pallet used : https://colorhunt.co/palette/ef5a6ffff1dbd4bdac536493
