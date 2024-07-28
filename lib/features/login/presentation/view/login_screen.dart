@@ -32,11 +32,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     viewModel = ref.read(loginViewModelProvider.notifier);
 
     if (state?.uiState == LoginUiState.loading) {
-      buttonText = const Text('loading');
+      buttonText = SizedBox(
+        height: 33,
+        width: 33,
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.grey[200],
+          valueColor:
+              AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+          strokeWidth: 3.0,
+        ),
+      );
     } else if (state?.uiState == LoginUiState.success) {
       buttonText = const Text('success');
-       } else if (state?.uiState == LoginUiState.error) {
-           buttonText = const Text('error');
+    } else if (state?.uiState == LoginUiState.error) {
+      // show error
+      buttonText = Text(
+        AppLocalizations.of(context)!.button_login,
+        style: Theme.of(context).textTheme.labelLarge?.merge(const TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            )),
+      );
     } else {
       buttonText = Text(
         AppLocalizations.of(context)!.button_login,

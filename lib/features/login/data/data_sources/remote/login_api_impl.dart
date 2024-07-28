@@ -11,11 +11,14 @@ import 'package:e5d_assesment/features/login/presentation/errors/login_error.dar
 import 'package:e5d_assesment/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
+// provider
 final loginApiImplProvider = Provider<AbstractLoginSource>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return LoginApiImpl(apiClient: apiClient!);
 });
 
+/// Api implementation
 class LoginApiImpl extends AbstractLoginSource {
   AbstractApiClient apiClient;
 
@@ -25,7 +28,6 @@ class LoginApiImpl extends AbstractLoginSource {
   Future<UserModel> login(ILoginModel params) async {
     LoginModel model = (params as LoginModel);
     try {
-      loggerNoStack.d('apiClient.baseUrl ${apiClient.baseUrl}');
       Response<dynamic> response = await apiClient.post(
         '${apiClient.baseUrl}/login',
         data: Map.from(
