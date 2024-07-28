@@ -1,8 +1,11 @@
-import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list.dart';
-import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list_item.dart';
+import 'package:e5d_assesment/features/home/presentation/view/mock_beneficiaries.dart';
+import 'package:e5d_assesment/features/topup/domain/model/money.dart';
+import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
+import 'package:e5d_assesment/features/transactions/presentation/view/transaction_item_widget.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -29,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       )),
                 ),
-                Icon(
+                const Icon(
                   Icons.settings,
                   color: Colors.white,
                 )
@@ -39,7 +42,7 @@ class HomeScreen extends StatelessWidget {
               height: 50,
             ),
             Text(
-              'Total balance',
+              AppLocalizations.of(context)!.totalBalance,
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge
@@ -52,7 +55,7 @@ class HomeScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 4),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                key: ObjectKey("curren_balance_row"),
+                key: const ObjectKey("curren_balance_row"),
                 children: [
                   Text(
                     '8,000',
@@ -96,33 +99,7 @@ class HomeScreen extends StatelessWidget {
               height: 12,
             ),
             const BeneficiaryListWidget(
-              beneficiaries: [
-                Beneficiary(
-                  id: "1",
-                  nickname: "oussama abdallah",
-                  phoneNumber: "+971568330446",
-                ),
-                Beneficiary(
-                  id: "2",
-                  nickname: "Nabil benhamou asdas",
-                  phoneNumber: "+971568330446",
-                ),
-                Beneficiary(
-                  id: "3",
-                  nickname: "Sabeur Thabti",
-                  phoneNumber: "+971568330446",
-                ),
-                Beneficiary(
-                  id: "3",
-                  nickname: "Sabeur Thabti",
-                  phoneNumber: "+971568330446",
-                ),
-                Beneficiary(
-                  id: "3",
-                  nickname: "Sabeur Thabti",
-                  phoneNumber: "+971568330446",
-                ),
-              ],
+              beneficiaries: beneficiaries,
             ),
             const SizedBox(
               height: 12,
@@ -137,6 +114,28 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   )),
             ),
+            const SizedBox(height: 16,),
+            Expanded(
+              child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    height: 8,
+                  );
+                },
+                itemCount: 26,
+                itemBuilder: (context, index) {
+                  return TransactionItemWidget(
+                    transaction: Transaction(
+                      amount: const Money(currency: 'AED', value: 200.0),
+                      beneficiary: beneficiaries.first,
+                      id: index.toString(),
+                      time: DateTime.now(),
+                    ),
+                    index: index,
+                  );
+                },
+              ),
+            )
           ],
         ),
       )),

@@ -5,7 +5,7 @@ import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 class TopUpWidget extends StatelessWidget {
-  const TopUpWidget({Key? key}) : super(key: key);
+  const TopUpWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class TopUpWidget extends StatelessWidget {
                       ...[10, 20, 30, 50, 75, 100].map((v) {
                         return TopUpMoneyLabelWidget(
                           money:
-                              Money(currency: 'AED', value: v.toString()),
+                              Money(currency: 'AED', value: v.toDouble()),
                         );
                       })
                     ],
@@ -52,7 +52,7 @@ class TopUpWidget extends StatelessWidget {
             ),
           ),
           // Topup button
-          Container(
+          SizedBox(
             width: double.infinity,
             child: TextButton(
               onPressed: () => {

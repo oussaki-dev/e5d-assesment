@@ -8,7 +8,7 @@ part of 'money.dart';
 
 _$MoneyImpl _$$MoneyImplFromJson(Map<String, dynamic> json) => _$MoneyImpl(
       currency: json['currency'] as String,
-      value: json['value'] as String,
+      value: (json['value'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$MoneyImplToJson(_$MoneyImpl instance) =>

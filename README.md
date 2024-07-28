@@ -29,7 +29,10 @@ flutter pub get
 | ------------------- | -------------------------------- |
 | 🕹 `flutter run`      | builds the app and runs it               |
 | 🕹 `flutter test` | Runs the unit test cases           |
-| 🕹 `dart pub run build_runner build --delete-conflicting-outputs`      | run the generator     |
+| 🕹 `dart pub run build_runner build --delete-conflicting-outputs`      | generate models and routes     |
+| 🕹 `flutter gen-l10n`      | generate localization   |
+
+
 
 
 ### 🕸️ Mocking api's 

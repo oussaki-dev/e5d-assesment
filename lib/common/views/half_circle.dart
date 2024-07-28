@@ -14,7 +14,7 @@ class HalfCirclePainter extends CustomPainter {
       ..color = color
       ..style = PaintingStyle.fill;
 
-    var rect;
+    Rect rect = Rect.fromLTRB(-size.width / 2, 0, size.width / 2, size.height);
 
     var startAngle = (3 * 3.14) / 2;
 
@@ -35,7 +35,7 @@ class HalfCirclePainter extends CustomPainter {
         startAngle = (3 * 3.14) / 2;
     }
 
-    final sweepAngle = 3.14; // Draw half circle
+    const sweepAngle = 3.14; // Draw half circle
 
     canvas.drawArc(rect, startAngle, sweepAngle, true, paint);
   }

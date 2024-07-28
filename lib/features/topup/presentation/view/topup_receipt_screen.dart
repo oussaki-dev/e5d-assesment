@@ -1,6 +1,7 @@
 import 'package:e5d_assesment/common/views/dash_separator.dart';
 import 'package:e5d_assesment/common/views/half_circle.dart';
 import 'package:e5d_assesment/main.dart';
+import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -150,16 +151,9 @@ class TopUpReceiptScreen extends StatelessWidget {
                             padding: const EdgeInsetsDirectional.only(
                               start: 16,
                               end: 16,
-                              top: 16,
+                              top: 8,
                             ),
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: const BoxDecoration(
-                                color: E5DColors.primaryColor80Percent,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
-                              ),
+                            child: SizedBox(
                               width: double.infinity,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,7 +166,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                                         ?.merge(
                                           const TextStyle(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
                                   ),
@@ -184,7 +178,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                                         ?.merge(
                                           const TextStyle(
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w400,
+                                            fontWeight: FontWeight.w600,
                                           ),
                                         ),
                                   ),
@@ -201,7 +195,9 @@ class TopUpReceiptScreen extends StatelessWidget {
                             height: 44,
                             width: double.infinity,
                             child: TextButton(
-                              onPressed: () => {},
+                              onPressed: () => {
+                                _onDoneCLicked(context)
+                              },
                               style: TextButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -239,7 +235,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                                     ),
                           ),
                           const SizedBox(
-                            height: 50,
+                            height: 30,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -268,5 +264,9 @@ class TopUpReceiptScreen extends StatelessWidget {
         ),
       );
     });
+  }
+  
+  _onDoneCLicked(BuildContext context) {
+    HomeScreenRoute().go(context);
   }
 }

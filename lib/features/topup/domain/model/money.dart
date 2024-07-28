@@ -8,7 +8,7 @@ class Money with _$Money {
 
   const factory Money({
     @JsonKey(name: 'currency') required String currency,
-    @JsonKey(name: 'value') required String value,
+    @JsonKey(name: 'value') required double value,
   }) = _Money;
 
   factory Money.fromJson(Map<String, Object?> json) => _$MoneyFromJson(json);

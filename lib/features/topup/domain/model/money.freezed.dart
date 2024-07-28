@@ -23,7 +23,7 @@ mixin _$Money {
   @JsonKey(name: 'currency')
   String get currency => throw _privateConstructorUsedError;
   @JsonKey(name: 'value')
-  String get value => throw _privateConstructorUsedError;
+  double get value => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,7 @@ abstract class $MoneyCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'currency') String currency,
-      @JsonKey(name: 'value') String value});
+      @JsonKey(name: 'value') double value});
 }
 
 /// @nodoc
@@ -64,7 +64,7 @@ class _$MoneyCopyWithImpl<$Res, $Val extends Money>
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
     ) as $Val);
   }
 }
@@ -78,7 +78,7 @@ abstract class _$$MoneyImplCopyWith<$Res> implements $MoneyCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'currency') String currency,
-      @JsonKey(name: 'value') String value});
+      @JsonKey(name: 'value') double value});
 }
 
 /// @nodoc
@@ -103,7 +103,7 @@ class __$$MoneyImplCopyWithImpl<$Res>
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
     ));
   }
 }
@@ -123,7 +123,7 @@ class _$MoneyImpl implements _Money {
   final String currency;
   @override
   @JsonKey(name: 'value')
-  final String value;
+  final double value;
 
   @override
   String toString() {
@@ -161,7 +161,7 @@ class _$MoneyImpl implements _Money {
 abstract class _Money implements Money {
   const factory _Money(
       {@JsonKey(name: 'currency') required final String currency,
-      @JsonKey(name: 'value') required final String value}) = _$MoneyImpl;
+      @JsonKey(name: 'value') required final double value}) = _$MoneyImpl;
 
   factory _Money.fromJson(Map<String, dynamic> json) = _$MoneyImpl.fromJson;
 
@@ -170,7 +170,7 @@ abstract class _Money implements Money {
   String get currency;
   @override
   @JsonKey(name: 'value')
-  String get value;
+  double get value;
   @override
   @JsonKey(ignore: true)
   _$$MoneyImplCopyWith<_$MoneyImpl> get copyWith =>

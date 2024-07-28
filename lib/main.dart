@@ -1,10 +1,5 @@
 import 'package:e5d_assesment/app.dart';
-import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
-import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list.dart';
-import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list_item.dart';
 import 'package:e5d_assesment/features/login/presentation/view/login_screen.dart';
-import 'package:e5d_assesment/features/splash/presentation/splash_screen.dart';
-import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
@@ -31,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Theme Demo',
       theme: AppThemes.main.theme,
-      home: LoginScreen(),
+      home: const LoginScreen(),
     );
   }
 }
