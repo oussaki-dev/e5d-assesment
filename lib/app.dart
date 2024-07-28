@@ -3,6 +3,7 @@ import 'package:e5d_assesment/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class E5DApp extends MaterialApp {
   E5DApp({super.key})
@@ -16,8 +17,12 @@ class E5DApp extends MaterialApp {
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
             AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
-        
+          locale: const Locale('ar'),
+          showPerformanceOverlay: true
         );
 }

@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Hello Oussama',
+                  AppLocalizations.of(context)!.hello('Oussama'),
                   style: Theme.of(context)
                       .textTheme
                       .headlineLarge
@@ -86,7 +86,7 @@ class HomeScreen extends StatelessWidget {
               height: 24,
             ),
             Text(
-              'Beneficiaries',
+              AppLocalizations.of(context)!.title_beneficiaries,
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge
@@ -105,7 +105,7 @@ class HomeScreen extends StatelessWidget {
               height: 12,
             ),
             Text(
-              "Latest Top Up’s",
+              AppLocalizations.of(context)!.title_latest_top_ups,
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge

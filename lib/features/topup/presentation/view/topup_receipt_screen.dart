@@ -112,8 +112,10 @@ class TopUpReceiptScreen extends StatelessWidget {
                                   30,
                                 ), // Specify the size of the canvas
                                 painter: HalfCirclePainter(
-                                    Theme.of(context).primaryColor,
-                                    CirclePosition.right),
+                                  Theme.of(context).primaryColor,
+                                  CirclePosition.right,
+                                  context,
+                                ),
                               ),
                               const Expanded(
                                 child: DashSeparator(),
@@ -124,8 +126,10 @@ class TopUpReceiptScreen extends StatelessWidget {
                                   30,
                                 ), // Specify the size of the canvas
                                 painter: HalfCirclePainter(
-                                    Theme.of(context).primaryColor,
-                                    CirclePosition.left),
+                                  Theme.of(context).primaryColor,
+                                  CirclePosition.left,
+                                  context,
+                                ),
                               ),
                             ],
                           ),
@@ -195,9 +199,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                             height: 44,
                             width: double.infinity,
                             child: TextButton(
-                              onPressed: () => {
-                                _onDoneCLicked(context)
-                              },
+                              onPressed: () => {_onDoneCLicked(context)},
                               style: TextButton.styleFrom(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
@@ -249,6 +251,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                                   painter: HalfCirclePainter(
                                     Theme.of(context).primaryColor,
                                     CirclePosition.top,
+                                    context,
                                   ),
                                 )
                             ],
@@ -265,7 +268,7 @@ class TopUpReceiptScreen extends StatelessWidget {
       );
     });
   }
-  
+
   _onDoneCLicked(BuildContext context) {
     HomeScreenRoute().go(context);
   }

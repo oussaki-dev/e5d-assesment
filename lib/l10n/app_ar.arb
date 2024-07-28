@@ -1,3 +1,19 @@
 {
-    "totalBalance": "الرصيد الإجمالي"
+  "totalBalance": "الرصيد الإجمالي",
+  "hello": "مرحبا {userName}",
+  "@hello": {
+    "description": "userName parameter",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "Oussama"
+      }
+    }
+  },
+  "title_beneficiaries": "المستفيدون",
+  "title_latest_top_ups": "التحويلات الأخيرة",
+  "button_add_beneficiary": "إضافة مستفيد",
+  "title_add_new_beneficiary": "إضافة مستفيد جديد",
+  "title_beneficiary_nick_name": "إسم المستفيد*",
+  "title_example_mobile": "مثال: +٩٧١٥٦٨٣٣٠٤٤٦"
 }

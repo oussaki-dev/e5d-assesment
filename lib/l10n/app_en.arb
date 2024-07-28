@@ -1,4 +1,19 @@
 {
-  "totalBalance": "Total balance"
-    
+  "totalBalance": "Total balance",
+  "hello": "Hello {userName}",
+  "@hello": {
+    "description": "userName parameter",
+    "placeholders": {
+      "userName": {
+        "type": "String",
+        "example": "Oussama"
+      }
+    }
+  },
+  "title_beneficiaries": "Beneficiaries",
+  "title_latest_top_ups": "Latest Top Up’s",
+  "button_add_beneficiary": "Add beneficiary",
+  "title_add_new_beneficiary": "Add a new beneficiary",
+  "title_beneficiary_nick_name": "Beneficiary nickname*",
+  "title_example_mobile": "Ex: +971 56000000"
 }

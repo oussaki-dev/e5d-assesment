@@ -1,6 +1,7 @@
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddBeneficiaryWidget extends StatelessWidget {
   const AddBeneficiaryWidget({super.key});
@@ -24,7 +25,7 @@ class AddBeneficiaryWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Add a new beneficiary ',
+                      AppLocalizations.of(context)!.title_add_new_beneficiary,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
@@ -54,22 +55,24 @@ class AddBeneficiaryWidget extends StatelessWidget {
                     ),
                     TextField(
                       style: Theme.of(context).textTheme.labelLarge,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           fillColor: Colors.white,
                           filled: true,
-                          hintText: 'Beneficiary nickname*',
-                          border: OutlineInputBorder()),
+                          hintText: AppLocalizations.of(context)!
+                              .title_beneficiary_nick_name,
+                          border: const OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
                     TextField(
                       style: Theme.of(context).textTheme.labelLarge,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                           fillColor: Colors.white,
                           filled: true,
-                          hintText: 'Ex: +971 56000000',
-                          border: OutlineInputBorder()),
+                          hintText: AppLocalizations.of(context)!
+                              .title_example_mobile,
+                          border: const OutlineInputBorder()),
                     ),
                   ],
                 ),
@@ -90,13 +93,12 @@ class AddBeneficiaryWidget extends StatelessWidget {
                 ),
               ),
               child: Text(
-                'Add beneficiary',
+                AppLocalizations.of(context)!.button_add_beneficiary,
                 style: Theme.of(context).textTheme.labelLarge?.merge(
                       const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600
-                      ),
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600),
                     ),
               ),
             ),
