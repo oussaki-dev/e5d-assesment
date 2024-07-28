@@ -23,5 +23,9 @@
   "title_top_up_destination": "بيانات المستفيد",
   "done": "تم",
   "label_top_up_money": "قم بتعبئة المزيد",
-  "button_recharge_now": "اشحن الآن"
+  "button_recharge_now": "اشحن الآن",
+  "slogan": "منصة كل يوم للعمال",
+  "hint_username": "إسم المستخدم",
+  "hint_password": "كلمة المرور",
+  "button_login": "تسجيل الدخول"
 }

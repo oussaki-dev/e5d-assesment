@@ -3,6 +3,7 @@ import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -14,7 +15,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    loggerNoStack.d("Login screen");
     return Scaffold(
       body: Container(
         color: E5DColors.primaryColor,
@@ -29,14 +29,14 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   TextField(
                     style: Theme.of(context).textTheme.labelMedium,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       fillColor: Colors.white,
                       filled: true,
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
                       ),
-                      hintText: 'Username',
+                      hintText: AppLocalizations.of(context)!.hint_username,
                     ),
                   ),
                   Padding(
@@ -44,15 +44,15 @@ class LoginScreen extends StatelessWidget {
                     child: TextField(
                       obscureText: true,
                       style: Theme.of(context).textTheme.labelMedium,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         fillColor: Colors.white,
                         filled: true,
-                        border: OutlineInputBorder(
+                        border: const OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         ),
-                        hintText: 'Password',
-                        suffixIcon: IconButton(
+                        hintText: AppLocalizations.of(context)!.hint_password,
+                        suffixIcon: const IconButton(
                           icon: Icon(
                             Icons.visibility_off,
                           ),
@@ -76,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'Login',
+                        AppLocalizations.of(context)!.button_login,
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge

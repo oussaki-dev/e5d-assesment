@@ -15,22 +15,3 @@ var loggerNoStack = Logger(
 void main() {
   runApp(E5DApp());
 }
-
-
-class MyApp extends StatelessWidget {
-  /// Constructs a [MyApp]
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Theme Demo',
-      theme: AppThemes.main.theme,
-      home: const LoginScreen(),
-    );
-  }
-}
-
-
-
-            

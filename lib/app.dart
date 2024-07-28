@@ -23,6 +23,6 @@ class E5DApp extends MaterialApp {
           ],
           supportedLocales: AppLocalizations.supportedLocales,
           locale: const Locale('ar'),
-          showPerformanceOverlay: true
+          // showPerformanceOverlay: true
         );
 }

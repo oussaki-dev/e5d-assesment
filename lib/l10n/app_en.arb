@@ -23,5 +23,9 @@
   "title_top_up_destination": "Top up destination",
   "done": "Done",
   "label_top_up_money": "Top up more money",
-  "button_recharge_now": "Recharge now"
+  "button_recharge_now": "Recharge now",
+  "slogan": "The everyday platform for people at work",
+  "hint_username": "Username",
+  "hint_password": "Password",
+  "button_login": "Login"
 }

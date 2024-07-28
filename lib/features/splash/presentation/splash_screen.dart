@@ -3,14 +3,13 @@ import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    loggerNoStack.d("Splash screen");
-    
     Future.delayed(
       const Duration(seconds: 3),
       () => {LoginScreenRoute().go(context)},
@@ -18,6 +17,7 @@ class SplashScreen extends StatelessWidget {
 
     return Scaffold(
       body: Container(
+        width: double.infinity,
         color: E5DColors.primaryColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -26,7 +26,7 @@ class SplashScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 50, left: 40, right: 40),
               child: Text(
-                "The everyday platform for people at work",
+                AppLocalizations.of(context)!.slogan,
                 style: Theme.of(context)
                     .textTheme
                     .headlineLarge
