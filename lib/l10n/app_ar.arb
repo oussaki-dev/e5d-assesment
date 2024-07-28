@@ -15,5 +15,12 @@
   "button_add_beneficiary": "إضافة مستفيد",
   "title_add_new_beneficiary": "إضافة مستفيد جديد",
   "title_beneficiary_nick_name": "إسم المستفيد*",
-  "title_example_mobile": "مثال: +٩٧١٥٦٨٣٣٠٤٤٦"
+  "title_example_mobile": "مثال: +٩٧١٥٦٨٣٣٠٤٤٦",
+  "header_top_up_receipt": "إيصال تعبئة الرصيد",
+  "header_top_up_success": "تم تعبئة الرصيد بنجاح",
+  "content_top_up_success": "لقد تمت عملية تعبئة رصيدك بنجاح.",
+  "title_total_top_up": "إجمالي الرصيد",
+  "title_top_up_destination": "بيانات المستفيد",
+  "done": "تم",
+  "label_top_up_money": "قم بتعبئة المزيد"
 }

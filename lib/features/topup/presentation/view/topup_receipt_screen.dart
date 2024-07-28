@@ -4,6 +4,7 @@ import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TopUpReceiptScreen extends StatelessWidget {
   const TopUpReceiptScreen({super.key});
@@ -30,7 +31,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                     height: 48,
                   ),
                   Text(
-                    'Top Up Receipt',
+                    AppLocalizations.of(context)!.header_top_up_receipt,
                     style: Theme.of(context)
                         .textTheme
                         .headlineLarge
@@ -57,7 +58,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                           Image.asset('assets/images/ic_checked.png'),
                           const SizedBox(height: 24),
                           Text(
-                            'Top Up success',
+                            AppLocalizations.of(context)!.header_top_up_success,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineLarge
@@ -68,7 +69,8 @@ class TopUpReceiptScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            'Your top up has been successfully done.',
+                            AppLocalizations.of(context)!
+                                .content_top_up_success,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall
@@ -81,7 +83,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                             height: 4,
                           ),
                           Text(
-                            'Total top up',
+                            AppLocalizations.of(context)!.title_total_top_up,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleSmall
@@ -139,7 +141,8 @@ class TopUpReceiptScreen extends StatelessWidget {
                                 const EdgeInsetsDirectional.only(start: 16),
                             width: double.infinity,
                             child: Text(
-                              'Top up destination',
+                              AppLocalizations.of(context)!
+                                  .title_top_up_destination,
                               style:
                                   Theme.of(context).textTheme.titleSmall?.merge(
                                         const TextStyle(
@@ -211,7 +214,7 @@ class TopUpReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               child: Text(
-                                'Done',
+                                AppLocalizations.of(context)!.done,
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelLarge
@@ -226,15 +229,23 @@ class TopUpReceiptScreen extends StatelessWidget {
                           const SizedBox(
                             height: 12,
                           ),
-                          Text(
-                            'Top up more money',
-                            style:
-                                Theme.of(context).textTheme.titleSmall?.merge(
-                                      const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
+                          SizedBox(
+                            width: double.infinity,
+                            child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  AppLocalizations.of(context)!
+                                      .label_top_up_money,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.merge(
+                                        const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                    ),
+                                )),
                           ),
                           const SizedBox(
                             height: 30,

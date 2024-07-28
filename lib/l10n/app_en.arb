@@ -15,5 +15,12 @@
   "button_add_beneficiary": "Add beneficiary",
   "title_add_new_beneficiary": "Add a new beneficiary",
   "title_beneficiary_nick_name": "Beneficiary nickname*",
-  "title_example_mobile": "Ex: +971 56000000"
+  "title_example_mobile": "Ex: +971 56000000",
+  "header_top_up_receipt": "Top Up Receipt",
+  "header_top_up_success": "Top Up success",
+  "content_top_up_success": "Your top up has been successfully done.",
+  "title_total_top_up": "Total top up",
+  "title_top_up_destination": "Top up destination",
+  "done": "Done",
+  "label_top_up_money": "Top up more money"
 }
