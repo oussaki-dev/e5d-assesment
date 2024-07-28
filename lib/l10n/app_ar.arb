@@ -22,5 +22,6 @@
   "title_total_top_up": "إجمالي الرصيد",
   "title_top_up_destination": "بيانات المستفيد",
   "done": "تم",
-  "label_top_up_money": "قم بتعبئة المزيد"
+  "label_top_up_money": "قم بتعبئة المزيد",
+  "button_recharge_now": "اشحن الآن"
 }
