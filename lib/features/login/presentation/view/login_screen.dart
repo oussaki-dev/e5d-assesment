@@ -18,15 +18,9 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   LoginViewModel? viewModel;
   LoginState? state;
-
-  @override
-  void initState() {
-    super.initState();
-
-   
-    // //TODO maybe invalidate the state
-  
-  }
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  late Widget buttonText;
 
   void _onLoginPressed(BuildContext context) {
     viewModel?.login(LoginStrategy.userNamePassword);
@@ -34,8 +28,25 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-     state = ref.watch(loginViewModelProvider);
-       viewModel = ref.read(loginViewModelProvider.notifier);
+    state = ref.watch(loginViewModelProvider);
+    viewModel = ref.read(loginViewModelProvider.notifier);
+
+    if (state?.uiState == LoginUiState.loading) {
+      buttonText = const Text('loading');
+    } else if (state?.uiState == LoginUiState.success) {
+      buttonText = const Text('success');
+       } else if (state?.uiState == LoginUiState.error) {
+           buttonText = const Text('error');
+    } else {
+      buttonText = Text(
+        AppLocalizations.of(context)!.button_login,
+        style: Theme.of(context).textTheme.labelLarge?.merge(const TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            )),
+      );
+    }
+
     return Scaffold(
       body: Container(
         color: E5DColors.primaryColor,
@@ -50,6 +61,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 children: [
                   TextField(
                     key: const ObjectKey("text_field_username"),
+                    controller: _usernameController,
                     onChanged: (userName) {
                       (state?.loginModel as LoginModel?)?.userName = userName;
                     },
@@ -68,8 +80,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     padding: const EdgeInsets.only(top: 24.0),
                     child: TextField(
                       key: const ObjectKey("text_field_password"),
+                      controller: _passwordController,
                       onChanged: (newPassword) {
-                        (state?.loginModel as LoginModel?)?.password = newPassword;
+                        (state?.loginModel as LoginModel?)?.password =
+                            newPassword;
                       },
                       obscureText: true,
                       style: Theme.of(context).textTheme.labelMedium,
@@ -104,16 +118,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           horizontal: 24.0,
                         ),
                       ),
-                      child: Text(
-                        AppLocalizations.of(context)!.button_login,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge
-                            ?.merge(const TextStyle(
-                              color: Colors.white,
-                              fontSize: 24,
-                            )),
-                      ),
+                      child: buttonText,
                     ),
                   )
                 ],
@@ -123,5 +128,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

@@ -20,12 +20,10 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
-  @JsonKey(name: 'id')
-  String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'firstName')
-  String get firstName => throw _privateConstructorUsedError;
+  String? get firstName => throw _privateConstructorUsedError;
   @JsonKey(name: 'lastName')
-  String get lastName => throw _privateConstructorUsedError;
+  String? get lastName => throw _privateConstructorUsedError;
   @JsonKey(name: 'token')
   String get token => throw _privateConstructorUsedError;
   @JsonKey(name: 'refreshToken')
@@ -43,9 +41,8 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') String id,
-      @JsonKey(name: 'firstName') String firstName,
-      @JsonKey(name: 'lastName') String lastName,
+      {@JsonKey(name: 'firstName') String? firstName,
+      @JsonKey(name: 'lastName') String? lastName,
       @JsonKey(name: 'token') String token,
       @JsonKey(name: 'refreshToken') String refreshToken});
 }
@@ -63,25 +60,20 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? firstName = null,
-    Object? lastName = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? token = null,
     Object? refreshToken = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: null == firstName
+      firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
+              as String?,
+      lastName: freezed == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       token: null == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -103,9 +95,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') String id,
-      @JsonKey(name: 'firstName') String firstName,
-      @JsonKey(name: 'lastName') String lastName,
+      {@JsonKey(name: 'firstName') String? firstName,
+      @JsonKey(name: 'lastName') String? lastName,
       @JsonKey(name: 'token') String token,
       @JsonKey(name: 'refreshToken') String refreshToken});
 }
@@ -121,25 +112,20 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? firstName = null,
-    Object? lastName = null,
+    Object? firstName = freezed,
+    Object? lastName = freezed,
     Object? token = null,
     Object? refreshToken = null,
   }) {
     return _then(_$UserModelImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
-      firstName: null == firstName
+      firstName: freezed == firstName
           ? _value.firstName
           : firstName // ignore: cast_nullable_to_non_nullable
-              as String,
-      lastName: null == lastName
+              as String?,
+      lastName: freezed == lastName
           ? _value.lastName
           : lastName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       token: null == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -156,8 +142,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
   const _$UserModelImpl(
-      {@JsonKey(name: 'id') required this.id,
-      @JsonKey(name: 'firstName') required this.firstName,
+      {@JsonKey(name: 'firstName') required this.firstName,
       @JsonKey(name: 'lastName') required this.lastName,
       @JsonKey(name: 'token') required this.token,
       @JsonKey(name: 'refreshToken') required this.refreshToken});
@@ -166,14 +151,11 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       _$$UserModelImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id')
-  final String id;
-  @override
   @JsonKey(name: 'firstName')
-  final String firstName;
+  final String? firstName;
   @override
   @JsonKey(name: 'lastName')
-  final String lastName;
+  final String? lastName;
   @override
   @JsonKey(name: 'token')
   final String token;
@@ -183,7 +165,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, token: $token, refreshToken: $refreshToken)';
+    return 'UserModel(firstName: $firstName, lastName: $lastName, token: $token, refreshToken: $refreshToken)';
   }
 
   @override
@@ -191,7 +173,6 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'UserModel'))
-      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('firstName', firstName))
       ..add(DiagnosticsProperty('lastName', lastName))
       ..add(DiagnosticsProperty('token', token))
@@ -203,7 +184,6 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
@@ -216,7 +196,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, firstName, lastName, token, refreshToken);
+      Object.hash(runtimeType, firstName, lastName, token, refreshToken);
 
   @JsonKey(ignore: true)
   @override
@@ -234,9 +214,8 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-          {@JsonKey(name: 'id') required final String id,
-          @JsonKey(name: 'firstName') required final String firstName,
-          @JsonKey(name: 'lastName') required final String lastName,
+          {@JsonKey(name: 'firstName') required final String? firstName,
+          @JsonKey(name: 'lastName') required final String? lastName,
           @JsonKey(name: 'token') required final String token,
           @JsonKey(name: 'refreshToken') required final String refreshToken}) =
       _$UserModelImpl;
@@ -245,14 +224,11 @@ abstract class _UserModel implements UserModel {
       _$UserModelImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id')
-  String get id;
-  @override
   @JsonKey(name: 'firstName')
-  String get firstName;
+  String? get firstName;
   @override
   @JsonKey(name: 'lastName')
-  String get lastName;
+  String? get lastName;
   @override
   @JsonKey(name: 'token')
   String get token;

@@ -1,4 +1,6 @@
-class NetworkException implements Exception {
+import 'package:e5d_assesment/core/network/error/errors.dart';
+
+class NetworkException implements E5DError {
   final String message;
 
   NetworkException(this.message);

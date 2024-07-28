@@ -1,7 +1,10 @@
+import 'package:e5d_assesment/core/network/config/config_notifier.dart';
+import 'package:e5d_assesment/core/network/config/configurations_model.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -12,7 +15,16 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Future.delayed(
       const Duration(seconds: 3),
-      () => {LoginScreenRoute().go(context)},
+      () {
+        ProviderScope.containerOf(context)
+            .read(configProvider.notifier)
+            .updateWith(
+                config: const Configurations(
+              baseUrl: 'https://eden5d.free.beeceptor.com',
+            ));
+
+        LoginScreenRoute().go(context);
+      },
     );
 
     return Scaffold(

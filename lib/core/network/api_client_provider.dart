@@ -1,6 +1,8 @@
+import 'package:e5d_assesment/core/network/abstract_api_client.dart';
 import 'package:e5d_assesment/core/network/api_client.dart';
 import 'package:e5d_assesment/core/network/config/config_notifier.dart';
 import 'package:e5d_assesment/core/network/config/configurations_model.dart';
+import 'package:e5d_assesment/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
@@ -22,19 +24,18 @@ Map<String, dynamic> _getCommonHeaders(Configurations config) {
   return headers;
 }
 
-final Provider<ApiClient?> apiClientProvider = Provider<ApiClient?>(
-  (ref) {
-    final Configurations? config = ref.watch(configProvider);
+final apiClientProvider = Provider<AbstractApiClient?>((ref) {
+   final Configurations? config = ref.watch(configProvider);
 
+    logger.d("config $config");
     if (config == null) {
       return null;
     }
 
-    ApiClient client = ApiClient(
+    AbstractApiClient client = ApiClient(
       baseUrl: config.baseUrl,
       headers: _getCommonHeaders(config),
     );
 
     return client;
-  },
-);
+});

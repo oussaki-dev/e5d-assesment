@@ -1,20 +1,26 @@
-import 'dart:math';
-
 import 'package:e5d_assesment/core/domain/base_usecase.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_repo_impl.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_with_mobile_repo_impl.dart';
 import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
 import 'package:e5d_assesment/features/login/domain/repository/login_repo.dart';
 import 'package:e5d_assesment/features/login/domain/usecase/login_default_usecase.dart';
+import 'package:e5d_assesment/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_viewmodel.g.dart';
+enum LoginUiState { idle, loading, success, error }
 
 class LoginState {
   final ILoginModel? loginModel;
-  const LoginState({this.loginModel});
-  LoginState copyWith(LoginModel loginModel) {
-    return LoginState(loginModel: loginModel);
+  final LoginUiState? uiState;
+  const LoginState({this.loginModel, this.uiState});
+  LoginState copyWith(ILoginModel? loginModel, LoginUiState? uiState) {
+    return LoginState(loginModel: loginModel, uiState: uiState);
+  }
+
+  LoginState copyWithUiState(LoginUiState? uiState) {
+    return LoginState(loginModel: loginModel, uiState: uiState);
   }
 }
 
@@ -28,16 +34,61 @@ enum LoginStrategy {
         return loginUserNamePasswordRepositoryProvider;
       case LoginStrategy.usingMobile:
         return loginWithMobileRepositoryProvider;
-
-      default:
-        return loginUserNamePasswordRepositoryProvider;
     }
   }
 }
 
+
+// class LoginViewModel2 extends StateNotifier<LoginModel> {
+//   LoginStrategy loginStrategy;
+//   UseCase? useCase;
+
+//   LoginViewModel2(this.loginStrategy) : super(LoginModel(password: "", userName: ""));
+  
+//   Future<void> login(String username, String password) async {
+//     switch (loginStrategy) {
+//       case LoginStrategy.userNamePassword:
+//         useCase = LoginUsernamePasswordUseCase(ref.watch(
+//           loginStrategy.repositoryProvider,
+//         ));
+//         break;
+//       case LoginStrategy.usingMobile:
+//         // Init a different usecase for mobile
+//         break;
+//     }
+
+//     var result = await useCase?.call(state);
+//     if (result?.isRight() == true) {
+//       // login the user
+//       loggerNoStack.i("Logged in successfully");
+//     } else {
+//       loggerNoStack.e("Error happened ");
+//       // do something about the error...
+//     }
+
+//     state = LoginState.loading;
+//     try {
+//       // Simulate a network request
+//       await Future.delayed(const Duration(seconds: 2));
+//       if (username == 'admin' && password == 'admin') {
+//         state = LoginState.success;
+//       } else {
+//         state = LoginState.error;
+//       }
+//     } catch (e) {
+//       state = LoginState.error;
+//     }
+//   }
+// }
+
+// final loginViewModelProvider = (LoginStrategy strategy) =>
+//     StateNotifierProvider<LoginViewModel2, LoginState>((ref) {
+//       return LoginViewModel2();
+//     });
+
+
 @riverpod
 class LoginViewModel extends _$LoginViewModel {
-
   UseCase? useCase;
 
   @override
@@ -46,21 +97,25 @@ class LoginViewModel extends _$LoginViewModel {
   }
 
   void login(LoginStrategy loginStrategy) async {
+    state = state.copyWithUiState(LoginUiState.loading);
     switch (loginStrategy) {
       case LoginStrategy.userNamePassword:
-        useCase = LoginUsernamePasswordUseCase(ref.read(
+        useCase = LoginUsernamePasswordUseCase(ref.watch(
           loginStrategy.repositoryProvider,
         ));
         break;
-
       case LoginStrategy.usingMobile:
-        // Init a different usecase
+        // Init a different usecase for mobile
         break;
-
-      default:
     }
 
-    await useCase?.call(state.loginModel!);
-    // do something maybe validate UI ....
+    var result = await useCase?.call(state.loginModel!);
+    if (result?.isRight() == true) {
+      loggerNoStack.i("Logged in successfully");
+      state = state.copyWithUiState(LoginUiState.success);
+    } else {
+      loggerNoStack.e("Error happened ");
+      state = state.copyWithUiState( LoginUiState.error);
+    }
   }
 }
