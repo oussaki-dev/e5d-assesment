@@ -1,5 +1,5 @@
-import 'package:e5d_assesment/common/views/dash_separator.dart';
-import 'package:e5d_assesment/common/views/half_circle.dart';
+import 'package:e5d_assesment/core/presentation/views/dash_separator.dart';
+import 'package:e5d_assesment/core/presentation/views/half_circle.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';

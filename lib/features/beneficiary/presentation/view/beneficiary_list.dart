@@ -1,4 +1,4 @@
-import 'package:e5d_assesment/common/views/bottom_sheet.dart';
+import 'package:e5d_assesment/core/presentation/views/bottom_sheet.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/add_beneficiary_bottomsheet.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list_item.dart';

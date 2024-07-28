@@ -1,20 +1,41 @@
-import 'package:e5d_assesment/main.dart';
-import 'package:e5d_assesment/routes/routes.dart';
+import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
+import 'package:e5d_assesment/features/login/presentation/viewmodel/login_viewmodel.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _LoginScreenState();
+  }
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  LoginViewModel? viewModel;
+  LoginState? state;
+
+  @override
+  void initState() {
+    super.initState();
+
+   
+    // //TODO maybe invalidate the state
+  
+  }
+
   void _onLoginPressed(BuildContext context) {
-    loggerNoStack.d("open home");
-    HomeScreenRoute().go(context);
+    viewModel?.login(LoginStrategy.userNamePassword);
   }
 
   @override
   Widget build(BuildContext context) {
+     state = ref.watch(loginViewModelProvider);
+       viewModel = ref.read(loginViewModelProvider.notifier);
     return Scaffold(
       body: Container(
         color: E5DColors.primaryColor,
@@ -28,6 +49,10 @@ class LoginScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   TextField(
+                    key: const ObjectKey("text_field_username"),
+                    onChanged: (userName) {
+                      (state?.loginModel as LoginModel?)?.userName = userName;
+                    },
                     style: Theme.of(context).textTheme.labelMedium,
                     decoration: InputDecoration(
                       fillColor: Colors.white,
@@ -42,6 +67,10 @@ class LoginScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(top: 24.0),
                     child: TextField(
+                      key: const ObjectKey("text_field_password"),
+                      onChanged: (newPassword) {
+                        (state?.loginModel as LoginModel?)?.password = newPassword;
+                      },
                       obscureText: true,
                       style: Theme.of(context).textTheme.labelMedium,
                       decoration: InputDecoration(

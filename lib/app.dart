@@ -22,7 +22,7 @@ class E5DApp extends MaterialApp {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: const Locale('ar'),
+          locale: const Locale('en'),
           // showPerformanceOverlay: true
         );
 }
