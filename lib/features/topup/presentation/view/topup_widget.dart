@@ -34,15 +34,17 @@ class TopUpWidget extends StatelessWidget {
                       )
                     ],
                   ),
-                  const SizedBox(height: 12,),
+                  const SizedBox(
+                    height: 12,
+                  ),
                   Wrap(
                     spacing: 8.0, // Horizontal spacing between children
                     runSpacing: 2.0, // Vertical spacing between lines
                     children: <Widget>[
                       ...[10, 20, 30, 50, 75, 100].map((v) {
                         return TopUpMoneyLabelWidget(
-                          money:
-                              Money(currency: 'AED', value: v.toDouble()),
+                          money: Money(currency: 'AED', value: v.toDouble()),
+                          isSelected: true,
                         );
                       })
                     ],
@@ -55,9 +57,7 @@ class TopUpWidget extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: TextButton(
-              onPressed: () => {
-                TopUpScreenRoute().go(context)
-              },
+              onPressed: () => {TopUpScreenRoute().go(context)},
               style: TextButton.styleFrom(
                 shape: const LinearBorder(),
                 backgroundColor: E5DColors.primaryColor,

@@ -4,18 +4,28 @@ import 'package:flutter/material.dart';
 
 class TopUpMoneyLabelWidget extends StatelessWidget {
   final Money money;
+  final bool isSelected;
+  Color backgroundColor = E5DColors.primaryColor80Percent;
+  Color textColor = Colors.black;
 
-  const TopUpMoneyLabelWidget({super.key, required this.money});
+  TopUpMoneyLabelWidget(
+      {super.key, required this.money, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
+    if (isSelected) {
+      backgroundColor = Theme.of(context).primaryColor;
+      textColor = Colors.white;
+    }
+
     return Container(
       child: TextButton(
         onPressed: () => {},
         style: TextButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          backgroundColor: E5DColors.primaryColor80Percent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          backgroundColor: backgroundColor,
           padding: const EdgeInsets.symmetric(
             vertical: 4.0,
             horizontal: 12.0,
@@ -23,11 +33,13 @@ class TopUpMoneyLabelWidget extends StatelessWidget {
         ),
         child: Text(
           '${money.currency} ${money.value}',
-          style: Theme.of(context).textTheme.labelLarge?.merge(const TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-                fontWeight: FontWeight.w600
-              )),
+          style: Theme.of(context).textTheme.labelLarge?.merge(
+                TextStyle(
+                  color: textColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
         ),
       ),
     );

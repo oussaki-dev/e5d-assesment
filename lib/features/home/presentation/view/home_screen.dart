@@ -25,7 +25,6 @@ class HomeScreen extends ConsumerWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!isGetBeneficiariesCalled) {
-        loggerNoStack.d("will call view model to get benefsss");
         isGetBeneficiariesCalled = true;
         _beneficiaryViewModel?.getBeneficiaries();
       }
