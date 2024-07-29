@@ -5,6 +5,7 @@ import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_mode
 import 'package:e5d_assesment/features/beneficiary/domain/repository/beneficiary_repository_interface.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:e5d_assesment/core/domain/base_usecase.dart';
+import 'package:e5d_assesment/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dlibphonenumber/dlibphonenumber.dart';
 import 'package:dartz/dartz.dart';
@@ -14,19 +15,21 @@ final addBeneficiaryUseCaseProvider = Provider<AddBeneficiaryUseCase>((ref) {
   return AddBeneficiaryUseCase(beneficiaryApi);
 });
 
-class AddBeneficiaryUseCase extends UseCase<Beneficiary, IBeneficiaryInput, AddBeneficiaryErrors> {
+class AddBeneficiaryUseCase
+    extends UseCase<Beneficiary, IBeneficiaryInput, AddBeneficiaryErrors> {
   final AbstractBeneficiaryRepository repository;
   PhoneNumberUtil phoneUtil = PhoneNumberUtil.instance;
 
   /// nickname with a maximum length of 20 characters
   final nicknameMaxLength = 20;
+  final regionCode = 'AE';
 
   // injecting the repo for better testing
   AddBeneficiaryUseCase(this.repository);
 
   @override
-  Future<Either<AddBeneficiaryErrors, Beneficiary>> call(IBeneficiaryInput beneficiary) async {
-
+  Future<Either<AddBeneficiaryErrors, Beneficiary>> call(
+      IBeneficiaryInput beneficiary) async {
     if (beneficiary.nickname.isEmpty) {
       return const Left(AddBeneficiaryErrors.nicknameRequired);
     }
@@ -39,7 +42,14 @@ class AddBeneficiaryUseCase extends UseCase<Beneficiary, IBeneficiaryInput, AddB
       return const Left(AddBeneficiaryErrors.mobileNumberRequired);
     }
     try {
-      phoneUtil.parse(beneficiary.mobileNumber, "AE"); // will throw an exception
+      // parse the number 
+      final number = phoneUtil.parse(
+          beneficiary.mobileNumber, regionCode); // will throw an exception
+      // validate it 
+      if (!phoneUtil.isValidNumberForRegion(number, regionCode)) {
+        return const Left(AddBeneficiaryErrors.invalidMobileNumber);
+      }
+
     } on NumberParseException catch (_) {
       return const Left(AddBeneficiaryErrors.invalidMobileNumber);
     }

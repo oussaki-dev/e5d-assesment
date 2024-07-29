@@ -10,7 +10,7 @@ class Beneficiary with _$Beneficiary {
   const factory Beneficiary({
     @JsonKey(name: 'id') required String id,
     @JsonKey(name: 'nickname') required String nickname,
-    @JsonKey(name: 'phone_number') required String phoneNumber,
+    @JsonKey(name: 'phone_number') required String mobileNumber,
   }) = _Beneficiary;
 
   factory Beneficiary.fromJson(Map<String, Object?> json) =>

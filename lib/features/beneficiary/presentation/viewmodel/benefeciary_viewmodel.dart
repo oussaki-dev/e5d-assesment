@@ -110,7 +110,11 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
     // call the use case and then if success update the local state
     final result = await addBeneficiaryUseCase?.call(state.addFormBeneficiary!);
     result?.fold((error) {
-      //TODO update state with this error
+      loggerNoStack.e(error);
+      state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
+        uiState: error,
+        loadingState: AddBeneficiaryLoadingState.idle,
+      ));
     }, (Beneficiary) {
       loggerNoStack.i("Beneficiary in successfully");
       // _beneficiaries.add(beneficiary);

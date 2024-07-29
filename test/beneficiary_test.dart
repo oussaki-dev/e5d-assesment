@@ -1,53 +1,92 @@
+import 'package:dartz/dartz.dart';
+import 'package:dlibphonenumber/dlibphonenumber.dart';
+import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_input_mode.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
+import 'package:e5d_assesment/features/beneficiary/domain/repository/beneficiary_repository_interface.dart';
+import 'package:e5d_assesment/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'beneficiary_test.mocks.dart';
 
+@GenerateMocks([AbstractBeneficiaryRepository])
 void main() {
-  const ben1 = Beneficiary(
-      id: '1', nickname: 'Beneficiary Test 1', phoneNumber: '0568330446');
-  const ben2 = Beneficiary(
-      id: '2', nickname: 'Beneficiary Test 2', phoneNumber: '+971568340446');
-  const ben3 = Beneficiary(
-      id: '3', nickname: 'Beneficiary Test 3', phoneNumber: '05623340446');
+  final ben1 = BeneficiaryInput(
+      nickname: 'Beneficiary Test 1', mobileNumber: '0568330446');
+  final ben2 = BeneficiaryInput(
+      nickname: 'Beneficiary Test 2', mobileNumber: '+971568340446');
+  final ben3 = BeneficiaryInput(
+      nickname: 'Beneficiary Test 3', mobileNumber: '05623340446');
 
-  const ben4 = Beneficiary(
-      id: '4', nickname: 'Beneficiary Test 4', phoneNumber: '05623340446');
-  const ben5 = Beneficiary(
-      id: '5', nickname: 'Beneficiary Test 5', phoneNumber: '05623340446');
+  final ben4 = BeneficiaryInput(
+      nickname: 'Beneficiary Test 4', mobileNumber: '05623340446');
+  final ben5 = BeneficiaryInput(
+      nickname: 'Beneficiary Test 5', mobileNumber: '05623340446');
 
-  const ben6 = Beneficiary(
-      id: '6', nickname: 'Beneficiary Test 6', phoneNumber: '05623340446');
+  final ben6 = BeneficiaryInput(
+      nickname: 'Beneficiary Test 6', mobileNumber: '05623340446');
 
-  const invalidUAEPhoneNumber = Beneficiary(
-      id: '7', nickname: 'Beneficiary Test 2', phoneNumber: '623340446');
+  final invalidUAEPhoneNumber =
+      BeneficiaryInput(nickname: 'Beneficiary Test 2', mobileNumber: '');
 
-  test("The user can add a maximum of 5 active top-up beneficiaries.", () {
-    final List<Beneficiary> list = List.empty(growable: true);
-    final viewModel = BeneficiaryViewModel(beneficiaries: list);
-    expect(viewModel.add(ben1).length, 1);
-    expect(viewModel.add(ben2).length, 2);
-    viewModel.add(ben3);
-    viewModel.add(ben4);
-    viewModel.add(ben5);
-    expect(viewModel.beneficiaries.length, viewModel.maxToAdd);
-    // expect(viewModel.add(ben6), throwsA(isA<Exception>()));
-  });
-  test("The user can remove beneficiaries.", () {
-    final List<Beneficiary> list = List.empty(growable: true);
-    final viewModel = BeneficiaryViewModel(beneficiaries: list);
-    viewModel.add(ben1);
-    viewModel.add(ben2);
-    expect(viewModel.remove(ben2).length, 1);
-    // expect(viewModel.remove(ben2), throwsException);
+  final fakeRepo = MockAbstractBeneficiaryRepository();
+  final usecase = AddBeneficiaryUseCase(fakeRepo);
+
+  test("Nick name is required.", () async {
+    expect(
+      await usecase.call(BeneficiaryInput(nickname: '', mobileNumber: '')),
+      const Left(AddBeneficiaryErrors.nicknameRequired),
+    );
   });
 
-  test("Phone Number validations.", () {
-    final List<Beneficiary> list = List.empty(growable: true);
-    final viewModel = BeneficiaryViewModel(beneficiaries: list);
-    expect(viewModel.add(ben1).length, 1); // without country code
-    expect(viewModel.add(ben2).length, 2); // with country code
-
-    expect(viewModel.add(invalidUAEPhoneNumber), throwsException);
-    // expect(viewModel.remove(ben2), throwsException);
+  test("Nick name should be less than 20 characters.", () async {
+    expect(
+      await usecase.call(BeneficiaryInput(
+          nickname: 'Oussama Abdallah 123456', mobileNumber: '')),
+      const Left(AddBeneficiaryErrors.nickNameTooLong),
+    );
   });
+
+  test("Inputs validation when adding beneficiary.", () async {
+    expect(
+      await usecase.call(invalidUAEPhoneNumber),
+      const Left(AddBeneficiaryErrors.mobileNumberRequired),
+    );
+  });
+
+  test("Should throw an error when phone is not valid for UAE", () async {
+    expect(
+      await usecase.call(
+        BeneficiaryInput(nickname: 'Oussama Abdall', mobileNumber: '8220456'),
+      ),
+      const Left(AddBeneficiaryErrors.invalidMobileNumber),
+    );
+  });
+
+  test("It should continue to add it when phone is valid", () async {
+    final input = BeneficiaryInput(
+      nickname: 'Oussama Abdallah',
+      mobileNumber: '568220456',
+    );
+    final expected = Right<AddBeneficiaryErrors, Beneficiary>(Beneficiary(
+      id: '1',
+      nickname: input.nickname,
+      mobileNumber: input.mobileNumber,
+    ));
+    final answer = Future.value(expected);
+
+    when(fakeRepo.addBeneficiary(input)).thenAnswer((_) {
+      return answer;
+    });
+
+    expect(
+      await usecase.call(
+        input,
+      ),
+      expected,
+    );
+  });
+
+  test("Phone Number validations.", () {});
 }

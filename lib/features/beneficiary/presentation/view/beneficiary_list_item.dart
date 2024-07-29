@@ -42,7 +42,7 @@ class BeneficiaryListItemWidget extends StatelessWidget {
               height: 4,
             ),
             Text(
-              _beneficiary.phoneNumber,
+              _beneficiary.mobileNumber,
               maxLines: 1,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.merge(

@@ -44,7 +44,7 @@ class TransactionItemWidget extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  transaction.beneficiary.phoneNumber,
+                  transaction.beneficiary.mobileNumber,
                   maxLines: 1,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium?.merge(

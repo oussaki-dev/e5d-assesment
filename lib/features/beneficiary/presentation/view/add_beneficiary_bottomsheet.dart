@@ -18,11 +18,47 @@ class AddBeneficiaryWidget extends ConsumerStatefulWidget {
 class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
   BeneficiaryViewModel? viewModel;
   BeneficiaryState? state;
+  List<Widget> errorWidgets = List.empty(growable: true);
+
+  Widget buildErrorLabel(String message) {
+    return Text(
+      '\u2022 $message',
+      style: Theme.of(context).textTheme.labelSmall?.merge(
+            const TextStyle(
+                color: E5DColors.colorEF5A6F, fontWeight: FontWeight.w600),
+          ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     state = ref.watch(beneficiaryViewModelProvider);
     viewModel = ref.read(beneficiaryViewModelProvider.notifier);
+    errorWidgets.clear();
+
+    switch (state?.addState?.uiState) {
+      case AddBeneficiaryErrors.nickNameTooLong:
+        errorWidgets.add(
+          buildErrorLabel('Nickname should be less than 20 characters.'),
+        );
+        break;
+      case AddBeneficiaryErrors.nicknameRequired:
+        errorWidgets.add(
+          buildErrorLabel('Nickname is required.'),
+        );
+        break;
+
+      case AddBeneficiaryErrors.mobileNumberRequired:
+        errorWidgets.add(
+          buildErrorLabel('Mobile number is required.'),
+        );
+
+      case AddBeneficiaryErrors.invalidMobileNumber:
+        errorWidgets.add(
+          buildErrorLabel('Invalid mobile number.'),
+        );
+      default:
+    }
 
     return Expanded(
       child: Column(
@@ -45,29 +81,11 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      '\u2022 Nickname should be less than 20 characters.',
-                      style: Theme.of(context).textTheme.labelSmall?.merge(
-                            const TextStyle(
-                                color: E5DColors.colorEF5A6F,
-                                fontWeight: FontWeight.w600),
-                          ),
-                    ),
-                    const SizedBox(
-                      height: 4,
-                    ),
-                    Text(
-                      '\u2022 Nickname should be less than 20 characters. ',
-                      style: Theme.of(context).textTheme.labelSmall?.merge(
-                            const TextStyle(
-                                color: E5DColors.colorEF5A6F,
-                                fontWeight: FontWeight.w600),
-                          ),
-                    ),
-                    const SizedBox(
                       height: 24,
+                    ),
+                    ...errorWidgets,
+                    const SizedBox(
+                      height: 8,
                     ),
                     TextField(
                       onChanged: (nickname) {
