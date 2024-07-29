@@ -4,6 +4,7 @@ import 'package:e5d_assesment/core/network/error/errors.dart';
 import 'package:e5d_assesment/features/beneficiary/data/data_sources/abstract_beneficiary_source.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/abstract_beneficiary.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
+import 'package:e5d_assesment/features/beneficiary/domain/model/list_beneficiaries_response.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 
@@ -43,9 +44,27 @@ class BeneficiaryApiImpl extends AbstractBeneficiarySource {
   }
 
   @override
-  Future<List<Beneficiary>> beneficiaries() {
-    // TODO: implement beneficiaries
-    throw UnimplementedError();
+  Future<List<Beneficiary>> getBeneficiaries() async {
+    try {
+      Response<dynamic> response = await apiClient.get(
+        '${apiClient.baseUrl}/beneficiary',
+      );
+
+      if (response.data is Map) {
+        try {
+          // it should be a map because json is a map of values
+          return Future.value(
+            BeneficiariesResponse.fromJson(response.data).beneficiaries,
+          );
+        } on Exception catch (_) {
+          throw ResponseParsingException();
+        }
+      } else {
+        throw ResponseParsingException();
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

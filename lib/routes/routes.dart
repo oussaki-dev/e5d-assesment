@@ -16,7 +16,6 @@ class SplashScreenRoute extends GoRouteData {
   }
 }
 
-
 @TypedGoRoute<LoginScreenRoute>(path: '/login', name: 'login')
 @immutable
 class LoginScreenRoute extends GoRouteData {
@@ -31,7 +30,7 @@ class LoginScreenRoute extends GoRouteData {
 class HomeScreenRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const HomeScreen();
+    return HomeScreen();
   }
 }
 
@@ -43,6 +42,3 @@ class TopUpScreenRoute extends GoRouteData {
     return const TopUpReceiptScreen();
   }
 }
-
-
-

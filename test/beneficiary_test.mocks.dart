@@ -12,8 +12,10 @@ import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_mode
     as _i6;
 import 'package:e5d_assesment/features/beneficiary/domain/repository/beneficiary_repository_interface.dart'
     as _i3;
-import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart'
+import 'package:e5d_assesment/features/beneficiary/presentation/state/add_beneficiary_state.dart'
     as _i5;
+import 'package:e5d_assesment/features/beneficiary/presentation/state/get_beneficiaries_state.dart'
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -89,22 +91,22 @@ class MockAbstractBeneficiaryRepository extends _i1.Mock
       ) as _i4.Future<_i2.Either<_i5.AddBeneficiaryErrors, _i6.Beneficiary>>);
 
   @override
-  _i4.Future<_i2.Either<_i5.AddBeneficiaryErrors, List<_i6.Beneficiary>>>
-      beneficiaries() => (super.noSuchMethod(
+  _i4.Future<_i2.Either<_i8.GetBeneficiariesUiStates, List<_i6.Beneficiary>>>
+      getBeneficiaries() => (super.noSuchMethod(
             Invocation.method(
-              #beneficiaries,
+              #getBeneficiaries,
               [],
             ),
             returnValue: _i4.Future<
-                    _i2.Either<_i5.AddBeneficiaryErrors,
-                        List<_i6.Beneficiary>>>.value(
-                _FakeEither_0<_i5.AddBeneficiaryErrors, List<_i6.Beneficiary>>(
+                _i2.Either<_i8.GetBeneficiariesUiStates,
+                    List<_i6.Beneficiary>>>.value(_FakeEither_0<
+                _i8.GetBeneficiariesUiStates, List<_i6.Beneficiary>>(
               this,
               Invocation.method(
-                #beneficiaries,
+                #getBeneficiaries,
                 [],
               ),
             )),
           ) as _i4.Future<
-              _i2.Either<_i5.AddBeneficiaryErrors, List<_i6.Beneficiary>>>);
+              _i2.Either<_i8.GetBeneficiariesUiStates, List<_i6.Beneficiary>>>);
 }

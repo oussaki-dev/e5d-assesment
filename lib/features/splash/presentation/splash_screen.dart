@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
             .read(configProvider.notifier)
             .updateWith(
                 config: const Configurations(
-              baseUrl: 'https://eden5d.free.beeceptor.com',
+              baseUrl: 'https://44b3-2001-8f8-1923-956-15c2-77b0-9b22-643e.ngrok-free.app',
             ));
 
         LoginScreenRoute().go(context);

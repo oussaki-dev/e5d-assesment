@@ -27,7 +27,6 @@ Map<String, dynamic> _getCommonHeaders(Configurations config) {
 final apiClientProvider = Provider<AbstractApiClient?>((ref) {
    final Configurations? config = ref.watch(configProvider);
 
-    logger.d("config $config");
     if (config == null) {
       return null;
     }

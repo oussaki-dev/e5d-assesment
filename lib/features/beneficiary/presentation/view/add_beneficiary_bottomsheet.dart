@@ -1,7 +1,8 @@
-import 'package:e5d_assesment/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart';
+import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/state/add_beneficiary_state.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiary_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:e5d_assesment/main.dart';
-import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -32,8 +33,8 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
   }
 
   Widget getAddButtonInnerWidget(
-      BuildContext context, AddBeneficiaryLoadingState? state) {
-    if (state == AddBeneficiaryLoadingState.loading) {
+      BuildContext context, ScreenUiState? state) {
+    if (state == ScreenUiState.loading) {
       return SizedBox(
         height: 30,
         width: 30,
@@ -57,8 +58,8 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
     }
   }
 
-  void _onAddButtonPressed(AddBeneficiaryLoadingState? state) {
-    if (state != AddBeneficiaryLoadingState.loading) {
+  void _onAddButtonPressed(ScreenUiState? state) {
+    if (state != ScreenUiState.loading) {
       viewModel?.addBeneficiary();
     } else {
       loggerNoStack.i("Add beneficiary is already called ... ");

@@ -1,102 +1,27 @@
+import 'package:e5d_assesment/core/domain/base_usecase.dart';
 import 'package:e5d_assesment/core/network/error/errors.dart';
 import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_input_mode.dart';
-import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
-import 'package:dlibphonenumber/dlibphonenumber.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart';
+import 'package:e5d_assesment/features/beneficiary/domain/usecases/get_beneficiaries_usecase.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/state/add_beneficiary_state.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiary_state.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/state/get_beneficiaries_state.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'benefeciary_viewmodel.g.dart';
 
-enum AddBeneficiaryErrors {
-  none,
-  networkIssue,
-  genericError,
-  // down domain specific errors
-  nicknameRequired,
-  nickNameTooLong,
-  mobileNumberRequired,
-  invalidMobileNumber,
-  alreadyExists,
-  reachedTheMax,
-  success;
-}
-
-enum AddBeneficiaryLoadingState {
-  idle,
-  loading;
-}
-
-class AddBeneficiaryState {
-  AddBeneficiaryState({this.loadingState, this.uiState});
-  AddBeneficiaryLoadingState? loadingState;
-  AddBeneficiaryErrors? uiState;
-}
-
-class BeneficiaryState {
-  final BeneficiaryInput?
-      addFormBeneficiary; // the state for the inputs of the form
-
-  // bellow the UI state (loading , success, error ) for each kind of beneficiary ui we have
-  final AddBeneficiaryState? addState;
-
-  final ScreenUiState? removeUiState;
-  final ScreenUiState? listUiState;
-
-  // used to show the list of beneficiaries fetched
-  final List<Beneficiary>? beneficiaries;
-
-  const BeneficiaryState(
-      {this.addFormBeneficiary,
-      this.beneficiaries,
-      this.addState,
-      this.removeUiState,
-      this.listUiState});
-
-  BeneficiaryState copyWithAddBeneficiaryJustUiState(
-    AddBeneficiaryState? addState,
-  ) {
-    return BeneficiaryState(
-      addState: addState,
-      addFormBeneficiary: addFormBeneficiary,
-      beneficiaries: beneficiaries,
-      removeUiState: removeUiState,
-      listUiState: listUiState,
-    );
-  }
-
-  BeneficiaryState copyWithNewBeneficiary(
-    Beneficiary beneficiary,
-    AddBeneficiaryState? addState,
-  ) {
-    List<Beneficiary> newList = List.empty(growable: true);
-
-    if (beneficiaries == null) {
-      newList.add(beneficiary);
-    } else {
-      newList
-        ..addAll(beneficiaries!)
-        ..add(beneficiary);
-    }
-
-    return BeneficiaryState(
-      addState: addState,
-      addFormBeneficiary: addFormBeneficiary,
-      beneficiaries: newList,
-      removeUiState: removeUiState,
-      listUiState: listUiState,
-    );
-  }
-}
-
 @riverpod
 class BeneficiaryViewModel extends _$BeneficiaryViewModel {
   AddBeneficiaryUseCase? addBeneficiaryUseCase;
+  GetBeneficiariesUseCase? getBeneficiariesUseCase;
 
   @override
   BeneficiaryState build() {
     addBeneficiaryUseCase = ref.read(addBeneficiaryUseCaseProvider);
+    getBeneficiariesUseCase = ref.read(getBeneficiariesUseCaseProvider);
+
     return BeneficiaryState(
       addFormBeneficiary: BeneficiaryInput(
         nickname: '',
@@ -104,11 +29,14 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       ),
       beneficiaries: List.empty(),
       addState: AddBeneficiaryState(
-        loadingState: AddBeneficiaryLoadingState.idle,
+        loadingState: ScreenUiState.idle,
         uiState: AddBeneficiaryErrors.none,
       ),
       removeUiState: ScreenUiState.idle,
-      listUiState: ScreenUiState.idle,
+      listUiState: GetBeneficiariesState(
+        loadingState: ScreenUiState.idle,
+        uiState: GetBeneficiariesUiStates.none,
+      ),
     );
   }
 
@@ -122,14 +50,14 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
     if (state.beneficiaries?.length == maxToAdd) {
       state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
         uiState: AddBeneficiaryErrors.reachedTheMax,
-        loadingState: AddBeneficiaryLoadingState.idle,
+        loadingState: ScreenUiState.idle,
       ));
     }
 
     // Push loading state to the consumers
     state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
       uiState: AddBeneficiaryErrors.none,
-      loadingState: AddBeneficiaryLoadingState.loading,
+      loadingState: ScreenUiState.loading,
     ));
 
     // call the use case and then if success update the local state
@@ -138,29 +66,46 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       loggerNoStack.e(error);
       state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
         uiState: error,
-        loadingState: AddBeneficiaryLoadingState.idle,
+        loadingState: ScreenUiState.idle,
       ));
     }, (beneficiary) {
-     
-
       // save it in local list of beneficiaries
       // _beneficiaries.add(beneficiary);
       state = state.copyWithNewBeneficiary(
           beneficiary,
           AddBeneficiaryState(
             uiState: AddBeneficiaryErrors.success,
-            loadingState: AddBeneficiaryLoadingState.idle,
+            loadingState: ScreenUiState.idle,
           ));
-           loggerNoStack.i("Beneficiary in successfully $beneficiary in list we have ${state.beneficiaries?.length}");
-          
+      loggerNoStack.i(
+          "Beneficiary in successfully $beneficiary in list we have ${state.beneficiaries?.length}");
     });
   }
 
-  void remove(Beneficiary beneficiary) {
-    // if (_beneficiaries.isEmpty || !_beneficiaries.remove(beneficiary)) {
-    //   throw NoBeneficiaryException();
-    // }
-    // return _beneficiaries;
+  void getBeneficiaries() async {
+    final result = await getBeneficiariesUseCase?.call(NoParams());
+
+    result?.fold((error) {
+      loggerNoStack.e(error);
+      state = state.copyWithGetBeneficiariesErrorState(
+        GetBeneficiariesState(
+          loadingState: ScreenUiState.idle,
+          uiState: error,
+        )
+      );
+    }, (beneficiaries) {
+      // save it in local list of beneficiaries
+      // _beneficiaries.add(beneficiary);
+      state = state.copyWithGetBeneficiariesState(
+        beneficiaries,
+        GetBeneficiariesState(
+          loadingState: ScreenUiState.idle,
+          uiState: GetBeneficiariesUiStates.success,
+        ),
+      );
+      loggerNoStack.i(
+          "we've got a list of beneficiaries sized : ${beneficiaries.length}");
+    });
   }
 }
 

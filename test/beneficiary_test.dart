@@ -3,7 +3,7 @@ import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_inpu
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/repository/beneficiary_repository_interface.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart';
-import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/state/add_beneficiary_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';

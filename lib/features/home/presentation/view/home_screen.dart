@@ -1,29 +1,35 @@
+import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiary_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:e5d_assesment/features/home/presentation/view/mock_beneficiaries.dart';
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
 import 'package:e5d_assesment/features/transactions/presentation/view/transaction_item_widget.dart';
+import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends ConsumerWidget {
+  HomeScreen({super.key});
+
+  BeneficiaryState? beneficiaryState;
+  BeneficiaryViewModel? _beneficiaryViewModel;
+  bool isGetBeneficiariesCalled = false;
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() {
-    return _HomeScreenState();
-  }
-}
+  Widget build(BuildContext context, ref) {
+    beneficiaryState = ref.watch(beneficiaryViewModelProvider);
+    _beneficiaryViewModel = ref.read(beneficiaryViewModelProvider.notifier);
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
-  BeneficiaryState? state;
-
-  @override
-  Widget build(BuildContext context) {
-    state = ref.watch(beneficiaryViewModelProvider);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!isGetBeneficiariesCalled) {
+        loggerNoStack.d("will call view model to get benefsss");
+        isGetBeneficiariesCalled = true;
+        _beneficiaryViewModel?.getBeneficiaries();
+      }
+    });
 
     return SafeArea(
       child: Scaffold(
@@ -112,7 +118,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               height: 12,
             ),
             BeneficiaryListWidget(
-              beneficiaries: state?.beneficiaries ?? List.empty(),
+              beneficiaries: beneficiaryState?.beneficiaries ?? List.empty(),
             ),
             const SizedBox(
               height: 12,
