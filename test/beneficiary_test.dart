@@ -12,30 +12,15 @@ import 'beneficiary_test.mocks.dart';
 
 @GenerateMocks([AbstractBeneficiaryRepository])
 void main() {
-  final ben1 = BeneficiaryInput(
-      nickname: 'Beneficiary Test 1', mobileNumber: '0568330446');
-  final ben2 = BeneficiaryInput(
-      nickname: 'Beneficiary Test 2', mobileNumber: '+971568340446');
-  final ben3 = BeneficiaryInput(
-      nickname: 'Beneficiary Test 3', mobileNumber: '05623340446');
-
-  final ben4 = BeneficiaryInput(
-      nickname: 'Beneficiary Test 4', mobileNumber: '05623340446');
-  final ben5 = BeneficiaryInput(
-      nickname: 'Beneficiary Test 5', mobileNumber: '05623340446');
-
-  final ben6 = BeneficiaryInput(
-      nickname: 'Beneficiary Test 6', mobileNumber: '05623340446');
-
-  final invalidUAEPhoneNumber =
-      BeneficiaryInput(nickname: 'Beneficiary Test 2', mobileNumber: '');
-
   final fakeRepo = MockAbstractBeneficiaryRepository();
   final usecase = AddBeneficiaryUseCase(fakeRepo);
 
   test("Nick name is required.", () async {
     expect(
-      await usecase.call(BeneficiaryInput(nickname: '', mobileNumber: '')),
+      await usecase.call(BeneficiaryInput(
+        nickname: '',
+        mobileNumber: '',
+      )),
       const Left(AddBeneficiaryErrors.nicknameRequired),
     );
   });
@@ -43,14 +28,21 @@ void main() {
   test("Nick name should be less than 20 characters.", () async {
     expect(
       await usecase.call(BeneficiaryInput(
-          nickname: 'Oussama Abdallah 123456', mobileNumber: '')),
-      const Left(AddBeneficiaryErrors.nickNameTooLong),
+        nickname: 'Oussama Abdallah 123456',
+        mobileNumber: '',
+      )),
+      const Left(
+        AddBeneficiaryErrors.nickNameTooLong,
+      ),
     );
   });
 
   test("Inputs validation when adding beneficiary.", () async {
     expect(
-      await usecase.call(invalidUAEPhoneNumber),
+      await usecase.call(BeneficiaryInput(
+        nickname: 'Beneficiary Test 2',
+        mobileNumber: '',
+      )),
       const Left(AddBeneficiaryErrors.mobileNumberRequired),
     );
   });
@@ -58,7 +50,10 @@ void main() {
   test("Should throw an error when phone is not valid for UAE", () async {
     expect(
       await usecase.call(
-        BeneficiaryInput(nickname: 'Oussama Abdall', mobileNumber: '8220456'),
+        BeneficiaryInput(
+          nickname: 'Oussama Abdall',
+          mobileNumber: '8220456',
+        ),
       ),
       const Left(AddBeneficiaryErrors.invalidMobileNumber),
     );
@@ -87,6 +82,4 @@ void main() {
       expected,
     );
   });
-
-  test("Phone Number validations.", () {});
 }
