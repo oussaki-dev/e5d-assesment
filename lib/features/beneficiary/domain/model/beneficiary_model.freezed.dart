@@ -24,7 +24,7 @@ mixin _$Beneficiary {
   String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'nickname')
   String get nickname => throw _privateConstructorUsedError;
-  @JsonKey(name: 'phone_number')
+  @JsonKey(name: 'mobileNumber')
   String get mobileNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $BeneficiaryCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'nickname') String nickname,
-      @JsonKey(name: 'phone_number') String mobileNumber});
+      @JsonKey(name: 'mobileNumber') String mobileNumber});
 }
 
 /// @nodoc
@@ -90,7 +90,7 @@ abstract class _$$BeneficiaryImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id') String id,
       @JsonKey(name: 'nickname') String nickname,
-      @JsonKey(name: 'phone_number') String mobileNumber});
+      @JsonKey(name: 'mobileNumber') String mobileNumber});
 }
 
 /// @nodoc
@@ -131,7 +131,7 @@ class _$BeneficiaryImpl with DiagnosticableTreeMixin implements _Beneficiary {
   const _$BeneficiaryImpl(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'nickname') required this.nickname,
-      @JsonKey(name: 'phone_number') required this.mobileNumber});
+      @JsonKey(name: 'mobileNumber') required this.mobileNumber});
 
   factory _$BeneficiaryImpl.fromJson(Map<String, dynamic> json) =>
       _$$BeneficiaryImplFromJson(json);
@@ -143,7 +143,7 @@ class _$BeneficiaryImpl with DiagnosticableTreeMixin implements _Beneficiary {
   @JsonKey(name: 'nickname')
   final String nickname;
   @override
-  @JsonKey(name: 'phone_number')
+  @JsonKey(name: 'mobileNumber')
   final String mobileNumber;
 
   @override
@@ -195,7 +195,7 @@ abstract class _Beneficiary implements Beneficiary {
   const factory _Beneficiary(
           {@JsonKey(name: 'id') required final String id,
           @JsonKey(name: 'nickname') required final String nickname,
-          @JsonKey(name: 'phone_number') required final String mobileNumber}) =
+          @JsonKey(name: 'mobileNumber') required final String mobileNumber}) =
       _$BeneficiaryImpl;
 
   factory _Beneficiary.fromJson(Map<String, dynamic> json) =
@@ -208,7 +208,7 @@ abstract class _Beneficiary implements Beneficiary {
   @JsonKey(name: 'nickname')
   String get nickname;
   @override
-  @JsonKey(name: 'phone_number')
+  @JsonKey(name: 'mobileNumber')
   String get mobileNumber;
   @override
   @JsonKey(ignore: true)

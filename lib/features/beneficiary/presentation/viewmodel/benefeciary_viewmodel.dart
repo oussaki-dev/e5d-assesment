@@ -102,6 +102,8 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
         loadingState: AddBeneficiaryLoadingState.idle,
       ));
     }
+
+    // Push loading state to the consumers 
     state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
       uiState: AddBeneficiaryErrors.none,
       loadingState: AddBeneficiaryLoadingState.loading,

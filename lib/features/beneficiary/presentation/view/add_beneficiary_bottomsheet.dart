@@ -1,5 +1,6 @@
 import 'package:e5d_assesment/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
+import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,40 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
                 color: E5DColors.colorEF5A6F, fontWeight: FontWeight.w600),
           ),
     );
+  }
+
+  Widget getAddButtonInnerWidget(
+      BuildContext context, AddBeneficiaryLoadingState? state) {
+    if (state == AddBeneficiaryLoadingState.loading) {
+      return SizedBox(
+        height: 30,
+        width: 30,
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.grey[200],
+          valueColor:
+              AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+          strokeWidth: 3.0,
+        ),
+      );
+    } else {
+      return Text(
+        AppLocalizations.of(context)!.button_add_beneficiary,
+        style: Theme.of(context).textTheme.labelLarge?.merge(
+              const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600),
+            ),
+      );
+    }
+  }
+
+  void _onAddButtonPressed(AddBeneficiaryLoadingState? state) {
+    if (state != AddBeneficiaryLoadingState.loading) {
+      viewModel?.addBeneficiary();
+    }else {
+      loggerNoStack.i("Add beneficiary is already called ... ");
+    }
   }
 
   @override
@@ -122,8 +157,10 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
           // Topup button
           SizedBox(
             width: double.infinity,
+            height: 60,
             child: TextButton(
-              onPressed: () => {viewModel?.addBeneficiary()},
+              onPressed: () =>
+                  {_onAddButtonPressed(state?.addState?.loadingState)},
               style: TextButton.styleFrom(
                 shape: const LinearBorder(),
                 backgroundColor: E5DColors.primaryColor,
@@ -132,14 +169,9 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
                   horizontal: 24.0,
                 ),
               ),
-              child: Text(
-                AppLocalizations.of(context)!.button_add_beneficiary,
-                style: Theme.of(context).textTheme.labelLarge?.merge(
-                      const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600),
-                    ),
+              child: getAddButtonInnerWidget(
+                context,
+                state?.addState?.loadingState,
               ),
             ),
           ),
