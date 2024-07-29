@@ -23,6 +23,7 @@ _$ConfigurationsImpl _$$ConfigurationsImplFromJson(Map<String, dynamic> json) =>
       deviceType: json['deviceType'] as String?,
       refreshToken: json['refreshToken'] as String?,
       token: json['token'] as String?,
+      transactionFee: (json['transactionFee'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$ConfigurationsImplToJson(
@@ -43,4 +44,5 @@ Map<String, dynamic> _$$ConfigurationsImplToJson(
       'deviceType': instance.deviceType,
       'refreshToken': instance.refreshToken,
       'token': instance.token,
+      'transactionFee': instance.transactionFee,
     };

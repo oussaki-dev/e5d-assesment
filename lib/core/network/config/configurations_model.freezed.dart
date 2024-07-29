@@ -45,6 +45,7 @@ mixin _$Configurations {
   /// Authentication
   String? get refreshToken => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
+  double? get transactionFee => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -73,7 +74,8 @@ abstract class $ConfigurationsCopyWith<$Res> {
       String? timestamp,
       String? deviceType,
       String? refreshToken,
-      String? token});
+      String? token,
+      double? transactionFee});
 }
 
 /// @nodoc
@@ -104,6 +106,7 @@ class _$ConfigurationsCopyWithImpl<$Res, $Val extends Configurations>
     Object? deviceType = freezed,
     Object? refreshToken = freezed,
     Object? token = freezed,
+    Object? transactionFee = freezed,
   }) {
     return _then(_value.copyWith(
       baseUrl: null == baseUrl
@@ -166,6 +169,10 @@ class _$ConfigurationsCopyWithImpl<$Res, $Val extends Configurations>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      transactionFee: freezed == transactionFee
+          ? _value.transactionFee
+          : transactionFee // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -193,7 +200,8 @@ abstract class _$$ConfigurationsImplCopyWith<$Res>
       String? timestamp,
       String? deviceType,
       String? refreshToken,
-      String? token});
+      String? token,
+      double? transactionFee});
 }
 
 /// @nodoc
@@ -222,6 +230,7 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
     Object? deviceType = freezed,
     Object? refreshToken = freezed,
     Object? token = freezed,
+    Object? transactionFee = freezed,
   }) {
     return _then(_$ConfigurationsImpl(
       baseUrl: null == baseUrl
@@ -284,6 +293,10 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      transactionFee: freezed == transactionFee
+          ? _value.transactionFee
+          : transactionFee // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -306,7 +319,8 @@ class _$ConfigurationsImpl implements _Configurations {
       this.timestamp,
       this.deviceType,
       this.refreshToken,
-      this.token});
+      this.token,
+      this.transactionFee});
 
   factory _$ConfigurationsImpl.fromJson(Map<String, dynamic> json) =>
       _$$ConfigurationsImplFromJson(json);
@@ -351,10 +365,12 @@ class _$ConfigurationsImpl implements _Configurations {
   final String? refreshToken;
   @override
   final String? token;
+  @override
+  final double? transactionFee;
 
   @override
   String toString() {
-    return 'Configurations(baseUrl: $baseUrl, userId: $userId, isLoggedIn: $isLoggedIn, deviceId: $deviceId, osVersion: $osVersion, environment: $environment, isRTL: $isRTL, countryCode: $countryCode, languageCode: $languageCode, currency: $currency, appVersion: $appVersion, timestamp: $timestamp, deviceType: $deviceType, refreshToken: $refreshToken, token: $token)';
+    return 'Configurations(baseUrl: $baseUrl, userId: $userId, isLoggedIn: $isLoggedIn, deviceId: $deviceId, osVersion: $osVersion, environment: $environment, isRTL: $isRTL, countryCode: $countryCode, languageCode: $languageCode, currency: $currency, appVersion: $appVersion, timestamp: $timestamp, deviceType: $deviceType, refreshToken: $refreshToken, token: $token, transactionFee: $transactionFee)';
   }
 
   @override
@@ -387,7 +403,9 @@ class _$ConfigurationsImpl implements _Configurations {
                 other.deviceType == deviceType) &&
             (identical(other.refreshToken, refreshToken) ||
                 other.refreshToken == refreshToken) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.transactionFee, transactionFee) ||
+                other.transactionFee == transactionFee));
   }
 
   @JsonKey(ignore: true)
@@ -408,7 +426,8 @@ class _$ConfigurationsImpl implements _Configurations {
       timestamp,
       deviceType,
       refreshToken,
-      token);
+      token,
+      transactionFee);
 
   @JsonKey(ignore: true)
   @override
@@ -441,7 +460,8 @@ abstract class _Configurations implements Configurations {
       final String? timestamp,
       final String? deviceType,
       final String? refreshToken,
-      final String? token}) = _$ConfigurationsImpl;
+      final String? token,
+      final double? transactionFee}) = _$ConfigurationsImpl;
 
   factory _Configurations.fromJson(Map<String, dynamic> json) =
       _$ConfigurationsImpl.fromJson;
@@ -486,6 +506,8 @@ abstract class _Configurations implements Configurations {
   String? get refreshToken;
   @override
   String? get token;
+  @override
+  double? get transactionFee;
   @override
   @JsonKey(ignore: true)
   _$$ConfigurationsImplCopyWith<_$ConfigurationsImpl> get copyWith =>

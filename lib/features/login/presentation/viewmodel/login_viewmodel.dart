@@ -3,6 +3,7 @@ import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_repo_impl.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_with_mobile_repo_impl.dart';
 import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
+import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
 import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
 import 'package:e5d_assesment/features/login/domain/usecase/login_default_usecase.dart';
 import 'package:e5d_assesment/main.dart';
@@ -28,9 +29,13 @@ enum LoginStrategy {
 class LoginState {
   final ILoginModel? loginModel;
   final ScreenUiState? uiState;
-  const LoginState({this.loginModel, this.uiState});
-  LoginState copyWith(ILoginModel? loginModel, ScreenUiState? uiState) {
-    return LoginState(loginModel: loginModel, uiState: uiState);
+  final UserModel? loggedInUser;
+  const LoginState({this.loginModel, this.uiState, this.loggedInUser});
+
+  LoginState copyWith(ILoginModel? loginModel, ScreenUiState? uiState,
+      UserModel? loggedInUser) {
+    return LoginState(
+        loginModel: loginModel, uiState: uiState, loggedInUser: loggedInUser);
   }
 
   LoginState copyWithUiState(ScreenUiState? uiState) {
@@ -61,12 +66,14 @@ class LoginViewModel extends _$LoginViewModel {
     }
 
     var result = await useCase?.call(state.loginModel!);
-     
-    if (result?.isRight() == true) {
-      loggerNoStack.i("Logged in successfully");
-      state = state.copyWithUiState(ScreenUiState.success);
-    } else {
+
+    result?.fold((ifLeft) {
       state = state.copyWithUiState(ScreenUiState.error);
-    }
+    }, (model) {
+      final userModel = model as UserModel;
+      loggerNoStack.i("Logged in successfully $userModel");
+      
+      state = state.copyWithUiState(ScreenUiState.success);
+    });
   }
 }

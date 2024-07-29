@@ -5,14 +5,15 @@ import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TopUpReceiptScreen extends StatelessWidget {
+class TopUpReceiptScreen extends ConsumerWidget {
   const TopUpReceiptScreen({super.key});
 
   final cropsWith = 30.5;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref ) {
     return LayoutBuilder(builder: (builder, constraint) {
       final bottomCircleCount =
           ((constraint.maxWidth - 24) ~/ cropsWith).toInt();

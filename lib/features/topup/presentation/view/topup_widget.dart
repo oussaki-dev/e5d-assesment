@@ -1,14 +1,17 @@
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/topup/presentation/view/topup_money_label.dart';
+import 'package:e5d_assesment/features/topup/presentation/viewmodel/topup_viewmodel.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TopUpWidget extends StatelessWidget {
+class TopUpWidget extends ConsumerWidget {
   const TopUpWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final state = ref.read(topUpViewModelProvider);
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,7 +32,7 @@ class TopUpWidget extends StatelessWidget {
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                       Text(
-                        '30.00'.toUpperCase(),
+                        '${state.selectedAmount}'.toUpperCase(),
                         style: Theme.of(context).textTheme.displayMedium,
                       )
                     ],
@@ -44,7 +47,7 @@ class TopUpWidget extends StatelessWidget {
                       ...[10, 20, 30, 50, 75, 100].map((v) {
                         return TopUpMoneyLabelWidget(
                           money: Money(currency: 'AED', value: v.toDouble()),
-                          isSelected: true,
+                          isSelected: state.selectedAmount == v.toDouble(),
                         );
                       })
                     ],

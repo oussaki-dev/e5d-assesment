@@ -1,18 +1,23 @@
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
+import 'package:e5d_assesment/features/topup/presentation/viewmodel/topup_viewmodel.dart';
+import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TopUpMoneyLabelWidget extends StatelessWidget {
+class TopUpMoneyLabelWidget extends ConsumerWidget {
   final Money money;
-  final bool isSelected;
   Color backgroundColor = E5DColors.primaryColor80Percent;
   Color textColor = Colors.black;
+  final bool isSelected;
 
   TopUpMoneyLabelWidget(
       {super.key, required this.money, required this.isSelected});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.read(topUpViewModelProvider.notifier);
+
     if (isSelected) {
       backgroundColor = Theme.of(context).primaryColor;
       textColor = Colors.white;
@@ -20,7 +25,7 @@ class TopUpMoneyLabelWidget extends StatelessWidget {
 
     return Container(
       child: TextButton(
-        onPressed: () => {},
+        onPressed: () => {viewModel.updateTopUp(money.value)},
         style: TextButton.styleFrom(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),

@@ -38,6 +38,7 @@ class Configurations with _$Configurations {
   /// Authentication
   String? refreshToken,
   String? token,
+  double? transactionFee, // how mush is the transaction fee 
 
  }) = _Configurations;
  

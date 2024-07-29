@@ -11,6 +11,7 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'lastName') required String? lastName,
     @JsonKey(name: 'token') required String token,
     @JsonKey(name: 'refreshToken') required String refreshToken,
+    @JsonKey(name: 'balance') required double balance,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, Object?> json) =>

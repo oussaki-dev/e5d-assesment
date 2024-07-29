@@ -37,6 +37,7 @@ class ConfigNotifier extends Notifier<Configurations?> {
         timestamp: config.timestamp,
         deviceType: config.deviceType,
         token: config.token,
+        transactionFee: config.transactionFee
       );
     }
   }

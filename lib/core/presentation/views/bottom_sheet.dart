@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void showE5DBottomSheet(
     BuildContext context, Widget customWidget, double maxHeight) {
@@ -32,34 +33,39 @@ void showE5DBottomSheet(
   );
 }
 
-class BottomSheetChildViewContainer extends StatelessWidget {
+class BottomSheetChildViewContainer extends ConsumerWidget {
   final Widget customWidget;
 
   const BottomSheetChildViewContainer({super.key, required this.customWidget});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-        child: SizedBox(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              const SizedBox(
-                height: 8,
-              ),
-              Container(
-                width: 67,
-                height: 3,
-                color: Colors.black,
-              )
-            ],
-          ),
-          customWidget
-        ],
-      ),
-    ));
+  Widget build(BuildContext context, ref) {
+
+    return Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+
+      return SafeArea(
+          child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                const SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  width: 67,
+                  height: 3,
+                  color: Colors.black,
+                )
+              ],
+            ),
+            customWidget
+          ],
+        ),
+      ));
+    });
   }
 }

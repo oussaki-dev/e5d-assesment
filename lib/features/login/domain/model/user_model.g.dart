@@ -12,6 +12,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       lastName: json['lastName'] as String?,
       token: json['token'] as String,
       refreshToken: json['refreshToken'] as String,
+      balance: (json['balance'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'lastName': instance.lastName,
       'token': instance.token,
       'refreshToken': instance.refreshToken,
+      'balance': instance.balance,
     };
