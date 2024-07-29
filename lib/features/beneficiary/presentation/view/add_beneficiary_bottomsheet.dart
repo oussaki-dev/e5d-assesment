@@ -60,7 +60,7 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
   void _onAddButtonPressed(AddBeneficiaryLoadingState? state) {
     if (state != AddBeneficiaryLoadingState.loading) {
       viewModel?.addBeneficiary();
-    }else {
+    } else {
       loggerNoStack.i("Add beneficiary is already called ... ");
     }
   }

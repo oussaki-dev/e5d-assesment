@@ -65,6 +65,29 @@ class BeneficiaryState {
       listUiState: listUiState,
     );
   }
+
+  BeneficiaryState copyWithNewBeneficiary(
+    Beneficiary beneficiary,
+    AddBeneficiaryState? addState,
+  ) {
+    List<Beneficiary> newList = List.empty(growable: true);
+
+    if (beneficiaries == null) {
+      newList.add(beneficiary);
+    } else {
+      newList
+        ..addAll(beneficiaries!)
+        ..add(beneficiary);
+    }
+
+    return BeneficiaryState(
+      addState: addState,
+      addFormBeneficiary: addFormBeneficiary,
+      beneficiaries: newList,
+      removeUiState: removeUiState,
+      listUiState: listUiState,
+    );
+  }
 }
 
 @riverpod
@@ -103,7 +126,7 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       ));
     }
 
-    // Push loading state to the consumers 
+    // Push loading state to the consumers
     state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
       uiState: AddBeneficiaryErrors.none,
       loadingState: AddBeneficiaryLoadingState.loading,
@@ -117,13 +140,19 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
         uiState: error,
         loadingState: AddBeneficiaryLoadingState.idle,
       ));
-    }, (Beneficiary) {
-      loggerNoStack.i("Beneficiary in successfully");
+    }, (beneficiary) {
+     
+
+      // save it in local list of beneficiaries
       // _beneficiaries.add(beneficiary);
-      state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
-        uiState: AddBeneficiaryErrors.success,
-        loadingState: AddBeneficiaryLoadingState.idle,
-      ));
+      state = state.copyWithNewBeneficiary(
+          beneficiary,
+          AddBeneficiaryState(
+            uiState: AddBeneficiaryErrors.success,
+            loadingState: AddBeneficiaryLoadingState.idle,
+          ));
+           loggerNoStack.i("Beneficiary in successfully $beneficiary in list we have ${state.beneficiaries?.length}");
+          
     });
   }
 

@@ -1,4 +1,5 @@
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:e5d_assesment/features/home/presentation/view/mock_beneficiaries.dart';
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
@@ -6,12 +7,24 @@ import 'package:e5d_assesment/features/transactions/presentation/view/transactio
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _HomeScreenState();
+  }
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  BeneficiaryState? state;
+
+  @override
   Widget build(BuildContext context) {
+    state = ref.watch(beneficiaryViewModelProvider);
+
     return SafeArea(
       child: Scaffold(
           body: Container(
@@ -98,8 +111,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 12,
             ),
-            const BeneficiaryListWidget(
-              beneficiaries: beneficiaries,
+            BeneficiaryListWidget(
+              beneficiaries: state?.beneficiaries ?? List.empty(),
             ),
             const SizedBox(
               height: 12,
@@ -114,7 +127,9 @@ class HomeScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   )),
             ),
-            const SizedBox(height: 16,),
+            const SizedBox(
+              height: 16,
+            ),
             Expanded(
               child: ListView.separated(
                 separatorBuilder: (context, index) {
