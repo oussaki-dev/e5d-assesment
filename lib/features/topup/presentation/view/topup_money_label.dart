@@ -15,17 +15,18 @@ class TopUpMoneyLabelWidget extends StatelessWidget {
         style: TextButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          backgroundColor: E5DColors.primaryColor40Percent,
+          backgroundColor: E5DColors.primaryColor80Percent,
           padding: const EdgeInsets.symmetric(
             vertical: 4.0,
-            horizontal: 4.0,
+            horizontal: 12.0,
           ),
         ),
         child: Text(
           '${money.currency} ${money.value}',
           style: Theme.of(context).textTheme.labelLarge?.merge(const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 12,
+                fontWeight: FontWeight.w600
               )),
         ),
       ),
