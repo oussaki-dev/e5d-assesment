@@ -1,5 +1,5 @@
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
-import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_vm.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

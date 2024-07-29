@@ -1,5 +1,7 @@
+import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
 import 'package:e5d_assesment/features/login/presentation/viewmodel/login_viewmodel.dart';
+import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,7 +33,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     state = ref.watch(loginViewModelProvider);
     viewModel = ref.read(loginViewModelProvider.notifier);
 
-    if (state?.uiState == LoginUiState.loading) {
+    if (state?.uiState == ScreenUiState.success) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        HomeScreenRoute().go(context);
+      });
+    }
+
+    if (state?.uiState == ScreenUiState.loading) {
       buttonText = SizedBox(
         height: 33,
         width: 33,
@@ -42,9 +50,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           strokeWidth: 3.0,
         ),
       );
-    } else if (state?.uiState == LoginUiState.success) {
-      buttonText = const Text('success');
-    } else if (state?.uiState == LoginUiState.error) {
+    } else if (state?.uiState == ScreenUiState.error) {
       // show error
       buttonText = Text(
         AppLocalizations.of(context)!.button_login,

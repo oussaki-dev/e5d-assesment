@@ -1,23 +1,16 @@
 import 'package:e5d_assesment/core/domain/base_usecase.dart';
 import 'package:e5d_assesment/core/network/error/errors.dart';
+import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_repo_impl.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_with_mobile_repo_impl.dart';
 import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
-import 'package:e5d_assesment/features/login/domain/repository/login_repo.dart';
+import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
 import 'package:e5d_assesment/features/login/domain/usecase/login_default_usecase.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_viewmodel.g.dart';
-
-enum LoginUiState {
-  idle,
-  loading,
-  success,
-  error;
-
-}
 
 enum LoginStrategy {
   userNamePassword,
@@ -35,13 +28,13 @@ enum LoginStrategy {
 
 class LoginState {
   final ILoginModel? loginModel;
-  final LoginUiState? uiState;
+  final ScreenUiState? uiState;
   const LoginState({this.loginModel, this.uiState});
-  LoginState copyWith(ILoginModel? loginModel, LoginUiState? uiState) {
+  LoginState copyWith(ILoginModel? loginModel, ScreenUiState? uiState) {
     return LoginState(loginModel: loginModel, uiState: uiState);
   }
 
-  LoginState copyWithUiState(LoginUiState? uiState) {
+  LoginState copyWithUiState(ScreenUiState? uiState) {
     return LoginState(loginModel: loginModel, uiState: uiState);
   }
 }
@@ -56,7 +49,7 @@ class LoginViewModel extends _$LoginViewModel {
   }
 
   void login(LoginStrategy loginStrategy) async {
-    state = state.copyWithUiState(LoginUiState.loading);
+    state = state.copyWithUiState(ScreenUiState.loading);
     switch (loginStrategy) {
       case LoginStrategy.userNamePassword:
         useCase = LoginUsernamePasswordUseCase(ref.watch(
@@ -72,9 +65,9 @@ class LoginViewModel extends _$LoginViewModel {
      
     if (result?.isRight() == true) {
       loggerNoStack.i("Logged in successfully");
-      state = state.copyWithUiState(LoginUiState.success);
+      state = state.copyWithUiState(ScreenUiState.success);
     } else {
-      state = state.copyWithUiState(LoginUiState.error);
+      state = state.copyWithUiState(ScreenUiState.error);
     }
   }
 }

@@ -14,3 +14,5 @@ class CancelTokenFailure extends E5DError {
   final int? statusCode;
   CancelTokenFailure(this.statusCode);
 }
+
+class ResponseParsingException extends E5DError{}

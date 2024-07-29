@@ -7,8 +7,6 @@ enum EInputError {
   passwordRequired
 }
 
-
-
 class LoginInputError extends E5DError {
   final EInputError? inputError;
    LoginInputError(this.inputError);
@@ -19,5 +17,4 @@ class LoginResponseError extends E5DError {
    LoginResponseError(this.errorMessage);
 }
 
-class UserNotFoundError extends E5DError {
-}
+class UserNotFoundError extends E5DError {}

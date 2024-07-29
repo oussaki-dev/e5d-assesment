@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'login_viewmodel.dart';
+part of 'benefeciary_viewmodel.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$loginViewModelHash() => r'88692cbfc70ba4a1faabf3b046665cf04db942c6';
+String _$beneficiaryViewModelHash() =>
+    r'bcc8f378ffd78a47b42b4a683c3cec796a060430';
 
-/// See also [LoginViewModel].
-@ProviderFor(LoginViewModel)
-final loginViewModelProvider =
-    AutoDisposeNotifierProvider<LoginViewModel, LoginState>.internal(
-  LoginViewModel.new,
-  name: r'loginViewModelProvider',
+/// See also [BeneficiaryViewModel].
+@ProviderFor(BeneficiaryViewModel)
+final beneficiaryViewModelProvider = AutoDisposeNotifierProvider<
+    BeneficiaryViewModel, BeneficiaryState>.internal(
+  BeneficiaryViewModel.new,
+  name: r'beneficiaryViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$loginViewModelHash,
+      : _$beneficiaryViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$LoginViewModel = AutoDisposeNotifier<LoginState>;
+typedef _$BeneficiaryViewModel = AutoDisposeNotifier<BeneficiaryState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

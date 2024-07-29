@@ -1,13 +1,29 @@
+import 'package:e5d_assesment/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddBeneficiaryWidget extends StatelessWidget {
+class AddBeneficiaryWidget extends ConsumerStatefulWidget {
   const AddBeneficiaryWidget({super.key});
 
   @override
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _AddBeneficiaryWidgetState();
+  }
+}
+
+class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
+  BeneficiaryViewModel? viewModel;
+  BeneficiaryState? state;
+
+  @override
   Widget build(BuildContext context) {
+    state = ref.watch(beneficiaryViewModelProvider);
+    viewModel = ref.read(beneficiaryViewModelProvider.notifier);
+
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -54,6 +70,9 @@ class AddBeneficiaryWidget extends StatelessWidget {
                       height: 24,
                     ),
                     TextField(
+                      onChanged: (nickname) {
+                        state?.addFormBeneficiary?.nickname = nickname;
+                      },
                       style: Theme.of(context).textTheme.labelLarge,
                       decoration: InputDecoration(
                           fillColor: Colors.white,
@@ -66,6 +85,9 @@ class AddBeneficiaryWidget extends StatelessWidget {
                       height: 12,
                     ),
                     TextField(
+                      onChanged: (mobileNumber) {
+                        state?.addFormBeneficiary?.mobileNumber = mobileNumber;
+                      },
                       style: Theme.of(context).textTheme.labelLarge,
                       decoration: InputDecoration(
                           fillColor: Colors.white,
@@ -83,7 +105,7 @@ class AddBeneficiaryWidget extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: TextButton(
-              onPressed: () => {TopUpScreenRoute().go(context)},
+              onPressed: () => {viewModel?.addBeneficiary()},
               style: TextButton.styleFrom(
                 shape: const LinearBorder(),
                 backgroundColor: E5DColors.primaryColor,

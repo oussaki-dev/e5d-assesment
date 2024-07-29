@@ -3,11 +3,11 @@ import 'package:e5d_assesment/core/domain/base_usecase.dart';
 import 'package:e5d_assesment/core/network/error/errors.dart';
 import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
 import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
-import 'package:e5d_assesment/features/login/domain/repository/login_repo.dart';
+import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
 import 'package:e5d_assesment/features/login/presentation/errors/login_error.dart';
 
 
-class LoginUsernamePasswordUseCase extends UseCase<UserModel, LoginModel> {
+class LoginUsernamePasswordUseCase extends UseCase<UserModel, LoginModel, E5DError> {
   final AbstractLoginRepository repository;
 
   final minUsernameLength = 4;
