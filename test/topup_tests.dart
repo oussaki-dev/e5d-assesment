@@ -22,10 +22,17 @@ import 'topup_tests.mocks.dart';
 void main() {
   final fakeRepo = MockAbstractTopUpRepository();
   group('Top up negative cases', () {
+    const defaultConfig = Configurations(
+        baseUrl: "",
+        transactionFee: 1,
+        verifiedTopUpThreshold: 1000,
+        nonVerifiedTopUpThreshold: 500,
+        monthlyMaxTopUpThreshold: 3000);
+
     test("Should return an error when session is expired", () async {
       final usecase = TopUpBeneficiaryUseCase(
         fakeRepo,
-        const Configurations(baseUrl: ""),
+        defaultConfig,
         const SessionModel(isLoggedIn: false),
       );
       expect(
@@ -38,7 +45,7 @@ void main() {
         () async {
       final usecase = TopUpBeneficiaryUseCase(
         fakeRepo,
-        const Configurations(baseUrl: "", transactionFee: 1),
+        defaultConfig,
         const SessionModel(
             isLoggedIn: true,
             user: UserModel(
@@ -59,7 +66,7 @@ void main() {
     test("should return an error when user cant pay transaction fee", () async {
       final usecase = TopUpBeneficiaryUseCase(
         fakeRepo,
-        const Configurations(baseUrl: "", transactionFee: 1),
+        defaultConfig,
         const SessionModel(
             isLoggedIn: true,
             user: UserModel(
@@ -82,7 +89,7 @@ void main() {
         () async {
       final usecase = TopUpBeneficiaryUseCase(
         fakeRepo,
-        const Configurations(baseUrl: "", transactionFee: 2),
+        defaultConfig.copyWith(transactionFee: 2),
         const SessionModel(
             isLoggedIn: true,
             user: UserModel(
@@ -106,7 +113,7 @@ void main() {
           () async {
         final usecase = TopUpBeneficiaryUseCase(
           fakeRepo,
-          const Configurations(baseUrl: "", transactionFee: 1),
+          defaultConfig,
           SessionModel(
               isLoggedIn: true,
               user: UserModel(
@@ -137,7 +144,7 @@ void main() {
           () async {
         final usecase = TopUpBeneficiaryUseCase(
           fakeRepo,
-          const Configurations(baseUrl: "", transactionFee: 1),
+          defaultConfig,
           SessionModel(
               isLoggedIn: true,
               user: UserModel(
@@ -163,13 +170,12 @@ void main() {
     });
 
     group('When user is verified', () {
-      const config = Configurations(baseUrl: "", transactionFee: 1);
       test(
-          "Should return an error by toping up he will reach the monthly threshold ",
+          "Should return an error by toping up he will reach the monthly threshold for current beneficiary ",
           () async {
         final usecase = TopUpBeneficiaryUseCase(
           fakeRepo,
-          config,
+          defaultConfig,
           SessionModel(
               isLoggedIn: true,
               user: UserModel(
@@ -192,11 +198,11 @@ void main() {
       });
 
       test(
-          "Should return an error by toping up he will reach the monthly threshold ",
+          "Should return an error by toping up he will reach the monthly threshold for the current beneficiary ",
           () async {
         final usecase = TopUpBeneficiaryUseCase(
           fakeRepo,
-          config,
+          defaultConfig,
           SessionModel(
               isLoggedIn: true,
               user: UserModel(
@@ -214,6 +220,33 @@ void main() {
         expect(
           await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 100)),
           const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser),
+        );
+      });
+
+      test(
+          "Error when the total sum of all transactions of all beneficiaries is more than threshold ",
+          () async {
+        final usecase = TopUpBeneficiaryUseCase(
+          fakeRepo,
+          defaultConfig,
+          SessionModel(
+              isLoggedIn: true,
+              user: UserModel(
+                  firstName: '',
+                  lastName: '',
+                  token: '',
+                  refreshToken: '',
+                  isVerified: true,
+                  balance: 500,
+                  transactions: [
+                    testTransactions[2], // 1000 AED
+                    testTransactions[2], // 1000 AED
+                    testTransactions[2] // 1000 AED
+                  ])),
+        );
+        expect(
+          await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 100)),
+          const Left(TopUpUiStates.reachedMonthlyTopUpThreshold),
         );
       });
     });

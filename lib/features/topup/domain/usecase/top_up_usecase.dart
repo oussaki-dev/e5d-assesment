@@ -25,11 +25,17 @@ class TopUpBeneficiaryUseCase
   final AbstractTopUpRepository repository;
   final Configurations? config;
   final SessionModel? session;
-  final double verifiedThreshold = 1000; // AED 1000
-  final double nonVerifiedThreshold = 500; // AED 500
+
+  late double verifiedTopUpThreshold;
+  late double nonVerifiedTopUpThreshold;
+  late double monthlyMaxTopUpThreshold;
 
   // injecting the repo for better testing
-  TopUpBeneficiaryUseCase(this.repository, this.config, this.session);
+  TopUpBeneficiaryUseCase(this.repository, this.config, this.session) {
+    verifiedTopUpThreshold = config?.verifiedTopUpThreshold ?? 0;
+    nonVerifiedTopUpThreshold = config?.nonVerifiedTopUpThreshold ?? 0;
+    monthlyMaxTopUpThreshold = config?.monthlyMaxTopUpThreshold ?? 0;
+  }
 
   double _totalTopUpForBeneficiaryThisMonth(
       String beneficiaryId, List<TopUpTransaction>? transactions) {
@@ -65,25 +71,32 @@ class TopUpBeneficiaryUseCase
       request.beneficiaryId,
       session?.user?.transactions,
     );
-    loggerNoStack.d('monthlyTotalTopUpAmount = $monthlyTotalTopUpAmount');
+    loggerNoStack.d('monthlyTotalTopUpAmount = $monthlyTotalTopUpAmount ');
+    loggerNoStack.d('monthlyMaxTopUpThreshold = $monthlyMaxTopUpThreshold ');
+    
+    // check if maximum reached of AED 3,000 per month for all beneficiaries.
+    if (monthlyTotalTopUpAmount >= monthlyMaxTopUpThreshold) {
+      return const Left(TopUpUiStates.reachedMonthlyTopUpThreshold);
+    }
+
     // when user not verified
     if (session?.user?.isVerified == false) {
       // check that for the current beneficiary toping up won't
       // contradict the max limit for each which is 500 AED
 
-      if (monthlyTotalTopUpAmount >= nonVerifiedThreshold) {
+      if (monthlyTotalTopUpAmount >= nonVerifiedTopUpThreshold) {
         return const Left(
             TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser);
       }
-      if (monthlyTotalTopUpAmount + totalToPay > nonVerifiedThreshold) {
+      if (monthlyTotalTopUpAmount + totalToPay > nonVerifiedTopUpThreshold) {
         return const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser);
       }
     } else {
-      if (monthlyTotalTopUpAmount >= verifiedThreshold) {
+      if (monthlyTotalTopUpAmount >= verifiedTopUpThreshold) {
         return const Left(
             TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser);
       }
-      if (monthlyTotalTopUpAmount + totalToPay > verifiedThreshold) {
+      if (monthlyTotalTopUpAmount + totalToPay > verifiedTopUpThreshold) {
         return const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser);
       }
     }

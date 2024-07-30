@@ -42,7 +42,13 @@ mixin _$Configurations {
   String? get refreshToken => throw _privateConstructorUsedError;
   String? get token =>
       throw _privateConstructorUsedError; // other configurations
-  double? get transactionFee => throw _privateConstructorUsedError;
+  double? get transactionFee =>
+      throw _privateConstructorUsedError; // how mush is the transaction fee
+  double? get verifiedTopUpThreshold =>
+      throw _privateConstructorUsedError; // AED 1000
+  double? get nonVerifiedTopUpThreshold =>
+      throw _privateConstructorUsedError; // AED 500
+  double? get monthlyMaxTopUpThreshold => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -70,7 +76,10 @@ abstract class $ConfigurationsCopyWith<$Res> {
       String? deviceType,
       String? refreshToken,
       String? token,
-      double? transactionFee});
+      double? transactionFee,
+      double? verifiedTopUpThreshold,
+      double? nonVerifiedTopUpThreshold,
+      double? monthlyMaxTopUpThreshold});
 }
 
 /// @nodoc
@@ -100,6 +109,9 @@ class _$ConfigurationsCopyWithImpl<$Res, $Val extends Configurations>
     Object? refreshToken = freezed,
     Object? token = freezed,
     Object? transactionFee = freezed,
+    Object? verifiedTopUpThreshold = freezed,
+    Object? nonVerifiedTopUpThreshold = freezed,
+    Object? monthlyMaxTopUpThreshold = freezed,
   }) {
     return _then(_value.copyWith(
       baseUrl: null == baseUrl
@@ -158,6 +170,18 @@ class _$ConfigurationsCopyWithImpl<$Res, $Val extends Configurations>
           ? _value.transactionFee
           : transactionFee // ignore: cast_nullable_to_non_nullable
               as double?,
+      verifiedTopUpThreshold: freezed == verifiedTopUpThreshold
+          ? _value.verifiedTopUpThreshold
+          : verifiedTopUpThreshold // ignore: cast_nullable_to_non_nullable
+              as double?,
+      nonVerifiedTopUpThreshold: freezed == nonVerifiedTopUpThreshold
+          ? _value.nonVerifiedTopUpThreshold
+          : nonVerifiedTopUpThreshold // ignore: cast_nullable_to_non_nullable
+              as double?,
+      monthlyMaxTopUpThreshold: freezed == monthlyMaxTopUpThreshold
+          ? _value.monthlyMaxTopUpThreshold
+          : monthlyMaxTopUpThreshold // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -184,7 +208,10 @@ abstract class _$$ConfigurationsImplCopyWith<$Res>
       String? deviceType,
       String? refreshToken,
       String? token,
-      double? transactionFee});
+      double? transactionFee,
+      double? verifiedTopUpThreshold,
+      double? nonVerifiedTopUpThreshold,
+      double? monthlyMaxTopUpThreshold});
 }
 
 /// @nodoc
@@ -212,6 +239,9 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
     Object? refreshToken = freezed,
     Object? token = freezed,
     Object? transactionFee = freezed,
+    Object? verifiedTopUpThreshold = freezed,
+    Object? nonVerifiedTopUpThreshold = freezed,
+    Object? monthlyMaxTopUpThreshold = freezed,
   }) {
     return _then(_$ConfigurationsImpl(
       baseUrl: null == baseUrl
@@ -270,6 +300,18 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
           ? _value.transactionFee
           : transactionFee // ignore: cast_nullable_to_non_nullable
               as double?,
+      verifiedTopUpThreshold: freezed == verifiedTopUpThreshold
+          ? _value.verifiedTopUpThreshold
+          : verifiedTopUpThreshold // ignore: cast_nullable_to_non_nullable
+              as double?,
+      nonVerifiedTopUpThreshold: freezed == nonVerifiedTopUpThreshold
+          ? _value.nonVerifiedTopUpThreshold
+          : nonVerifiedTopUpThreshold // ignore: cast_nullable_to_non_nullable
+              as double?,
+      monthlyMaxTopUpThreshold: freezed == monthlyMaxTopUpThreshold
+          ? _value.monthlyMaxTopUpThreshold
+          : monthlyMaxTopUpThreshold // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -291,7 +333,10 @@ class _$ConfigurationsImpl implements _Configurations {
       this.deviceType,
       this.refreshToken,
       this.token,
-      this.transactionFee});
+      this.transactionFee,
+      this.verifiedTopUpThreshold,
+      this.nonVerifiedTopUpThreshold,
+      this.monthlyMaxTopUpThreshold});
 
   factory _$ConfigurationsImpl.fromJson(Map<String, dynamic> json) =>
       _$$ConfigurationsImplFromJson(json);
@@ -333,10 +378,19 @@ class _$ConfigurationsImpl implements _Configurations {
 // other configurations
   @override
   final double? transactionFee;
+// how mush is the transaction fee
+  @override
+  final double? verifiedTopUpThreshold;
+// AED 1000
+  @override
+  final double? nonVerifiedTopUpThreshold;
+// AED 500
+  @override
+  final double? monthlyMaxTopUpThreshold;
 
   @override
   String toString() {
-    return 'Configurations(baseUrl: $baseUrl, deviceId: $deviceId, osVersion: $osVersion, environment: $environment, isRTL: $isRTL, countryCode: $countryCode, languageCode: $languageCode, currency: $currency, appVersion: $appVersion, timestamp: $timestamp, deviceType: $deviceType, refreshToken: $refreshToken, token: $token, transactionFee: $transactionFee)';
+    return 'Configurations(baseUrl: $baseUrl, deviceId: $deviceId, osVersion: $osVersion, environment: $environment, isRTL: $isRTL, countryCode: $countryCode, languageCode: $languageCode, currency: $currency, appVersion: $appVersion, timestamp: $timestamp, deviceType: $deviceType, refreshToken: $refreshToken, token: $token, transactionFee: $transactionFee, verifiedTopUpThreshold: $verifiedTopUpThreshold, nonVerifiedTopUpThreshold: $nonVerifiedTopUpThreshold, monthlyMaxTopUpThreshold: $monthlyMaxTopUpThreshold)';
   }
 
   @override
@@ -368,7 +422,15 @@ class _$ConfigurationsImpl implements _Configurations {
                 other.refreshToken == refreshToken) &&
             (identical(other.token, token) || other.token == token) &&
             (identical(other.transactionFee, transactionFee) ||
-                other.transactionFee == transactionFee));
+                other.transactionFee == transactionFee) &&
+            (identical(other.verifiedTopUpThreshold, verifiedTopUpThreshold) ||
+                other.verifiedTopUpThreshold == verifiedTopUpThreshold) &&
+            (identical(other.nonVerifiedTopUpThreshold,
+                    nonVerifiedTopUpThreshold) ||
+                other.nonVerifiedTopUpThreshold == nonVerifiedTopUpThreshold) &&
+            (identical(
+                    other.monthlyMaxTopUpThreshold, monthlyMaxTopUpThreshold) ||
+                other.monthlyMaxTopUpThreshold == monthlyMaxTopUpThreshold));
   }
 
   @JsonKey(ignore: true)
@@ -388,7 +450,10 @@ class _$ConfigurationsImpl implements _Configurations {
       deviceType,
       refreshToken,
       token,
-      transactionFee);
+      transactionFee,
+      verifiedTopUpThreshold,
+      nonVerifiedTopUpThreshold,
+      monthlyMaxTopUpThreshold);
 
   @JsonKey(ignore: true)
   @override
@@ -420,7 +485,10 @@ abstract class _Configurations implements Configurations {
       final String? deviceType,
       final String? refreshToken,
       final String? token,
-      final double? transactionFee}) = _$ConfigurationsImpl;
+      final double? transactionFee,
+      final double? verifiedTopUpThreshold,
+      final double? nonVerifiedTopUpThreshold,
+      final double? monthlyMaxTopUpThreshold}) = _$ConfigurationsImpl;
 
   factory _Configurations.fromJson(Map<String, dynamic> json) =
       _$ConfigurationsImpl.fromJson;
@@ -461,6 +529,12 @@ abstract class _Configurations implements Configurations {
   String? get token;
   @override // other configurations
   double? get transactionFee;
+  @override // how mush is the transaction fee
+  double? get verifiedTopUpThreshold;
+  @override // AED 1000
+  double? get nonVerifiedTopUpThreshold;
+  @override // AED 500
+  double? get monthlyMaxTopUpThreshold;
   @override
   @JsonKey(ignore: true)
   _$$ConfigurationsImplCopyWith<_$ConfigurationsImpl> get copyWith =>

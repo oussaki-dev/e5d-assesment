@@ -22,6 +22,12 @@ _$ConfigurationsImpl _$$ConfigurationsImplFromJson(Map<String, dynamic> json) =>
       refreshToken: json['refreshToken'] as String?,
       token: json['token'] as String?,
       transactionFee: (json['transactionFee'] as num?)?.toDouble(),
+      verifiedTopUpThreshold:
+          (json['verifiedTopUpThreshold'] as num?)?.toDouble(),
+      nonVerifiedTopUpThreshold:
+          (json['nonVerifiedTopUpThreshold'] as num?)?.toDouble(),
+      monthlyMaxTopUpThreshold:
+          (json['monthlyMaxTopUpThreshold'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$ConfigurationsImplToJson(
@@ -41,4 +47,7 @@ Map<String, dynamic> _$$ConfigurationsImplToJson(
       'refreshToken': instance.refreshToken,
       'token': instance.token,
       'transactionFee': instance.transactionFee,
+      'verifiedTopUpThreshold': instance.verifiedTopUpThreshold,
+      'nonVerifiedTopUpThreshold': instance.nonVerifiedTopUpThreshold,
+      'monthlyMaxTopUpThreshold': instance.monthlyMaxTopUpThreshold,
     };

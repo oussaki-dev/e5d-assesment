@@ -12,32 +12,35 @@ part 'configurations_model.g.dart';
 ///
 @freezed
 class Configurations with _$Configurations {
-  const factory Configurations({
-    required String baseUrl,
+  const factory Configurations(
+      {required String baseUrl,
 
-    /// Device
-    String? deviceId,
-    String? osVersion,
-    String? environment,
-    bool? isRTL,
+      /// Device
+      String? deviceId,
+      String? osVersion,
+      String? environment,
+      bool? isRTL,
 
-    /// Location
-    String? countryCode,
-    String? languageCode,
+      /// Location
+      String? countryCode,
+      String? languageCode,
 
-    /// App
-    String? currency,
-    String? appVersion,
-    String? timestamp,
-    String? deviceType,
+      /// App
+      String? currency,
+      String? appVersion,
+      String? timestamp,
+      String? deviceType,
 
-    /// Authentication
-    String? refreshToken,
-    String? token,
+      /// Authentication
+      String? refreshToken,
+      String? token,
 
-    // other configurations
-    double? transactionFee, // how mush is the transaction fee
-  }) = _Configurations;
+      // other configurations
+      double? transactionFee, // how mush is the transaction fee
+      double? verifiedTopUpThreshold, // AED 1000
+      double? nonVerifiedTopUpThreshold, // AED 500
+      double? monthlyMaxTopUpThreshold //AED 3000
+      }) = _Configurations;
 
   factory Configurations.fromJson(Map<String, Object?> json) =>
       _$ConfigurationsFromJson(json);
