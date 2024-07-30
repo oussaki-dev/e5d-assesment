@@ -4,7 +4,7 @@
 
 This project is a phone topup app.
 
-Notes: 
+<b>Notes</b>: 
    Because this is a high risky APP that works with money 
    i prefere not save any sensitive information in the storage 
    even tho we can save using an AES encryption in a secured storage 
