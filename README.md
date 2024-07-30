@@ -5,7 +5,14 @@
 This project is a phone topup app.
 
 Notes: 
-   
+   Because this is a high risky APP that works with money 
+   i prefere not save any sensitive information in the storage 
+   even tho we can save using an AES encryption in a secured storage 
+   but still there is a risk of stealing the keys 
+   to manage session if the app is closed there will be no session
+   the user should login again, 
+   we might introduce a local timer that checks if the user is performing any action 
+   and we increase the session time.
 
 
 
