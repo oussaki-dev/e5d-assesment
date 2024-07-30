@@ -25,10 +25,20 @@ class TopUpBeneficiaryUseCase
   final AbstractTopUpRepository repository;
   final Configurations? config;
   final SessionModel? session;
-  final int transactionFee = 1; // AED 1
+  final double verifiedThreshold = 1000; // AED 1000
+  final double nonVerifiedThreshold = 500; // AED 500
 
   // injecting the repo for better testing
-  TopUpBeneficiaryUseCase(this.repository,  this.config, this.session);
+  TopUpBeneficiaryUseCase(this.repository, this.config, this.session);
+
+  double _totalTopUpForBeneficiaryThisMonth(
+      String beneficiaryId, List<TopUpTransaction>? transactions) {
+    double monthAmount = 0;
+    transactions?.where((t) => t.beneficiary.id == beneficiaryId).forEach((t) {
+      monthAmount += t.amount;
+    });
+    return monthAmount;
+  }
 
   @override
   Future<Either<TopUpUiStates, TopUpTransaction>> call(
@@ -51,22 +61,32 @@ class TopUpBeneficiaryUseCase
       return const Left(TopUpUiStates.noEnoughBalance);
     }
 
+    double monthlyTotalTopUpAmount = _totalTopUpForBeneficiaryThisMonth(
+      request.beneficiaryId,
+      session?.user?.transactions,
+    );
+    loggerNoStack.d('monthlyTotalTopUpAmount = $monthlyTotalTopUpAmount');
     // when user not verified
     if (session?.user?.isVerified == false) {
       // check that for the current beneficiary toping up won't
       // contradict the max limit for each which is 500 AED
-      double monthAmount = 0;
-      session?.user?.transactions
-          .where((t) => t.beneficiary.id == request.beneficiaryId)
-          .forEach((t) {
-        monthAmount += t.amount;
-      });
-      loggerNoStack.d(monthAmount);
-      if (monthAmount >= 500 || (monthAmount + totalToPay) > 500) {
-        // send an error
+
+      if (monthlyTotalTopUpAmount >= nonVerifiedThreshold) {
+        return const Left(
+            TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser);
+      }
+      if (monthlyTotalTopUpAmount + totalToPay > nonVerifiedThreshold) {
         return const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser);
       }
-    } else {}
+    } else {
+      if (monthlyTotalTopUpAmount >= verifiedThreshold) {
+        return const Left(
+            TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser);
+      }
+      if (monthlyTotalTopUpAmount + totalToPay > verifiedThreshold) {
+        return const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser);
+      }
+    }
 
     // call the repository
     final result = await repository.topUp(request);
