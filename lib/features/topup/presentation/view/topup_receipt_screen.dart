@@ -1,23 +1,25 @@
 import 'package:e5d_assesment/core/presentation/views/dash_separator.dart';
 import 'package:e5d_assesment/core/presentation/views/half_circle.dart';
-import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TopUpReceiptScreen extends ConsumerWidget {
-  const TopUpReceiptScreen({super.key});
+class TopUpReceiptScreen extends StatelessWidget {
+  const TopUpReceiptScreen(
+      {super.key, this.amount, this.beneficiaryName, this.mobileNumber});
 
   final cropsWith = 30.5;
 
+  final double? amount;
+  final String? beneficiaryName;
+  final String? mobileNumber;
+
   @override
-  Widget build(BuildContext context, ref ) {
+  Widget build(BuildContext context) {
     return LayoutBuilder(builder: (builder, constraint) {
       final bottomCircleCount =
           ((constraint.maxWidth - 24) ~/ cropsWith).toInt();
-      logger.d("width ; $bottomCircleCount");
       return SafeArea(
         child: Scaffold(
           body: Container(
@@ -99,7 +101,7 @@ class TopUpReceiptScreen extends ConsumerWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'AED 30.00'.toUpperCase(),
+                                'AED $amount'.toUpperCase(),
                                 style:
                                     Theme.of(context).textTheme.displayMedium,
                               )
@@ -167,7 +169,7 @@ class TopUpReceiptScreen extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Oussama Abdallah',
+                                    beneficiaryName ?? '',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall
@@ -179,7 +181,7 @@ class TopUpReceiptScreen extends ConsumerWidget {
                                         ),
                                   ),
                                   Text(
-                                    '+971 568330446',
+                                    mobileNumber ?? '',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall

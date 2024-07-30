@@ -84,17 +84,21 @@ extension $HomeScreenRouteExtension on HomeScreenRoute {
 }
 
 RouteBase get $topUpReceiptScreenRoute => GoRouteData.$route(
-      path: '/receipt',
+      path: '/receipt/:amount/:beneficiaryName/:mobileNumber',
       name: 'receipt',
       factory: $TopUpReceiptScreenRouteExtension._fromState,
     );
 
 extension $TopUpReceiptScreenRouteExtension on TopUpReceiptScreenRoute {
   static TopUpReceiptScreenRoute _fromState(GoRouterState state) =>
-      TopUpReceiptScreenRoute();
+      TopUpReceiptScreenRoute(
+        amount: double.parse(state.pathParameters['amount']!),
+        beneficiaryName: state.pathParameters['beneficiaryName']!,
+        mobileNumber: state.pathParameters['mobileNumber']!,
+      );
 
   String get location => GoRouteData.$location(
-        '/receipt',
+        '/receipt/${Uri.encodeComponent(amount!.toString())}/${Uri.encodeComponent(beneficiaryName)}/${Uri.encodeComponent(mobileNumber)}',
       );
 
   void go(BuildContext context) => context.go(location);

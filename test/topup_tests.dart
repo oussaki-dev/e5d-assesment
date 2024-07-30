@@ -36,7 +36,7 @@ void main() {
         const SessionModel(isLoggedIn: false),
       );
       expect(
-        await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 20)),
+        usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 20)),
         const Left(TopUpUiStates.sessionExpired),
       );
     });
@@ -58,7 +58,7 @@ void main() {
                 transactions: [])),
       );
       expect(
-        await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 20)),
+         usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 20)),
         const Left(TopUpUiStates.noEnoughBalance),
       );
     });
@@ -79,7 +79,7 @@ void main() {
                 transactions: [])),
       );
       expect(
-        await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 10)),
+         usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 10)),
         const Left(TopUpUiStates.noEnoughBalance),
       );
     });
@@ -102,7 +102,7 @@ void main() {
                 transactions: [])),
       );
       expect(
-        await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 10)),
+         usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 10)),
         const Left(TopUpUiStates.noEnoughBalance),
       );
     });
@@ -133,7 +133,7 @@ void main() {
                   ])),
         );
         expect(
-          await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 10)),
+          usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 10)),
           const Left(
               TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser),
         );
@@ -163,7 +163,7 @@ void main() {
                   ])),
         );
         expect(
-          await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 100)),
+           usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 100)),
           const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser),
         );
       });
@@ -191,9 +191,9 @@ void main() {
                   ])),
         );
         expect(
-          await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 100)),
+           usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 100)),
           const Left(
-              TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser),
+              TopUpUiStates.reachedMonthlyThresholdVerifiedUser),
         );
       });
 
@@ -218,8 +218,8 @@ void main() {
                   ])),
         );
         expect(
-          await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 100)),
-          const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser),
+           usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 100)),
+          const Left(TopUpUiStates.alreadyReachedMonthlyThresholdVerifiedUser),
         );
       });
 
@@ -245,7 +245,7 @@ void main() {
                   ])),
         );
         expect(
-          await usecase.call(TopUpRequest(beneficiaryId: '1', amount: 100)),
+          usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 100)),
           const Left(TopUpUiStates.reachedMonthlyTopUpThreshold),
         );
       });

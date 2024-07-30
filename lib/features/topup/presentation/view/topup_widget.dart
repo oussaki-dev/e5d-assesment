@@ -7,6 +7,7 @@ import 'package:e5d_assesment/features/topup/presentation/state/topup_ui_states.
 import 'package:e5d_assesment/features/topup/presentation/view/topup_money_label.dart';
 import 'package:e5d_assesment/features/topup/presentation/view/topup_receipt_screen.dart';
 import 'package:e5d_assesment/features/topup/presentation/viewmodel/topup_viewmodel.dart';
+import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class TopUpWidget extends ConsumerStatefulWidget {
 class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   TopUpViewModel? viewModel;
   TopUpState? topUpState;
+  TopUpState? topUpStateRead;
+
   final Beneficiary beneficiary;
   Configurations? config;
 
@@ -107,8 +110,14 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
 
   void _checkOpenReceiptScreen() {
     if (topUpState?.uiState == TopUpUiStates.successfulTransaction) {
-      Future.delayed(const Duration(seconds: 2), () {
-        TopUpReceiptScreenRoute().go(context);
+      Future.microtask(() {
+        final amount = topUpStateRead?.transaction?.amount;
+        logger.i('amount = $amount');
+        TopUpReceiptScreenRoute(
+                amount: amount,
+                beneficiaryName: topUpStateRead?.beneficiary?.nickname ?? '',
+                mobileNumber: topUpStateRead?.beneficiary?.mobileNumber ?? '')
+            .go(context);
       });
     }
   }
@@ -116,6 +125,7 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   @override
   Widget build(BuildContext context) {
     topUpState = ref.watch(topUpViewModelProvider);
+    topUpStateRead = ref.read(topUpViewModelProvider);
     viewModel = ref.read(topUpViewModelProvider.notifier);
     config = ref.read(configProvider);
 

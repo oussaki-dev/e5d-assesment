@@ -83,6 +83,7 @@ class TopUpViewModel extends _$TopUpViewModel {
 
         state = state.updateUiState(error);
       }, (transaction) {
+        loggerNoStack.i('Success transaction : $transaction');
         state = state.successfulTransaction(
           transaction,
           TopUpUiStates.successfulTransaction,
