@@ -1,3 +1,4 @@
+import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/topup/domain/model/top_up_request.dart';
 import 'package:e5d_assesment/features/topup/domain/usecase/top_up_usecase.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_state.dart';
@@ -25,18 +26,22 @@ class TopUpViewModel extends _$TopUpViewModel {
   void topUp() async {
     // call the usecase to topup
     if (state.beneficiary == null) {
-      // send error here 
-
+      // send error here
     }
 
     if (state.selectedAmount == 0) {
       // send error here
-
     }
 
     await topUpUseCase?.call(TopUpRequest(
       beneficiaryId: state.beneficiary!.id,
       amount: state.selectedAmount,
     ));
+  }
+
+  void updateBeneficiary(Beneficiary beneficiary) {
+    if (beneficiary.id.isNotEmpty) {
+      state = state.updateBeneficiary(beneficiary);
+    }
   }
 }

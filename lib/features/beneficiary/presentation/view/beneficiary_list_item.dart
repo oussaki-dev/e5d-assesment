@@ -1,18 +1,36 @@
+import 'package:e5d_assesment/core/presentation/views/bottom_sheet.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
+import 'package:e5d_assesment/features/topup/presentation/view/topup_widget.dart';
+import 'package:e5d_assesment/features/topup/presentation/viewmodel/topup_viewmodel.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class BeneficiaryListItemWidget extends StatelessWidget {
-  const BeneficiaryListItemWidget({
+  BeneficiaryListItemWidget({
     super.key,
     required Beneficiary beneficiary,
-    required VoidCallback? onPressed,
-  })  : _beneficiary = beneficiary,
-        _onPressed = onPressed;
+  }) : _beneficiary = beneficiary;
 
   final Beneficiary _beneficiary;
-  final VoidCallback? _onPressed;
+  TopUpViewModel? topUpViewModel;
+
+  void _onPressed(BuildContext context) {
+    showE5DBottomSheet(
+      context,
+      TopUpWidget(
+        beneficiary: _beneficiary,
+      ),
+      300,
+    );
+    // showE5DBottomSheet(
+    //   context,
+    //   const AddBeneficiaryWidget(),
+    //   300,
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,7 +73,9 @@ class BeneficiaryListItemWidget extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: TextButton(
-                onPressed: _onPressed,
+                onPressed: () {
+                  _onPressed(context);
+                },
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),

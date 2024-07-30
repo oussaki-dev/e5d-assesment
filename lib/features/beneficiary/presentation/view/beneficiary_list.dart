@@ -42,22 +42,8 @@ class BeneficiaryListWidget extends StatelessWidget {
               return SizedBox(
                 width: calculatedWidth,
                 child: BeneficiaryListItemWidget(
-                    beneficiary: _beneficiaries[index],
-                    onPressed: () {
-                      showE5DBottomSheet(
-                        context,
-                        const TopUpWidget(),
-                        300,
-                      );
-
-                      // showE5DBottomSheet(
-                      //   context,
-                      //   const AddBeneficiaryWidget(),
-                      //   300,
-                      // );
-
-                     
-                    }),
+                  beneficiary: _beneficiaries[index],
+                ),
               );
             },
           ));

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 
 class TopUpState {

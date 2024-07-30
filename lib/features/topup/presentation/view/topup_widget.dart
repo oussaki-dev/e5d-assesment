@@ -1,35 +1,44 @@
+import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_state.dart';
 import 'package:e5d_assesment/features/topup/presentation/view/topup_money_label.dart';
 import 'package:e5d_assesment/features/topup/presentation/viewmodel/topup_viewmodel.dart';
-import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TopUpWidget extends ConsumerStatefulWidget {
-  const TopUpWidget({super.key});
+  final Beneficiary beneficiary;
+  const TopUpWidget({super.key, required this.beneficiary});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
-    return _TopUpWidgetState();
+    return _TopUpWidgetState(beneficiary: beneficiary);
   }
 }
 
 class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   TopUpViewModel? viewModel;
-  TopUpState? state;
+  TopUpState? topUpState;
+  final Beneficiary beneficiary;
+
+  _TopUpWidgetState({required this.beneficiary});
 
   void _onTopPressed() {
-    if (state?.isSelectedAmount() == true) {
+    if (topUpState?.isSelectedAmount() == true) {
       viewModel?.topUp();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    state = ref.watch(topUpViewModelProvider);
+    topUpState = ref.watch(topUpViewModelProvider);
     viewModel = ref.read(topUpViewModelProvider.notifier);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      viewModel?.updateBeneficiary(beneficiary);
+    });
+
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,7 +59,7 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
                       Text(
-                        '${state?.selectedAmount}'.toUpperCase(),
+                        '${topUpState?.selectedAmount}'.toUpperCase(),
                         style: Theme.of(context).textTheme.displayMedium,
                       )
                     ],
@@ -65,7 +74,8 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
                       ...[10, 20, 30, 50, 75, 100].map((v) {
                         return TopUpMoneyLabelWidget(
                           money: Money(currency: 'AED', value: v.toDouble()),
-                          isSelected: state?.selectedAmount == v.toDouble(),
+                          isSelected:
+                              topUpState?.selectedAmount == v.toDouble(),
                         );
                       })
                     ],
@@ -83,7 +93,7 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
               },
               style: TextButton.styleFrom(
                 shape: const LinearBorder(),
-                backgroundColor: state?.isSelectedAmount() == true
+                backgroundColor: topUpState?.isSelectedAmount() == true
                     ? Theme.of(context).primaryColor
                     : E5DColors.primaryColor40Percent,
                 padding: const EdgeInsets.symmetric(
@@ -92,7 +102,8 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
                 ),
               ),
               child: Text(
-                'Top up AED ${state?.selectedAmount}'.toUpperCase(),
+                'Top up AED ${topUpState?.selectedAmount} to ${topUpState?.beneficiary?.nickname}'
+                    .toUpperCase(),
                 style: Theme.of(context).textTheme.labelLarge?.merge(
                       const TextStyle(
                         color: Colors.white,
