@@ -7,5 +7,7 @@ enum TopUpUiStates {
   failedTransaction,
   sessionExpired,
   noEnoughBalance,
-  successfulTransaction;
+  successfulTransaction,
+  reachedMonthlyThresholdNonVerifiedUser, // for non verified user who reached the 500 threshold per month per user
+  ;
 }

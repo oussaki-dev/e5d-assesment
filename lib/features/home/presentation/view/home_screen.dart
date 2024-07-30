@@ -1,11 +1,10 @@
 import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiary_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
-import 'package:e5d_assesment/features/home/presentation/view/mock_beneficiaries.dart';
+import 'package:e5d_assesment/features/home/presentation/view/mock_data.dart';
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
 import 'package:e5d_assesment/features/transactions/presentation/view/transaction_item_widget.dart';
-import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

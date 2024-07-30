@@ -12,7 +12,7 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'lastName') required String? lastName,
     @JsonKey(name: 'token') required String token,
     @JsonKey(name: 'refresh_token') required String refreshToken,
-    @JsonKey(name: 'is_active') required bool isActive,
+    @JsonKey(name: 'is_verified') required bool isVerified,
     @JsonKey(name: 'balance') required double balance,
 
     ///

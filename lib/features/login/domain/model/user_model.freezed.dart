@@ -28,8 +28,8 @@ mixin _$UserModel {
   String get token => throw _privateConstructorUsedError;
   @JsonKey(name: 'refresh_token')
   String get refreshToken => throw _privateConstructorUsedError;
-  @JsonKey(name: 'is_active')
-  bool get isActive => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_verified')
+  bool get isVerified => throw _privateConstructorUsedError;
   @JsonKey(name: 'balance')
   double get balance => throw _privateConstructorUsedError;
 
@@ -56,7 +56,7 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(name: 'lastName') String? lastName,
       @JsonKey(name: 'token') String token,
       @JsonKey(name: 'refresh_token') String refreshToken,
-      @JsonKey(name: 'is_active') bool isActive,
+      @JsonKey(name: 'is_verified') bool isVerified,
       @JsonKey(name: 'balance') double balance,
       @JsonKey(name: 'transactions') List<TopUpTransaction> transactions});
 }
@@ -78,7 +78,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? lastName = freezed,
     Object? token = null,
     Object? refreshToken = null,
-    Object? isActive = null,
+    Object? isVerified = null,
     Object? balance = null,
     Object? transactions = null,
   }) {
@@ -99,9 +99,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
-      isActive: null == isActive
-          ? _value.isActive
-          : isActive // ignore: cast_nullable_to_non_nullable
+      isVerified: null == isVerified
+          ? _value.isVerified
+          : isVerified // ignore: cast_nullable_to_non_nullable
               as bool,
       balance: null == balance
           ? _value.balance
@@ -128,7 +128,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(name: 'lastName') String? lastName,
       @JsonKey(name: 'token') String token,
       @JsonKey(name: 'refresh_token') String refreshToken,
-      @JsonKey(name: 'is_active') bool isActive,
+      @JsonKey(name: 'is_verified') bool isVerified,
       @JsonKey(name: 'balance') double balance,
       @JsonKey(name: 'transactions') List<TopUpTransaction> transactions});
 }
@@ -148,7 +148,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? lastName = freezed,
     Object? token = null,
     Object? refreshToken = null,
-    Object? isActive = null,
+    Object? isVerified = null,
     Object? balance = null,
     Object? transactions = null,
   }) {
@@ -169,9 +169,9 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
-      isActive: null == isActive
-          ? _value.isActive
-          : isActive // ignore: cast_nullable_to_non_nullable
+      isVerified: null == isVerified
+          ? _value.isVerified
+          : isVerified // ignore: cast_nullable_to_non_nullable
               as bool,
       balance: null == balance
           ? _value.balance
@@ -193,7 +193,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       @JsonKey(name: 'lastName') required this.lastName,
       @JsonKey(name: 'token') required this.token,
       @JsonKey(name: 'refresh_token') required this.refreshToken,
-      @JsonKey(name: 'is_active') required this.isActive,
+      @JsonKey(name: 'is_verified') required this.isVerified,
       @JsonKey(name: 'balance') required this.balance,
       @JsonKey(name: 'transactions')
       required final List<TopUpTransaction> transactions})
@@ -215,8 +215,8 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
   @JsonKey(name: 'refresh_token')
   final String refreshToken;
   @override
-  @JsonKey(name: 'is_active')
-  final bool isActive;
+  @JsonKey(name: 'is_verified')
+  final bool isVerified;
   @override
   @JsonKey(name: 'balance')
   final double balance;
@@ -241,7 +241,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(firstName: $firstName, lastName: $lastName, token: $token, refreshToken: $refreshToken, isActive: $isActive, balance: $balance, transactions: $transactions)';
+    return 'UserModel(firstName: $firstName, lastName: $lastName, token: $token, refreshToken: $refreshToken, isVerified: $isVerified, balance: $balance, transactions: $transactions)';
   }
 
   @override
@@ -253,7 +253,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       ..add(DiagnosticsProperty('lastName', lastName))
       ..add(DiagnosticsProperty('token', token))
       ..add(DiagnosticsProperty('refreshToken', refreshToken))
-      ..add(DiagnosticsProperty('isActive', isActive))
+      ..add(DiagnosticsProperty('isVerified', isVerified))
       ..add(DiagnosticsProperty('balance', balance))
       ..add(DiagnosticsProperty('transactions', transactions));
   }
@@ -270,8 +270,8 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
             (identical(other.token, token) || other.token == token) &&
             (identical(other.refreshToken, refreshToken) ||
                 other.refreshToken == refreshToken) &&
-            (identical(other.isActive, isActive) ||
-                other.isActive == isActive) &&
+            (identical(other.isVerified, isVerified) ||
+                other.isVerified == isVerified) &&
             (identical(other.balance, balance) || other.balance == balance) &&
             const DeepCollectionEquality()
                 .equals(other._transactions, _transactions));
@@ -285,7 +285,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       lastName,
       token,
       refreshToken,
-      isActive,
+      isVerified,
       balance,
       const DeepCollectionEquality().hash(_transactions));
 
@@ -309,7 +309,7 @@ abstract class _UserModel implements UserModel {
       @JsonKey(name: 'lastName') required final String? lastName,
       @JsonKey(name: 'token') required final String token,
       @JsonKey(name: 'refresh_token') required final String refreshToken,
-      @JsonKey(name: 'is_active') required final bool isActive,
+      @JsonKey(name: 'is_verified') required final bool isVerified,
       @JsonKey(name: 'balance') required final double balance,
       @JsonKey(name: 'transactions')
       required final List<TopUpTransaction> transactions}) = _$UserModelImpl;
@@ -330,8 +330,8 @@ abstract class _UserModel implements UserModel {
   @JsonKey(name: 'refresh_token')
   String get refreshToken;
   @override
-  @JsonKey(name: 'is_active')
-  bool get isActive;
+  @JsonKey(name: 'is_verified')
+  bool get isVerified;
   @override
   @JsonKey(name: 'balance')
   double get balance;
