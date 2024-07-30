@@ -4,6 +4,7 @@ import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_mode
 import 'package:e5d_assesment/features/login/domain/model/session_model.dart';
 import 'package:e5d_assesment/features/login/domain/model/session_notifier.dart';
 import 'package:e5d_assesment/features/topup/domain/model/top_up_request.dart';
+import 'package:e5d_assesment/features/topup/domain/model/top_up_transaction.dart';
 import 'package:e5d_assesment/features/topup/domain/usecase/top_up_usecase.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_state.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_ui_states.dart';
@@ -68,14 +69,14 @@ class TopUpViewModel extends _$TopUpViewModel {
         TopUpUiStates.loading,
       );
       final result = await topUpUseCase?.call(request);
-     
 
       result?.fold((error) {
         // revert the state to the old balance
         if (oldBalance > 0) {
+          final session2 = ref.read(sessionProvider);
           final sessionNotifier2 = ref.read(sessionProvider.notifier);
-          final revertSession = session?.copyWith(
-            user: session.user?.copyWith(balance: oldBalance),
+          final revertSession = session2?.copyWith(
+            user: session2.user?.copyWith(balance: oldBalance),
             oldBalance: 0,
           );
           sessionNotifier2.updateWith(session: revertSession!);
@@ -84,10 +85,23 @@ class TopUpViewModel extends _$TopUpViewModel {
         state = state.updateUiState(error);
       }, (transaction) {
         loggerNoStack.i('Success transaction : $transaction');
+
         state = state.successfulTransaction(
           transaction,
           TopUpUiStates.successfulTransaction,
         );
+        final session = ref.read(sessionProvider);
+        final oldList = session?.user?.transactions;
+        List<TopUpTransaction> newTransactions = List.from(oldList!);
+        
+        newTransactions.add(transaction);
+
+        final newSession = session?.copyWith(
+          user: session.user?.copyWith(
+            transactions: newTransactions,
+          ),
+        );
+        ref.read(sessionProvider.notifier).updateWith(session: newSession!);
       });
     });
   }

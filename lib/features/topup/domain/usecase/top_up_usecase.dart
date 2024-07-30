@@ -40,7 +40,9 @@ class TopUpBeneficiaryUseCase
   }
 
   double _totalTopUpForBeneficiaryThisMonth(
-      String beneficiaryId, List<TopUpTransaction>? transactions) {
+    String beneficiaryId,
+    List<TopUpTransaction>? transactions,
+  ) {
     double monthAmount = 0;
     transactions?.where((t) => t.beneficiary.id == beneficiaryId).forEach((t) {
       monthAmount += t.amount;
@@ -71,11 +73,20 @@ class TopUpBeneficiaryUseCase
       request.beneficiaryId,
       session?.user?.transactions,
     );
-    loggerNoStack.d('monthlyTotalTopUpAmount = $monthlyTotalTopUpAmount ');
+
+    double totalSpentThisMonth = 0;
+    session?.user?.transactions.forEach((t) {
+      totalSpentThisMonth += t.amount;
+    });
+
+    loggerNoStack
+        .d('Total spent for current beneficiary  = $monthlyTotalTopUpAmount ');
+    loggerNoStack.d('Total spent for all beneficiaries = $totalSpentThisMonth');
+
     loggerNoStack.d('monthlyMaxTopUpThreshold = $monthlyMaxTopUpThreshold ');
 
     // check if maximum reached of AED 3,000 per month for all beneficiaries.
-    if (monthlyTotalTopUpAmount >= monthlyMaxTopUpThreshold) {
+    if (totalSpentThisMonth >= monthlyMaxTopUpThreshold) {
       return const Left(TopUpUiStates.reachedMonthlyTopUpThreshold);
     }
 
@@ -88,7 +99,8 @@ class TopUpBeneficiaryUseCase
         return const Left(
             TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser);
       }
-      if (monthlyTotalTopUpAmount + totalToPay > nonVerifiedTopUpThreshold) {
+      if (monthlyTotalTopUpAmount + request.amount >
+          nonVerifiedTopUpThreshold) {
         return const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser);
       }
     } else {
@@ -96,7 +108,7 @@ class TopUpBeneficiaryUseCase
         return const Left(
             TopUpUiStates.alreadyReachedMonthlyThresholdVerifiedUser);
       }
-      if (monthlyTotalTopUpAmount + totalToPay > verifiedTopUpThreshold) {
+      if (monthlyTotalTopUpAmount + request.amount > verifiedTopUpThreshold) {
         return const Left(TopUpUiStates.reachedMonthlyThresholdVerifiedUser);
       }
     }

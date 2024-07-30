@@ -58,7 +58,7 @@ class BottomSheetChildViewContainer extends ConsumerWidget {
                 Container(
                   width: 67,
                   height: 3,
-                  color: Colors.black,
+                  color: Theme.of(context).primaryColor,
                 )
               ],
             ),

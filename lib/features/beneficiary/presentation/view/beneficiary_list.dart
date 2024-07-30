@@ -28,7 +28,7 @@ class BeneficiaryListWidget extends StatelessWidget {
       final calculatedWidth =
           ((constraint.maxWidth * 0.8) / 2) - spacingBetweenItems;
       int listSize = _beneficiaries.length;
-      if (_beneficiaries.length < 5) {
+      if (_beneficiaries.length < 5 && _beneficiaries.isNotEmpty) {
         listSize++;
       }
 
