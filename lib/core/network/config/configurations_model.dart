@@ -16,7 +16,6 @@ class Configurations with _$Configurations {
   required String baseUrl,
 
   /// Users
-  String? userId,
   bool? isLoggedIn,
 
   /// Device

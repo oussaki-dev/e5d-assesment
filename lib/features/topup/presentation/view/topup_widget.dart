@@ -56,16 +56,16 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
 
       default:
     }
-    
+
     if (message.isNotEmpty) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
           message,
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.merge(const TextStyle(color: Colors.white, fontSize: 12)),
+          style: Theme.of(context).textTheme.labelLarge?.merge(const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              )),
         ),
       );
     } else {

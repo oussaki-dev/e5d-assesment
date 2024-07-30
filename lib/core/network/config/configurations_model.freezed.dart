@@ -23,7 +23,6 @@ mixin _$Configurations {
   String get baseUrl => throw _privateConstructorUsedError;
 
   /// Users
-  String? get userId => throw _privateConstructorUsedError;
   bool? get isLoggedIn => throw _privateConstructorUsedError;
 
   /// Device
@@ -61,7 +60,6 @@ abstract class $ConfigurationsCopyWith<$Res> {
   @useResult
   $Res call(
       {String baseUrl,
-      String? userId,
       bool? isLoggedIn,
       String? deviceId,
       String? osVersion,
@@ -92,7 +90,6 @@ class _$ConfigurationsCopyWithImpl<$Res, $Val extends Configurations>
   @override
   $Res call({
     Object? baseUrl = null,
-    Object? userId = freezed,
     Object? isLoggedIn = freezed,
     Object? deviceId = freezed,
     Object? osVersion = freezed,
@@ -113,10 +110,6 @@ class _$ConfigurationsCopyWithImpl<$Res, $Val extends Configurations>
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
       isLoggedIn: freezed == isLoggedIn
           ? _value.isLoggedIn
           : isLoggedIn // ignore: cast_nullable_to_non_nullable
@@ -187,7 +180,6 @@ abstract class _$$ConfigurationsImplCopyWith<$Res>
   @useResult
   $Res call(
       {String baseUrl,
-      String? userId,
       bool? isLoggedIn,
       String? deviceId,
       String? osVersion,
@@ -216,7 +208,6 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? baseUrl = null,
-    Object? userId = freezed,
     Object? isLoggedIn = freezed,
     Object? deviceId = freezed,
     Object? osVersion = freezed,
@@ -237,10 +228,6 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: freezed == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String?,
       isLoggedIn: freezed == isLoggedIn
           ? _value.isLoggedIn
           : isLoggedIn // ignore: cast_nullable_to_non_nullable
@@ -306,7 +293,6 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
 class _$ConfigurationsImpl implements _Configurations {
   const _$ConfigurationsImpl(
       {required this.baseUrl,
-      this.userId,
       this.isLoggedIn,
       this.deviceId,
       this.osVersion,
@@ -329,8 +315,6 @@ class _$ConfigurationsImpl implements _Configurations {
   final String baseUrl;
 
   /// Users
-  @override
-  final String? userId;
   @override
   final bool? isLoggedIn;
 
@@ -370,7 +354,7 @@ class _$ConfigurationsImpl implements _Configurations {
 
   @override
   String toString() {
-    return 'Configurations(baseUrl: $baseUrl, userId: $userId, isLoggedIn: $isLoggedIn, deviceId: $deviceId, osVersion: $osVersion, environment: $environment, isRTL: $isRTL, countryCode: $countryCode, languageCode: $languageCode, currency: $currency, appVersion: $appVersion, timestamp: $timestamp, deviceType: $deviceType, refreshToken: $refreshToken, token: $token, transactionFee: $transactionFee)';
+    return 'Configurations(baseUrl: $baseUrl, isLoggedIn: $isLoggedIn, deviceId: $deviceId, osVersion: $osVersion, environment: $environment, isRTL: $isRTL, countryCode: $countryCode, languageCode: $languageCode, currency: $currency, appVersion: $appVersion, timestamp: $timestamp, deviceType: $deviceType, refreshToken: $refreshToken, token: $token, transactionFee: $transactionFee)';
   }
 
   @override
@@ -379,7 +363,6 @@ class _$ConfigurationsImpl implements _Configurations {
         (other.runtimeType == runtimeType &&
             other is _$ConfigurationsImpl &&
             (identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.isLoggedIn, isLoggedIn) ||
                 other.isLoggedIn == isLoggedIn) &&
             (identical(other.deviceId, deviceId) ||
@@ -413,7 +396,6 @@ class _$ConfigurationsImpl implements _Configurations {
   int get hashCode => Object.hash(
       runtimeType,
       baseUrl,
-      userId,
       isLoggedIn,
       deviceId,
       osVersion,
@@ -447,7 +429,6 @@ class _$ConfigurationsImpl implements _Configurations {
 abstract class _Configurations implements Configurations {
   const factory _Configurations(
       {required final String baseUrl,
-      final String? userId,
       final bool? isLoggedIn,
       final String? deviceId,
       final String? osVersion,
@@ -471,8 +452,6 @@ abstract class _Configurations implements Configurations {
   @override
 
   /// Users
-  String? get userId;
-  @override
   bool? get isLoggedIn;
   @override
 

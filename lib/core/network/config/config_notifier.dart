@@ -24,7 +24,6 @@ class ConfigNotifier extends Notifier<Configurations?> {
     } else {
       state = state!.copyWith(
         baseUrl: config.baseUrl,
-        userId: config.userId,
         isLoggedIn: config.isLoggedIn,
         deviceId: config.deviceId,
         osVersion: config.osVersion,
@@ -54,7 +53,6 @@ Configurations getMockAppConfigurations({bool getPROD = false}) {
 
     return Configurations(
       baseUrl: 'https://api-prod.domain.com',
-      userId: "test@gmail.com",
       isLoggedIn: true,
       deviceId: "EBDCD69D-7719-4AC0-A8F0-13D512C49AC2",
       osVersion: Platform.operatingSystemVersion,
@@ -75,7 +73,6 @@ Configurations getMockAppConfigurations({bool getPROD = false}) {
 
   return Configurations(
     baseUrl: 'https://api-test.domain.com',
-    userId: "joewho_uat2@yopmail.com",
     isLoggedIn: true,
     deviceId: "EBDCD69D-7719-4AC0-A8F0-13D512C49AC2",
     osVersion: Platform.operatingSystemVersion,

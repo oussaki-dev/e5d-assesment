@@ -1,3 +1,5 @@
+import 'package:e5d_assesment/core/network/config/config_notifier.dart';
+import 'package:e5d_assesment/core/network/config/configurations_model.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/topup/domain/model/top_up_request.dart';
 import 'package:e5d_assesment/features/topup/domain/usecase/top_up_usecase.dart';
@@ -26,14 +28,18 @@ class TopUpViewModel extends _$TopUpViewModel {
     loggerNoStack.d("new state ${state.selectedAmount} ");
   }
 
-  void topUp() async {
-    // call the usecase to topup
-    if (state.beneficiary == null) {
-      // send error here
+  void updateBeneficiary(Beneficiary beneficiary) {
+    if (beneficiary.id.isNotEmpty) {
+      state = state.updateBeneficiary(beneficiary);
     }
+  }
 
-    if (state.selectedAmount == 0) {
-      // send error here
+  void topUp() async {
+    Configurations? config = ref.read(configProvider);
+    if (config?.isLoggedIn == false) {
+      state = state.updateUiState(
+        TopUpUiStates.userNotLoggedIn,
+      );
     }
 
     final result = await topUpUseCase?.call(TopUpRequest(
@@ -49,11 +55,5 @@ class TopUpViewModel extends _$TopUpViewModel {
         TopUpUiStates.successfulTransaction,
       );
     });
-  }
-
-  void updateBeneficiary(Beneficiary beneficiary) {
-    if (beneficiary.id.isNotEmpty) {
-      state = state.updateBeneficiary(beneficiary);
-    }
   }
 }

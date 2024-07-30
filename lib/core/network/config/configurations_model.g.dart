@@ -9,7 +9,6 @@ part of 'configurations_model.dart';
 _$ConfigurationsImpl _$$ConfigurationsImplFromJson(Map<String, dynamic> json) =>
     _$ConfigurationsImpl(
       baseUrl: json['baseUrl'] as String,
-      userId: json['userId'] as String?,
       isLoggedIn: json['isLoggedIn'] as bool?,
       deviceId: json['deviceId'] as String?,
       osVersion: json['osVersion'] as String?,
@@ -30,7 +29,6 @@ Map<String, dynamic> _$$ConfigurationsImplToJson(
         _$ConfigurationsImpl instance) =>
     <String, dynamic>{
       'baseUrl': instance.baseUrl,
-      'userId': instance.userId,
       'isLoggedIn': instance.isLoggedIn,
       'deviceId': instance.deviceId,
       'osVersion': instance.osVersion,

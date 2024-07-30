@@ -1,4 +1,6 @@
 import 'package:e5d_assesment/core/domain/base_usecase.dart';
+import 'package:e5d_assesment/core/network/config/config_notifier.dart';
+import 'package:e5d_assesment/core/network/config/configurations_model.dart';
 import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_repo_impl.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_with_mobile_repo_impl.dart';
@@ -7,6 +9,7 @@ import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
 import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
 import 'package:e5d_assesment/features/login/domain/usecase/login_default_usecase.dart';
 import 'package:e5d_assesment/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_viewmodel.g.dart';
@@ -71,7 +74,17 @@ class LoginViewModel extends _$LoginViewModel {
     }, (model) {
       final userModel = model as UserModel;
       loggerNoStack.i("Logged in successfully $userModel");
-      
+      // update the local secured database with the token , refresh token
+
+      Configurations? config = ref.read(configProvider);
+      if (config != null) {
+        ref.read(configProvider.notifier).updateWith(
+              config: config.copyWith(
+                isLoggedIn: true,
+              ),
+            );
+      }
+
       state = state.copyWithUiState(ScreenUiState.success);
     });
   }

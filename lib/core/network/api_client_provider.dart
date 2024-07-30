@@ -12,7 +12,6 @@ Map<String, dynamic> _getCommonHeaders(Configurations config) {
     "appId": config.deviceType,
     "lang": config.languageCode,
     "timeStamp": config.timestamp,
-    "userId": config.userId,
     "appVersion": config.appVersion,
     "env": config.environment,
     "token": config.token,
