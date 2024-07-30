@@ -28,5 +28,19 @@
   "hint_username": "Username",
   "hint_password": "Password",
   "button_login": "Login",
-  "top_up_not_enough_balance": "You don't have enough balance."
+  "top_up_not_enough_balance": "You don't have enough balance.",
+  "top_up_threshold_one_beneficiary": "You've exceeded the total threshold to for this beneficiary.",
+  "top_up_already_reached_threshold": "You've already reached the total threshold to for this beneficiary",
+  "top_up_reached_total_threshold": "You've exceeded the monthly total transactions amount of {amount}",
+  "@top_up_reached_total_threshold": {
+    "description": "The monthly threshold amount ",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "AED 3000"
+      }
+    }
+  },
+  "error_network_issue": "Please verify your network connection.",
+  "error_generic": "Sorry we couldn't serve you now, please try again."
 }

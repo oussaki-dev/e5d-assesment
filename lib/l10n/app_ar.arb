@@ -28,5 +28,19 @@
   "hint_username": "إسم المستخدم",
   "hint_password": "كلمة المرور",
   "button_login": "تسجيل الدخول",
-  "top_up_not_enough_balance": "ليس لديك الرصيد الكافي لإجراد هذه المعاملة"
+  "top_up_not_enough_balance": "ليس لديك الرصيد الكافي لإجراد هذه المعاملة",
+  "top_up_threshold_one_beneficiary": " قد تجاوزت الحد الإجمالي لهذا المستفيد  ", 
+  "top_up_already_reached_threshold": "لقد وصلت بالفعل إلى الحد الإجمالي لهذا المستفيد",
+  "top_up_reached_total_threshold": "{amount} لقد تجاوزت إجمالي مبلغ المعاملات الشهرية وهو ",
+  "@top_up_reached_total_threshold": {
+    "description": "The monthly threshold amount ",
+    "placeholders": {
+      "amount": {
+        "type": "String",
+        "example": "AED 3000"
+      }
+    }
+  },
+  "error_network_issue": "الرجاء التحقق من إتصال الانترنت الخاص بالجهاز",
+  "error_generic": "نأسف على عدم تلبية طلبكم الرجاء المحاولة لاحقا."
 }

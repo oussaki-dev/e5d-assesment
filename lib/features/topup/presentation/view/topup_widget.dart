@@ -1,3 +1,5 @@
+import 'package:e5d_assesment/core/network/config/config_notifier.dart';
+import 'package:e5d_assesment/core/network/config/configurations_model.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_state.dart';
@@ -17,13 +19,16 @@ class TopUpWidget extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() {
     return _TopUpWidgetState(beneficiary: beneficiary);
   }
+
 }
 
 class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   TopUpViewModel? viewModel;
   TopUpState? topUpState;
   final Beneficiary beneficiary;
-
+  Configurations? config;
+ 
+  
   _TopUpWidgetState({required this.beneficiary});
 
   void _onTopPressed() {
@@ -48,13 +53,34 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
       case TopUpUiStates.noEnoughBalance:
         message = AppLocalizations.of(context)!.top_up_not_enough_balance;
         break;
+
+      case TopUpUiStates.reachedMonthlyTopUpThreshold:
+        message = AppLocalizations.of(context)!.top_up_reached_total_threshold(
+            config?.monthlyMaxTopUpThreshold?.toString() ?? '');
+        break;
+
+      case TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser ||
+            TopUpUiStates.reachedMonthlyThresholdVerifiedUser:
+        message =
+            AppLocalizations.of(context)!.top_up_threshold_one_beneficiary;
+        break;
+
+      case TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser ||
+            TopUpUiStates.alreadyReachedMonthlyThresholdVerifiedUser:
+        message =
+            AppLocalizations.of(context)!.top_up_already_reached_threshold;
+        break;
+
       case TopUpUiStates.failedTransaction:
+        message = AppLocalizations.of(context)!.error_generic;
         break;
 
       case TopUpUiStates.networkIssue:
+        message = AppLocalizations.of(context)!.error_network_issue;
         break;
 
       default:
+        message = AppLocalizations.of(context)!.error_generic;
     }
 
     if (message.isNotEmpty) {
@@ -77,6 +103,7 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   Widget build(BuildContext context) {
     topUpState = ref.watch(topUpViewModelProvider);
     viewModel = ref.read(topUpViewModelProvider.notifier);
+    config = ref.read(configProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       viewModel?.updateBeneficiary(beneficiary);

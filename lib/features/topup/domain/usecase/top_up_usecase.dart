@@ -94,10 +94,10 @@ class TopUpBeneficiaryUseCase
     } else {
       if (monthlyTotalTopUpAmount >= verifiedTopUpThreshold) {
         return const Left(
-            TopUpUiStates.alreadyReachedMonthlyThresholdNonVerifiedUser);
+            TopUpUiStates.alreadyReachedMonthlyThresholdVerifiedUser);
       }
       if (monthlyTotalTopUpAmount + totalToPay > verifiedTopUpThreshold) {
-        return const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser);
+        return const Left(TopUpUiStates.reachedMonthlyThresholdVerifiedUser);
       }
     }
     return Right(totalToPay);
