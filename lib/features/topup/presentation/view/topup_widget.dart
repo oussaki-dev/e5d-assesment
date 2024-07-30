@@ -6,12 +6,19 @@ import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class TopUpWidget extends ConsumerWidget {
+class TopUpWidget extends ConsumerStatefulWidget {
   const TopUpWidget({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
-    final state = ref.read(topUpViewModelProvider);
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _TopUpWidgetState();
+  }
+}
+
+class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(topUpViewModelProvider);
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,7 +77,7 @@ class TopUpWidget extends ConsumerWidget {
                 ),
               ),
               child: Text(
-                'Top up AED 30'.toUpperCase(),
+                'Top up AED ${state.selectedAmount}'.toUpperCase(),
                 style: Theme.of(context).textTheme.labelLarge?.merge(
                       const TextStyle(
                         color: Colors.white,

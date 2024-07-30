@@ -7,7 +7,6 @@ import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
 import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
 import 'package:e5d_assesment/features/login/domain/usecase/login_default_usecase.dart';
 import 'package:e5d_assesment/main.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_viewmodel.g.dart';

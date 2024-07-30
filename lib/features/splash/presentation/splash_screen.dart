@@ -22,7 +22,7 @@ class SplashScreen extends StatelessWidget {
               // let's assume we're getting the configuration from an API...
                 config: const Configurations(
               baseUrl:
-                  'https://44b3-2001-8f8-1923-956-15c2-77b0-9b22-643e.ngrok-free.app',
+                  'https://9d3d-2001-8f8-1923-956-7175-42c6-196e-c692.ngrok-free.app',
               transactionFee: 1.0,
             ));
 
