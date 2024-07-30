@@ -13,31 +13,24 @@ import 'package:dartz/dartz.dart';
 final topUpBeneficiaryUseCaseProvider =
     Provider<TopUpBeneficiaryUseCase>((ref) {
   final repo = ref.watch(topupRepositoryProvider);
-  return TopUpBeneficiaryUseCase(repo, ref);
+  final config = ref.watch(configProvider);
+  return TopUpBeneficiaryUseCase(repo, ref, config);
 });
 
 class TopUpBeneficiaryUseCase
     extends UseCase<TopUpTransaction, AbstractTopUpRequest, TopUpUiStates> {
   final AbstractTopUpRepository repository;
+  final Configurations? config;
   final Ref ref;
   final int transactionFee = 1; // AED 1
 
   // injecting the repo for better testing
-  TopUpBeneficiaryUseCase(this.repository, this.ref);
+  TopUpBeneficiaryUseCase(this.repository, this.ref, this.config);
 
   @override
   Future<Either<TopUpUiStates, TopUpTransaction>> call(
       AbstractTopUpRequest request) async {
     //get the configuration
-    final Configurations? config = ref.watch(configProvider);
-
-    //get the current loggedInUser
-    final loginState = ref.read(loginViewModelProvider);
-
-    // make sure user is logged in
-    if (loginState.loggedInUser == null) {
-      return const Left(TopUpUiStates.userNotLoggedIn);
-    }
 
     // total to be debited amount + fee
     final total = request.amount + (config?.transactionFee ?? 0);
@@ -46,9 +39,9 @@ class TopUpBeneficiaryUseCase
     // or
     // - if total is more than the balance available
     // in this case the user have no enough balance.
-    if (total <= 0.0 || total > (loginState.loggedInUser?.balance ?? 0.0)) {
-      return const Left(TopUpUiStates.noEnoughBalance);
-    }
+    // if (total <= 0.0 || total > (loginState.loggedInUser?.balance ?? 0.0)) {
+    //   return const Left(TopUpUiStates.noEnoughBalance);
+    // }
 
     // call the repository
     final result = await repository.topUp(request);

@@ -8,8 +8,8 @@ part 'beneficiary_model.g.dart';
 class Beneficiary with _$Beneficiary {
   const factory Beneficiary({
     @JsonKey(name: 'id') required String id,
-    @JsonKey(name: 'nickname') required String nickname,
-    @JsonKey(name: 'mobileNumber') required String mobileNumber,
+    @JsonKey(name: 'nickname') required String? nickname,
+    @JsonKey(name: 'mobileNumber') required String? mobileNumber,
   }) = _Beneficiary;
 
   factory Beneficiary.fromJson(Map<String, Object?> json) =>

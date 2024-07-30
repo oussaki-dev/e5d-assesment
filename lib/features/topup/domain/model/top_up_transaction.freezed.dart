@@ -23,13 +23,13 @@ mixin _$TopUpTransaction {
   @JsonKey(name: 'transaction_id')
   String get transactionId => throw _privateConstructorUsedError;
   @JsonKey(name: 'timestamp')
-  String get timestamp => throw _privateConstructorUsedError;
+  String? get timestamp => throw _privateConstructorUsedError;
   @JsonKey(name: 'beneficiary')
   Beneficiary get beneficiary => throw _privateConstructorUsedError;
   @JsonKey(name: 'amount')
   double get amount => throw _privateConstructorUsedError;
   @JsonKey(name: 'currency')
-  double get currency => throw _privateConstructorUsedError;
+  String? get currency => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,10 +45,10 @@ abstract class $TopUpTransactionCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'transaction_id') String transactionId,
-      @JsonKey(name: 'timestamp') String timestamp,
+      @JsonKey(name: 'timestamp') String? timestamp,
       @JsonKey(name: 'beneficiary') Beneficiary beneficiary,
       @JsonKey(name: 'amount') double amount,
-      @JsonKey(name: 'currency') double currency});
+      @JsonKey(name: 'currency') String? currency});
 
   $BeneficiaryCopyWith<$Res> get beneficiary;
 }
@@ -67,20 +67,20 @@ class _$TopUpTransactionCopyWithImpl<$Res, $Val extends TopUpTransaction>
   @override
   $Res call({
     Object? transactionId = null,
-    Object? timestamp = null,
+    Object? timestamp = freezed,
     Object? beneficiary = null,
     Object? amount = null,
-    Object? currency = null,
+    Object? currency = freezed,
   }) {
     return _then(_value.copyWith(
       transactionId: null == transactionId
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
               as String,
-      timestamp: null == timestamp
+      timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       beneficiary: null == beneficiary
           ? _value.beneficiary
           : beneficiary // ignore: cast_nullable_to_non_nullable
@@ -89,10 +89,10 @@ class _$TopUpTransactionCopyWithImpl<$Res, $Val extends TopUpTransaction>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      currency: null == currency
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String?,
     ) as $Val);
   }
 
@@ -115,10 +115,10 @@ abstract class _$$TopUpTransactionImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'transaction_id') String transactionId,
-      @JsonKey(name: 'timestamp') String timestamp,
+      @JsonKey(name: 'timestamp') String? timestamp,
       @JsonKey(name: 'beneficiary') Beneficiary beneficiary,
       @JsonKey(name: 'amount') double amount,
-      @JsonKey(name: 'currency') double currency});
+      @JsonKey(name: 'currency') String? currency});
 
   @override
   $BeneficiaryCopyWith<$Res> get beneficiary;
@@ -136,20 +136,20 @@ class __$$TopUpTransactionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? transactionId = null,
-    Object? timestamp = null,
+    Object? timestamp = freezed,
     Object? beneficiary = null,
     Object? amount = null,
-    Object? currency = null,
+    Object? currency = freezed,
   }) {
     return _then(_$TopUpTransactionImpl(
       transactionId: null == transactionId
           ? _value.transactionId
           : transactionId // ignore: cast_nullable_to_non_nullable
               as String,
-      timestamp: null == timestamp
+      timestamp: freezed == timestamp
           ? _value.timestamp
           : timestamp // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       beneficiary: null == beneficiary
           ? _value.beneficiary
           : beneficiary // ignore: cast_nullable_to_non_nullable
@@ -158,10 +158,10 @@ class __$$TopUpTransactionImplCopyWithImpl<$Res>
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
               as double,
-      currency: null == currency
+      currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String?,
     ));
   }
 }
@@ -186,7 +186,7 @@ class _$TopUpTransactionImpl
   final String transactionId;
   @override
   @JsonKey(name: 'timestamp')
-  final String timestamp;
+  final String? timestamp;
   @override
   @JsonKey(name: 'beneficiary')
   final Beneficiary beneficiary;
@@ -195,7 +195,7 @@ class _$TopUpTransactionImpl
   final double amount;
   @override
   @JsonKey(name: 'currency')
-  final double currency;
+  final String? currency;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -253,10 +253,10 @@ class _$TopUpTransactionImpl
 abstract class _TopUpTransaction implements TopUpTransaction {
   const factory _TopUpTransaction(
           {@JsonKey(name: 'transaction_id') required final String transactionId,
-          @JsonKey(name: 'timestamp') required final String timestamp,
+          @JsonKey(name: 'timestamp') required final String? timestamp,
           @JsonKey(name: 'beneficiary') required final Beneficiary beneficiary,
           @JsonKey(name: 'amount') required final double amount,
-          @JsonKey(name: 'currency') required final double currency}) =
+          @JsonKey(name: 'currency') required final String? currency}) =
       _$TopUpTransactionImpl;
 
   factory _TopUpTransaction.fromJson(Map<String, dynamic> json) =
@@ -267,7 +267,7 @@ abstract class _TopUpTransaction implements TopUpTransaction {
   String get transactionId;
   @override
   @JsonKey(name: 'timestamp')
-  String get timestamp;
+  String? get timestamp;
   @override
   @JsonKey(name: 'beneficiary')
   Beneficiary get beneficiary;
@@ -276,7 +276,7 @@ abstract class _TopUpTransaction implements TopUpTransaction {
   double get amount;
   @override
   @JsonKey(name: 'currency')
-  double get currency;
+  String? get currency;
   @override
   @JsonKey(ignore: true)
   _$$TopUpTransactionImplCopyWith<_$TopUpTransactionImpl> get copyWith =>

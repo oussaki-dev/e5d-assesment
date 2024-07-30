@@ -10,11 +10,11 @@ _$TopUpTransactionImpl _$$TopUpTransactionImplFromJson(
         Map<String, dynamic> json) =>
     _$TopUpTransactionImpl(
       transactionId: json['transaction_id'] as String,
-      timestamp: json['timestamp'] as String,
+      timestamp: json['timestamp'] as String?,
       beneficiary:
           Beneficiary.fromJson(json['beneficiary'] as Map<String, dynamic>),
       amount: (json['amount'] as num).toDouble(),
-      currency: (json['currency'] as num).toDouble(),
+      currency: json['currency'] as String?,
     );
 
 Map<String, dynamic> _$$TopUpTransactionImplToJson(

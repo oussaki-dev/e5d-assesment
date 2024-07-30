@@ -9,10 +9,10 @@ part 'top_up_transaction.g.dart';
 class TopUpTransaction with _$TopUpTransaction {
   const factory TopUpTransaction(
       {@JsonKey(name: 'transaction_id') required String transactionId,
-      @JsonKey(name: 'timestamp') required String timestamp,
+      @JsonKey(name: 'timestamp') required String? timestamp,
       @JsonKey(name: 'beneficiary') required Beneficiary beneficiary,
       @JsonKey(name: 'amount') required double amount,
-      @JsonKey(name: 'currency') required double currency}) = _TopUpTransaction;
+      @JsonKey(name: 'currency') required String? currency}) = _TopUpTransaction;
 
   factory TopUpTransaction.fromJson(Map<String, Object?> json) =>
       _$TopUpTransactionFromJson(json);

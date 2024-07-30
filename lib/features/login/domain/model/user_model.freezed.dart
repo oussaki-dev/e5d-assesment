@@ -26,10 +26,19 @@ mixin _$UserModel {
   String? get lastName => throw _privateConstructorUsedError;
   @JsonKey(name: 'token')
   String get token => throw _privateConstructorUsedError;
-  @JsonKey(name: 'refreshToken')
+  @JsonKey(name: 'refresh_token')
   String get refreshToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_active')
+  bool get isActive => throw _privateConstructorUsedError;
   @JsonKey(name: 'balance')
   double get balance => throw _privateConstructorUsedError;
+
+  ///
+  ///we need this transactions model to calculate
+  ///the total
+  ///
+  @JsonKey(name: 'transactions')
+  List<TopUpTransaction> get transactions => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,8 +55,10 @@ abstract class $UserModelCopyWith<$Res> {
       {@JsonKey(name: 'firstName') String? firstName,
       @JsonKey(name: 'lastName') String? lastName,
       @JsonKey(name: 'token') String token,
-      @JsonKey(name: 'refreshToken') String refreshToken,
-      @JsonKey(name: 'balance') double balance});
+      @JsonKey(name: 'refresh_token') String refreshToken,
+      @JsonKey(name: 'is_active') bool isActive,
+      @JsonKey(name: 'balance') double balance,
+      @JsonKey(name: 'transactions') List<TopUpTransaction> transactions});
 }
 
 /// @nodoc
@@ -67,7 +78,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? lastName = freezed,
     Object? token = null,
     Object? refreshToken = null,
+    Object? isActive = null,
     Object? balance = null,
+    Object? transactions = null,
   }) {
     return _then(_value.copyWith(
       firstName: freezed == firstName
@@ -86,10 +99,18 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
       balance: null == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
+      transactions: null == transactions
+          ? _value.transactions
+          : transactions // ignore: cast_nullable_to_non_nullable
+              as List<TopUpTransaction>,
     ) as $Val);
   }
 }
@@ -106,8 +127,10 @@ abstract class _$$UserModelImplCopyWith<$Res>
       {@JsonKey(name: 'firstName') String? firstName,
       @JsonKey(name: 'lastName') String? lastName,
       @JsonKey(name: 'token') String token,
-      @JsonKey(name: 'refreshToken') String refreshToken,
-      @JsonKey(name: 'balance') double balance});
+      @JsonKey(name: 'refresh_token') String refreshToken,
+      @JsonKey(name: 'is_active') bool isActive,
+      @JsonKey(name: 'balance') double balance,
+      @JsonKey(name: 'transactions') List<TopUpTransaction> transactions});
 }
 
 /// @nodoc
@@ -125,7 +148,9 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? lastName = freezed,
     Object? token = null,
     Object? refreshToken = null,
+    Object? isActive = null,
     Object? balance = null,
+    Object? transactions = null,
   }) {
     return _then(_$UserModelImpl(
       firstName: freezed == firstName
@@ -144,10 +169,18 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
       balance: null == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
               as double,
+      transactions: null == transactions
+          ? _value._transactions
+          : transactions // ignore: cast_nullable_to_non_nullable
+              as List<TopUpTransaction>,
     ));
   }
 }
@@ -159,8 +192,12 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       {@JsonKey(name: 'firstName') required this.firstName,
       @JsonKey(name: 'lastName') required this.lastName,
       @JsonKey(name: 'token') required this.token,
-      @JsonKey(name: 'refreshToken') required this.refreshToken,
-      @JsonKey(name: 'balance') required this.balance});
+      @JsonKey(name: 'refresh_token') required this.refreshToken,
+      @JsonKey(name: 'is_active') required this.isActive,
+      @JsonKey(name: 'balance') required this.balance,
+      @JsonKey(name: 'transactions')
+      required final List<TopUpTransaction> transactions})
+      : _transactions = transactions;
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -175,15 +212,36 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
   @JsonKey(name: 'token')
   final String token;
   @override
-  @JsonKey(name: 'refreshToken')
+  @JsonKey(name: 'refresh_token')
   final String refreshToken;
+  @override
+  @JsonKey(name: 'is_active')
+  final bool isActive;
   @override
   @JsonKey(name: 'balance')
   final double balance;
 
+  ///
+  ///we need this transactions model to calculate
+  ///the total
+  ///
+  final List<TopUpTransaction> _transactions;
+
+  ///
+  ///we need this transactions model to calculate
+  ///the total
+  ///
+  @override
+  @JsonKey(name: 'transactions')
+  List<TopUpTransaction> get transactions {
+    if (_transactions is EqualUnmodifiableListView) return _transactions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_transactions);
+  }
+
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserModel(firstName: $firstName, lastName: $lastName, token: $token, refreshToken: $refreshToken, balance: $balance)';
+    return 'UserModel(firstName: $firstName, lastName: $lastName, token: $token, refreshToken: $refreshToken, isActive: $isActive, balance: $balance, transactions: $transactions)';
   }
 
   @override
@@ -195,7 +253,9 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       ..add(DiagnosticsProperty('lastName', lastName))
       ..add(DiagnosticsProperty('token', token))
       ..add(DiagnosticsProperty('refreshToken', refreshToken))
-      ..add(DiagnosticsProperty('balance', balance));
+      ..add(DiagnosticsProperty('isActive', isActive))
+      ..add(DiagnosticsProperty('balance', balance))
+      ..add(DiagnosticsProperty('transactions', transactions));
   }
 
   @override
@@ -210,13 +270,24 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
             (identical(other.token, token) || other.token == token) &&
             (identical(other.refreshToken, refreshToken) ||
                 other.refreshToken == refreshToken) &&
-            (identical(other.balance, balance) || other.balance == balance));
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive) &&
+            (identical(other.balance, balance) || other.balance == balance) &&
+            const DeepCollectionEquality()
+                .equals(other._transactions, _transactions));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, firstName, lastName, token, refreshToken, balance);
+      runtimeType,
+      firstName,
+      lastName,
+      token,
+      refreshToken,
+      isActive,
+      balance,
+      const DeepCollectionEquality().hash(_transactions));
 
   @JsonKey(ignore: true)
   @override
@@ -234,12 +305,14 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
 
 abstract class _UserModel implements UserModel {
   const factory _UserModel(
-          {@JsonKey(name: 'firstName') required final String? firstName,
-          @JsonKey(name: 'lastName') required final String? lastName,
-          @JsonKey(name: 'token') required final String token,
-          @JsonKey(name: 'refreshToken') required final String refreshToken,
-          @JsonKey(name: 'balance') required final double balance}) =
-      _$UserModelImpl;
+      {@JsonKey(name: 'firstName') required final String? firstName,
+      @JsonKey(name: 'lastName') required final String? lastName,
+      @JsonKey(name: 'token') required final String token,
+      @JsonKey(name: 'refresh_token') required final String refreshToken,
+      @JsonKey(name: 'is_active') required final bool isActive,
+      @JsonKey(name: 'balance') required final double balance,
+      @JsonKey(name: 'transactions')
+      required final List<TopUpTransaction> transactions}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
@@ -254,11 +327,22 @@ abstract class _UserModel implements UserModel {
   @JsonKey(name: 'token')
   String get token;
   @override
-  @JsonKey(name: 'refreshToken')
+  @JsonKey(name: 'refresh_token')
   String get refreshToken;
+  @override
+  @JsonKey(name: 'is_active')
+  bool get isActive;
   @override
   @JsonKey(name: 'balance')
   double get balance;
+  @override
+
+  ///
+  ///we need this transactions model to calculate
+  ///the total
+  ///
+  @JsonKey(name: 'transactions')
+  List<TopUpTransaction> get transactions;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

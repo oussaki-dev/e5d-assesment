@@ -23,9 +23,9 @@ mixin _$Beneficiary {
   @JsonKey(name: 'id')
   String get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'nickname')
-  String get nickname => throw _privateConstructorUsedError;
+  String? get nickname => throw _privateConstructorUsedError;
   @JsonKey(name: 'mobileNumber')
-  String get mobileNumber => throw _privateConstructorUsedError;
+  String? get mobileNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,8 +41,8 @@ abstract class $BeneficiaryCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'id') String id,
-      @JsonKey(name: 'nickname') String nickname,
-      @JsonKey(name: 'mobileNumber') String mobileNumber});
+      @JsonKey(name: 'nickname') String? nickname,
+      @JsonKey(name: 'mobileNumber') String? mobileNumber});
 }
 
 /// @nodoc
@@ -59,22 +59,22 @@ class _$BeneficiaryCopyWithImpl<$Res, $Val extends Beneficiary>
   @override
   $Res call({
     Object? id = null,
-    Object? nickname = null,
-    Object? mobileNumber = null,
+    Object? nickname = freezed,
+    Object? mobileNumber = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      nickname: null == nickname
+      nickname: freezed == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
-              as String,
-      mobileNumber: null == mobileNumber
+              as String?,
+      mobileNumber: freezed == mobileNumber
           ? _value.mobileNumber
           : mobileNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -89,8 +89,8 @@ abstract class _$$BeneficiaryImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'id') String id,
-      @JsonKey(name: 'nickname') String nickname,
-      @JsonKey(name: 'mobileNumber') String mobileNumber});
+      @JsonKey(name: 'nickname') String? nickname,
+      @JsonKey(name: 'mobileNumber') String? mobileNumber});
 }
 
 /// @nodoc
@@ -105,22 +105,22 @@ class __$$BeneficiaryImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? nickname = null,
-    Object? mobileNumber = null,
+    Object? nickname = freezed,
+    Object? mobileNumber = freezed,
   }) {
     return _then(_$BeneficiaryImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      nickname: null == nickname
+      nickname: freezed == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
-              as String,
-      mobileNumber: null == mobileNumber
+              as String?,
+      mobileNumber: freezed == mobileNumber
           ? _value.mobileNumber
           : mobileNumber // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -141,10 +141,10 @@ class _$BeneficiaryImpl with DiagnosticableTreeMixin implements _Beneficiary {
   final String id;
   @override
   @JsonKey(name: 'nickname')
-  final String nickname;
+  final String? nickname;
   @override
   @JsonKey(name: 'mobileNumber')
-  final String mobileNumber;
+  final String? mobileNumber;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -194,8 +194,8 @@ class _$BeneficiaryImpl with DiagnosticableTreeMixin implements _Beneficiary {
 abstract class _Beneficiary implements Beneficiary {
   const factory _Beneficiary(
           {@JsonKey(name: 'id') required final String id,
-          @JsonKey(name: 'nickname') required final String nickname,
-          @JsonKey(name: 'mobileNumber') required final String mobileNumber}) =
+          @JsonKey(name: 'nickname') required final String? nickname,
+          @JsonKey(name: 'mobileNumber') required final String? mobileNumber}) =
       _$BeneficiaryImpl;
 
   factory _Beneficiary.fromJson(Map<String, dynamic> json) =
@@ -206,10 +206,10 @@ abstract class _Beneficiary implements Beneficiary {
   String get id;
   @override
   @JsonKey(name: 'nickname')
-  String get nickname;
+  String? get nickname;
   @override
   @JsonKey(name: 'mobileNumber')
-  String get mobileNumber;
+  String? get mobileNumber;
   @override
   @JsonKey(ignore: true)
   _$$BeneficiaryImplCopyWith<_$BeneficiaryImpl> get copyWith =>

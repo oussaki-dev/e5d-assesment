@@ -16,15 +16,19 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(
       const Duration(seconds: 3),
       () {
+
+        // read from localstorage if user is loggedin 
+      
         ProviderScope.containerOf(context)
             .read(configProvider.notifier)
             .updateWith(
-              // let's assume we're getting the configuration from an API...
-                config: const Configurations(
-              baseUrl:
-                  'https://9d3d-2001-8f8-1923-956-7175-42c6-196e-c692.ngrok-free.app',
-              transactionFee: 1.0,
-            ));
+              config: const Configurations(
+                // let's assume we're getting the configuration from an API...
+                baseUrl: 'https://43f7-2001-8f8-1923-956-3538-ee99-1e2f-6cb6.ngrok-free.app',
+                transactionFee: 1.0,
+                isLoggedIn: false
+              ),
+            );
 
         LoginScreenRoute().go(context);
       },

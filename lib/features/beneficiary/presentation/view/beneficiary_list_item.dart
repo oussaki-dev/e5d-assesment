@@ -46,7 +46,7 @@ class BeneficiaryListItemWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              _beneficiary.nickname,
+              _beneficiary.nickname ?? "",
               maxLines: 1,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.merge(
@@ -60,7 +60,7 @@ class BeneficiaryListItemWidget extends StatelessWidget {
               height: 4,
             ),
             Text(
-              _beneficiary.mobileNumber,
+              _beneficiary.mobileNumber ?? "",
               maxLines: 1,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.merge(

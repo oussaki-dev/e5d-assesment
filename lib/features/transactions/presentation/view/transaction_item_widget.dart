@@ -30,7 +30,7 @@ class TransactionItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  transaction.beneficiary.nickname,
+                  transaction.beneficiary.nickname ?? "",
                   maxLines: 1,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium?.merge(
@@ -44,7 +44,7 @@ class TransactionItemWidget extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  transaction.beneficiary.mobileNumber,
+                  transaction.beneficiary.mobileNumber ?? "[MOBILE_MISSING]",
                   maxLines: 1,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium?.merge(

@@ -1,3 +1,4 @@
+import 'package:e5d_assesment/features/topup/domain/model/top_up_transaction.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,8 +11,14 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'firstName') required String? firstName,
     @JsonKey(name: 'lastName') required String? lastName,
     @JsonKey(name: 'token') required String token,
-    @JsonKey(name: 'refreshToken') required String refreshToken,
-    @JsonKey(name: 'balance') required double balance,
+    @JsonKey(name: 'refresh_token') required String refreshToken,
+    @JsonKey(name: 'is_active') required bool isActive,
+      @JsonKey(name: 'balance') required double balance,
+    ///
+    ///we need this transactions model to calculate
+    ///the total 
+    ///
+    @JsonKey(name: 'transactions') required List<TopUpTransaction> transactions, 
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, Object?> json) =>

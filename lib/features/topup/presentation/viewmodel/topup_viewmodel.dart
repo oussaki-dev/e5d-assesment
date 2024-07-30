@@ -36,6 +36,7 @@ class TopUpViewModel extends _$TopUpViewModel {
 
   void topUp() async {
     Configurations? config = ref.read(configProvider);
+    
     if (config?.isLoggedIn == false) {
       state = state.updateUiState(
         TopUpUiStates.userNotLoggedIn,

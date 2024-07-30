@@ -80,12 +80,14 @@ class LoginViewModel extends _$LoginViewModel {
       if (config != null) {
         ref.read(configProvider.notifier).updateWith(
               config: config.copyWith(
-                isLoggedIn: true,
-              ),
+                  isLoggedIn: true,
+                  balance: userModel.balance,
+                  transactions: userModel.transactions),
             );
+        state = state.copyWithUiState(ScreenUiState.success);
+      } else {
+        state = state.copyWithUiState(ScreenUiState.error);
       }
-
-      state = state.copyWithUiState(ScreenUiState.success);
     });
   }
 }
