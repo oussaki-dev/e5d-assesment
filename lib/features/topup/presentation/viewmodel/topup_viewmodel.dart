@@ -63,15 +63,22 @@ class TopUpViewModel extends _$TopUpViewModel {
       final sessionNotifier = ref.watch(sessionProvider.notifier);
       sessionNotifier.updateWith(session: newSession!);
 
+      //Call the api
+      state = state.updateUiState(
+        TopUpUiStates.loading,
+      );
       final result = await topUpUseCase?.call(request);
+     
+
       result?.fold((error) {
         // revert the state to the old balance
         if (oldBalance > 0) {
+          final sessionNotifier2 = ref.read(sessionProvider.notifier);
           final revertSession = session?.copyWith(
             user: session.user?.copyWith(balance: oldBalance),
             oldBalance: 0,
           );
-          sessionNotifier.updateWith(session: revertSession!);
+          sessionNotifier2.updateWith(session: revertSession!);
         }
 
         state = state.updateUiState(error);

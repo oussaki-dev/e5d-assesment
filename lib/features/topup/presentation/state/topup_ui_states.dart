@@ -1,5 +1,7 @@
 enum TopUpUiStates {
   none,
+  loading,
+  idle,
   networkIssue,
   genericError,
   // some network

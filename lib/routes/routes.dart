@@ -34,9 +34,9 @@ class HomeScreenRoute extends GoRouteData {
   }
 }
 
-@TypedGoRoute<TopUpScreenRoute>(path: '/receipt', name: 'receipt')
+@TypedGoRoute<TopUpReceiptScreenRoute>(path: '/receipt', name: 'receipt')
 @immutable
-class TopUpScreenRoute extends GoRouteData {
+class TopUpReceiptScreenRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const TopUpReceiptScreen();

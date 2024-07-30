@@ -42,5 +42,6 @@
     }
   },
   "error_network_issue": "Please verify your network connection.",
-  "error_generic": "Sorry we couldn't serve you now, please try again."
+  "error_generic": "Sorry we couldn't serve you now, please try again.",
+  "top_up_successfuly": "Top Up successfully"
 }

@@ -5,7 +5,9 @@ import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_state.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_ui_states.dart';
 import 'package:e5d_assesment/features/topup/presentation/view/topup_money_label.dart';
+import 'package:e5d_assesment/features/topup/presentation/view/topup_receipt_screen.dart';
 import 'package:e5d_assesment/features/topup/presentation/viewmodel/topup_viewmodel.dart';
+import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,7 +21,6 @@ class TopUpWidget extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() {
     return _TopUpWidgetState(beneficiary: beneficiary);
   }
-
 }
 
 class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
@@ -27,8 +28,7 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   TopUpState? topUpState;
   final Beneficiary beneficiary;
   Configurations? config;
- 
-  
+
   _TopUpWidgetState({required this.beneficiary});
 
   void _onTopPressed() {
@@ -45,6 +45,13 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
           ? Theme.of(context).primaryColor
           : E5DColors.primaryColor40Percent;
     }
+  }
+
+  String? _getButtonText() {
+    if (topUpState?.uiState == TopUpUiStates.successfulTransaction) {
+      return AppLocalizations.of(context)?.top_up_successfuly;
+    }
+    return 'Top up AED ${topUpState?.selectedAmount} to ${topUpState?.beneficiary?.nickname}';
   }
 
   Widget _getTransactionErrorWidget() {
@@ -78,9 +85,8 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
       case TopUpUiStates.networkIssue:
         message = AppLocalizations.of(context)!.error_network_issue;
         break;
-
       default:
-        message = AppLocalizations.of(context)!.error_generic;
+        message = '';
     }
 
     if (message.isNotEmpty) {
@@ -99,6 +105,14 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
     }
   }
 
+  void _checkOpenReceiptScreen() {
+    if (topUpState?.uiState == TopUpUiStates.successfulTransaction) {
+      Future.delayed(const Duration(seconds: 2), () {
+        TopUpReceiptScreenRoute().go(context);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     topUpState = ref.watch(topUpViewModelProvider);
@@ -107,6 +121,7 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       viewModel?.updateBeneficiary(beneficiary);
+      _checkOpenReceiptScreen();
     });
 
     return Expanded(
@@ -176,16 +191,7 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
                           horizontal: 24.0,
                         ),
                       ),
-                      child: Text(
-                        'Top up AED ${topUpState?.selectedAmount} to ${topUpState?.beneficiary?.nickname}'
-                            .toUpperCase(),
-                        style: Theme.of(context).textTheme.labelLarge?.merge(
-                              const TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ),
-                            ),
-                      ),
+                      child: getTopUpButtonInnerWidget(),
                     ),
                   )
                 ],
@@ -195,5 +201,30 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
         ],
       ),
     );
+  }
+
+  Widget getTopUpButtonInnerWidget() {
+    if (topUpState?.uiState == TopUpUiStates.loading) {
+      return SizedBox(
+        height: 30,
+        width: 30,
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.grey[200],
+          valueColor:
+              AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+          strokeWidth: 3.0,
+        ),
+      );
+    } else {
+      return Text(
+        _getButtonText()?.toUpperCase() ?? "",
+        style: Theme.of(context).textTheme.labelLarge?.merge(
+              const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              ),
+            ),
+      );
+    }
   }
 }
