@@ -5,7 +5,7 @@ enum TopUpUiStates {
   genericError,
   // some network
   failedTransaction,
-  userNotLoggedIn,
+  sessionExpired,
   noEnoughBalance,
   successfulTransaction;
 }

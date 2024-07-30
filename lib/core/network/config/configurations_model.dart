@@ -15,11 +15,6 @@ class Configurations with _$Configurations {
   const factory Configurations({
     required String baseUrl,
 
-    /// User
-    bool? isLoggedIn,
-    double? balance,
-    List<TopUpTransaction>? transactions,
-
     /// Device
     String? deviceId,
     String? osVersion,

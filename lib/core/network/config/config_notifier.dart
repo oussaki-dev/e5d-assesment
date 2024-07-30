@@ -24,7 +24,6 @@ class ConfigNotifier extends Notifier<Configurations?> {
     } else {
       state = state!.copyWith(
         baseUrl: config.baseUrl,
-        isLoggedIn: config.isLoggedIn,
         deviceId: config.deviceId,
         osVersion: config.osVersion,
         environment: config.environment,
@@ -37,8 +36,6 @@ class ConfigNotifier extends Notifier<Configurations?> {
         deviceType: config.deviceType,
         token: config.token,
         transactionFee: config.transactionFee,
-        transactions: config.transactions,
-        balance: config.balance,
       );
     }
   }
@@ -55,7 +52,6 @@ Configurations getMockAppConfigurations({bool getPROD = false}) {
 
     return Configurations(
       baseUrl: 'https://api-prod.domain.com',
-      isLoggedIn: true,
       deviceId: "EBDCD69D-7719-4AC0-A8F0-13D512C49AC2",
       osVersion: Platform.operatingSystemVersion,
       environment: "PROD",
@@ -75,7 +71,6 @@ Configurations getMockAppConfigurations({bool getPROD = false}) {
 
   return Configurations(
     baseUrl: 'https://api-test.domain.com',
-    isLoggedIn: true,
     deviceId: "EBDCD69D-7719-4AC0-A8F0-13D512C49AC2",
     osVersion: Platform.operatingSystemVersion,
     environment: "UAT2",

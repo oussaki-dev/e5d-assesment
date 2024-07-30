@@ -22,12 +22,6 @@ Configurations _$ConfigurationsFromJson(Map<String, dynamic> json) {
 mixin _$Configurations {
   String get baseUrl => throw _privateConstructorUsedError;
 
-  /// User
-  bool? get isLoggedIn => throw _privateConstructorUsedError;
-  double? get balance => throw _privateConstructorUsedError;
-  List<TopUpTransaction>? get transactions =>
-      throw _privateConstructorUsedError;
-
   /// Device
   String? get deviceId => throw _privateConstructorUsedError;
   String? get osVersion => throw _privateConstructorUsedError;
@@ -64,9 +58,6 @@ abstract class $ConfigurationsCopyWith<$Res> {
   @useResult
   $Res call(
       {String baseUrl,
-      bool? isLoggedIn,
-      double? balance,
-      List<TopUpTransaction>? transactions,
       String? deviceId,
       String? osVersion,
       String? environment,
@@ -96,9 +87,6 @@ class _$ConfigurationsCopyWithImpl<$Res, $Val extends Configurations>
   @override
   $Res call({
     Object? baseUrl = null,
-    Object? isLoggedIn = freezed,
-    Object? balance = freezed,
-    Object? transactions = freezed,
     Object? deviceId = freezed,
     Object? osVersion = freezed,
     Object? environment = freezed,
@@ -118,18 +106,6 @@ class _$ConfigurationsCopyWithImpl<$Res, $Val extends Configurations>
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      isLoggedIn: freezed == isLoggedIn
-          ? _value.isLoggedIn
-          : isLoggedIn // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      balance: freezed == balance
-          ? _value.balance
-          : balance // ignore: cast_nullable_to_non_nullable
-              as double?,
-      transactions: freezed == transactions
-          ? _value.transactions
-          : transactions // ignore: cast_nullable_to_non_nullable
-              as List<TopUpTransaction>?,
       deviceId: freezed == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
@@ -196,9 +172,6 @@ abstract class _$$ConfigurationsImplCopyWith<$Res>
   @useResult
   $Res call(
       {String baseUrl,
-      bool? isLoggedIn,
-      double? balance,
-      List<TopUpTransaction>? transactions,
       String? deviceId,
       String? osVersion,
       String? environment,
@@ -226,9 +199,6 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? baseUrl = null,
-    Object? isLoggedIn = freezed,
-    Object? balance = freezed,
-    Object? transactions = freezed,
     Object? deviceId = freezed,
     Object? osVersion = freezed,
     Object? environment = freezed,
@@ -248,18 +218,6 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      isLoggedIn: freezed == isLoggedIn
-          ? _value.isLoggedIn
-          : isLoggedIn // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      balance: freezed == balance
-          ? _value.balance
-          : balance // ignore: cast_nullable_to_non_nullable
-              as double?,
-      transactions: freezed == transactions
-          ? _value._transactions
-          : transactions // ignore: cast_nullable_to_non_nullable
-              as List<TopUpTransaction>?,
       deviceId: freezed == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
@@ -321,9 +279,6 @@ class __$$ConfigurationsImplCopyWithImpl<$Res>
 class _$ConfigurationsImpl implements _Configurations {
   const _$ConfigurationsImpl(
       {required this.baseUrl,
-      this.isLoggedIn,
-      this.balance,
-      final List<TopUpTransaction>? transactions,
       this.deviceId,
       this.osVersion,
       this.environment,
@@ -336,29 +291,13 @@ class _$ConfigurationsImpl implements _Configurations {
       this.deviceType,
       this.refreshToken,
       this.token,
-      this.transactionFee})
-      : _transactions = transactions;
+      this.transactionFee});
 
   factory _$ConfigurationsImpl.fromJson(Map<String, dynamic> json) =>
       _$$ConfigurationsImplFromJson(json);
 
   @override
   final String baseUrl;
-
-  /// User
-  @override
-  final bool? isLoggedIn;
-  @override
-  final double? balance;
-  final List<TopUpTransaction>? _transactions;
-  @override
-  List<TopUpTransaction>? get transactions {
-    final value = _transactions;
-    if (value == null) return null;
-    if (_transactions is EqualUnmodifiableListView) return _transactions;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
 
   /// Device
   @override
@@ -397,7 +336,7 @@ class _$ConfigurationsImpl implements _Configurations {
 
   @override
   String toString() {
-    return 'Configurations(baseUrl: $baseUrl, isLoggedIn: $isLoggedIn, balance: $balance, transactions: $transactions, deviceId: $deviceId, osVersion: $osVersion, environment: $environment, isRTL: $isRTL, countryCode: $countryCode, languageCode: $languageCode, currency: $currency, appVersion: $appVersion, timestamp: $timestamp, deviceType: $deviceType, refreshToken: $refreshToken, token: $token, transactionFee: $transactionFee)';
+    return 'Configurations(baseUrl: $baseUrl, deviceId: $deviceId, osVersion: $osVersion, environment: $environment, isRTL: $isRTL, countryCode: $countryCode, languageCode: $languageCode, currency: $currency, appVersion: $appVersion, timestamp: $timestamp, deviceType: $deviceType, refreshToken: $refreshToken, token: $token, transactionFee: $transactionFee)';
   }
 
   @override
@@ -406,11 +345,6 @@ class _$ConfigurationsImpl implements _Configurations {
         (other.runtimeType == runtimeType &&
             other is _$ConfigurationsImpl &&
             (identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl) &&
-            (identical(other.isLoggedIn, isLoggedIn) ||
-                other.isLoggedIn == isLoggedIn) &&
-            (identical(other.balance, balance) || other.balance == balance) &&
-            const DeepCollectionEquality()
-                .equals(other._transactions, _transactions) &&
             (identical(other.deviceId, deviceId) ||
                 other.deviceId == deviceId) &&
             (identical(other.osVersion, osVersion) ||
@@ -442,9 +376,6 @@ class _$ConfigurationsImpl implements _Configurations {
   int get hashCode => Object.hash(
       runtimeType,
       baseUrl,
-      isLoggedIn,
-      balance,
-      const DeepCollectionEquality().hash(_transactions),
       deviceId,
       osVersion,
       environment,
@@ -477,9 +408,6 @@ class _$ConfigurationsImpl implements _Configurations {
 abstract class _Configurations implements Configurations {
   const factory _Configurations(
       {required final String baseUrl,
-      final bool? isLoggedIn,
-      final double? balance,
-      final List<TopUpTransaction>? transactions,
       final String? deviceId,
       final String? osVersion,
       final String? environment,
@@ -499,14 +427,6 @@ abstract class _Configurations implements Configurations {
 
   @override
   String get baseUrl;
-  @override
-
-  /// User
-  bool? get isLoggedIn;
-  @override
-  double? get balance;
-  @override
-  List<TopUpTransaction>? get transactions;
   @override
 
   /// Device

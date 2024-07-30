@@ -5,6 +5,8 @@ import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_repo_impl.dart';
 import 'package:e5d_assesment/features/login/data/repository/login_with_mobile_repo_impl.dart';
 import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
+import 'package:e5d_assesment/features/login/domain/model/session_model.dart';
+import 'package:e5d_assesment/features/login/domain/model/session_notifier.dart';
 import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
 import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
 import 'package:e5d_assesment/features/login/domain/usecase/login_default_usecase.dart';
@@ -78,12 +80,23 @@ class LoginViewModel extends _$LoginViewModel {
 
       Configurations? config = ref.read(configProvider);
       if (config != null) {
+        // Update token
+        // Update refresh token
         ref.read(configProvider.notifier).updateWith(
               config: config.copyWith(
-                  isLoggedIn: true,
-                  balance: userModel.balance,
-                  transactions: userModel.transactions),
+                token: userModel.token,
+                refreshToken: userModel.refreshToken,
+              ),
             );
+
+        // Update the session
+        ref.read(sessionProvider.notifier).updateWith(
+              session: SessionModel(
+                isLoggedIn: true,
+                user: userModel,
+              ),
+            );
+
         state = state.copyWithUiState(ScreenUiState.success);
       } else {
         state = state.copyWithUiState(ScreenUiState.error);

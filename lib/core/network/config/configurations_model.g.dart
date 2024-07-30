@@ -9,11 +9,6 @@ part of 'configurations_model.dart';
 _$ConfigurationsImpl _$$ConfigurationsImplFromJson(Map<String, dynamic> json) =>
     _$ConfigurationsImpl(
       baseUrl: json['baseUrl'] as String,
-      isLoggedIn: json['isLoggedIn'] as bool?,
-      balance: (json['balance'] as num?)?.toDouble(),
-      transactions: (json['transactions'] as List<dynamic>?)
-          ?.map((e) => TopUpTransaction.fromJson(e as Map<String, dynamic>))
-          .toList(),
       deviceId: json['deviceId'] as String?,
       osVersion: json['osVersion'] as String?,
       environment: json['environment'] as String?,
@@ -33,9 +28,6 @@ Map<String, dynamic> _$$ConfigurationsImplToJson(
         _$ConfigurationsImpl instance) =>
     <String, dynamic>{
       'baseUrl': instance.baseUrl,
-      'isLoggedIn': instance.isLoggedIn,
-      'balance': instance.balance,
-      'transactions': instance.transactions,
       'deviceId': instance.deviceId,
       'osVersion': instance.osVersion,
       'environment': instance.environment,

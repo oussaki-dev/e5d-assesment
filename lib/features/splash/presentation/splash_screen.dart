@@ -26,7 +26,6 @@ class SplashScreen extends StatelessWidget {
                 // let's assume we're getting the configuration from an API...
                 baseUrl: 'https://43f7-2001-8f8-1923-956-3538-ee99-1e2f-6cb6.ngrok-free.app',
                 transactionFee: 1.0,
-                isLoggedIn: false
               ),
             );
 

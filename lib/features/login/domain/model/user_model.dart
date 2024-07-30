@@ -13,12 +13,13 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'token') required String token,
     @JsonKey(name: 'refresh_token') required String refreshToken,
     @JsonKey(name: 'is_active') required bool isActive,
-      @JsonKey(name: 'balance') required double balance,
+    @JsonKey(name: 'balance') required double balance,
+
     ///
     ///we need this transactions model to calculate
-    ///the total 
+    ///the total
     ///
-    @JsonKey(name: 'transactions') required List<TopUpTransaction> transactions, 
+    @JsonKey(name: 'transactions') required List<TopUpTransaction> transactions,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, Object?> json) =>
