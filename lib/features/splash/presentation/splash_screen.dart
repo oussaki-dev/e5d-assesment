@@ -16,16 +16,19 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(
       const Duration(seconds: 3),
       () {
+        // read from localstorage if user is loggedin
 
-        // read from localstorage if user is loggedin 
-      
         ProviderScope.containerOf(context)
             .read(configProvider.notifier)
             .updateWith(
               config: const Configurations(
                 // let's assume we're getting the configuration from an API...
-                baseUrl: 'https://43f7-2001-8f8-1923-956-3538-ee99-1e2f-6cb6.ngrok-free.app',
+                baseUrl:
+                    'https://43f7-2001-8f8-1923-956-3538-ee99-1e2f-6cb6.ngrok-free.app',
                 transactionFee: 1.0,
+                verifiedTopUpThreshold: 1000,
+                nonVerifiedTopUpThreshold: 500,
+                monthlyMaxTopUpThreshold: 3000,
               ),
             );
 
