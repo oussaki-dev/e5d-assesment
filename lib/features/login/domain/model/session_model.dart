@@ -14,6 +14,7 @@ class SessionModel with _$SessionModel {
   const factory SessionModel({
     bool? isLoggedIn,
     UserModel? user,
+    double? oldBalance // used to revert in case of failure
   }) = _SessionModel;
 
   factory SessionModel.fromJson(Map<String, Object?> json) =>

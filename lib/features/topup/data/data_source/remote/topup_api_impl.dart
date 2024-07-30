@@ -33,8 +33,9 @@ class TopUpApiImpl extends AbstractTopUpSource {
       if (response.data is Map) {
         try {
           // it should be a map because json is a map of values
-          return Future.value(TopUpTransaction.fromJson(response.data));
-        } on Exception catch (e) {
+          final transaction = TopUpTransaction.fromJson(response.data);
+          return Future.value(transaction);
+        } catch (e) {
           throw ResponseParsingException();
         }
       } else {

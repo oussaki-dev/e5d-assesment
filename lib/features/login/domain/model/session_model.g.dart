@@ -12,10 +12,12 @@ _$SessionModelImpl _$$SessionModelImplFromJson(Map<String, dynamic> json) =>
       user: json['user'] == null
           ? null
           : UserModel.fromJson(json['user'] as Map<String, dynamic>),
+      oldBalance: (json['oldBalance'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$SessionModelImplToJson(_$SessionModelImpl instance) =>
     <String, dynamic>{
       'isLoggedIn': instance.isLoggedIn,
       'user': instance.user,
+      'oldBalance': instance.oldBalance,
     };

@@ -48,18 +48,32 @@ class TopUpViewModel extends _$TopUpViewModel {
       // before calling the api
       // we have to debit the amount
       final session = ref.watch(sessionProvider);
+
       final oldBalance = session?.user?.balance;
       final newBalance = oldBalance! - totalToPay;
+
       // save temporary balance and old balance for transaction revert in case of errors
-      loggerNoStack.d(
-          "Current balance $oldBalance, newBalance =$newBalance  ");
+      loggerNoStack.d("old balance $oldBalance, newBalance =$newBalance  ");
 
-      final newSession = session?.copyWith(user: session.user?.copyWith(balance: newBalance));
-      ref.watch(sessionProvider.notifier).updateWith(session: newSession!);
+      // update the session balance
+      final newSession = session?.copyWith(
+        user: session.user?.copyWith(balance: newBalance),
+        oldBalance: oldBalance,
+      );
+      final sessionNotifier = ref.watch(sessionProvider.notifier);
+      sessionNotifier.updateWith(session: newSession!);
 
-      return;
       final result = await topUpUseCase?.call(request);
       result?.fold((error) {
+        // revert the state to the old balance
+        if (oldBalance > 0) {
+          final revertSession = session?.copyWith(
+            user: session.user?.copyWith(balance: oldBalance),
+            oldBalance: 0,
+          );
+          sessionNotifier.updateWith(session: revertSession!);
+        }
+
         state = state.updateUiState(error);
       }, (transaction) {
         state = state.successfulTransaction(

@@ -22,6 +22,7 @@ SessionModel _$SessionModelFromJson(Map<String, dynamic> json) {
 mixin _$SessionModel {
   bool? get isLoggedIn => throw _privateConstructorUsedError;
   UserModel? get user => throw _privateConstructorUsedError;
+  double? get oldBalance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,7 @@ abstract class $SessionModelCopyWith<$Res> {
           SessionModel value, $Res Function(SessionModel) then) =
       _$SessionModelCopyWithImpl<$Res, SessionModel>;
   @useResult
-  $Res call({bool? isLoggedIn, UserModel? user});
+  $Res call({bool? isLoggedIn, UserModel? user, double? oldBalance});
 
   $UserModelCopyWith<$Res>? get user;
 }
@@ -55,6 +56,7 @@ class _$SessionModelCopyWithImpl<$Res, $Val extends SessionModel>
   $Res call({
     Object? isLoggedIn = freezed,
     Object? user = freezed,
+    Object? oldBalance = freezed,
   }) {
     return _then(_value.copyWith(
       isLoggedIn: freezed == isLoggedIn
@@ -65,6 +67,10 @@ class _$SessionModelCopyWithImpl<$Res, $Val extends SessionModel>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel?,
+      oldBalance: freezed == oldBalance
+          ? _value.oldBalance
+          : oldBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 
@@ -89,7 +95,7 @@ abstract class _$$SessionModelImplCopyWith<$Res>
       __$$SessionModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool? isLoggedIn, UserModel? user});
+  $Res call({bool? isLoggedIn, UserModel? user, double? oldBalance});
 
   @override
   $UserModelCopyWith<$Res>? get user;
@@ -108,6 +114,7 @@ class __$$SessionModelImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoggedIn = freezed,
     Object? user = freezed,
+    Object? oldBalance = freezed,
   }) {
     return _then(_$SessionModelImpl(
       isLoggedIn: freezed == isLoggedIn
@@ -118,6 +125,10 @@ class __$$SessionModelImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserModel?,
+      oldBalance: freezed == oldBalance
+          ? _value.oldBalance
+          : oldBalance // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -125,7 +136,7 @@ class __$$SessionModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SessionModelImpl implements _SessionModel {
-  const _$SessionModelImpl({this.isLoggedIn, this.user});
+  const _$SessionModelImpl({this.isLoggedIn, this.user, this.oldBalance});
 
   factory _$SessionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$SessionModelImplFromJson(json);
@@ -134,10 +145,12 @@ class _$SessionModelImpl implements _SessionModel {
   final bool? isLoggedIn;
   @override
   final UserModel? user;
+  @override
+  final double? oldBalance;
 
   @override
   String toString() {
-    return 'SessionModel(isLoggedIn: $isLoggedIn, user: $user)';
+    return 'SessionModel(isLoggedIn: $isLoggedIn, user: $user, oldBalance: $oldBalance)';
   }
 
   @override
@@ -147,12 +160,14 @@ class _$SessionModelImpl implements _SessionModel {
             other is _$SessionModelImpl &&
             (identical(other.isLoggedIn, isLoggedIn) ||
                 other.isLoggedIn == isLoggedIn) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.oldBalance, oldBalance) ||
+                other.oldBalance == oldBalance));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, isLoggedIn, user);
+  int get hashCode => Object.hash(runtimeType, isLoggedIn, user, oldBalance);
 
   @JsonKey(ignore: true)
   @override
@@ -169,8 +184,10 @@ class _$SessionModelImpl implements _SessionModel {
 }
 
 abstract class _SessionModel implements SessionModel {
-  const factory _SessionModel({final bool? isLoggedIn, final UserModel? user}) =
-      _$SessionModelImpl;
+  const factory _SessionModel(
+      {final bool? isLoggedIn,
+      final UserModel? user,
+      final double? oldBalance}) = _$SessionModelImpl;
 
   factory _SessionModel.fromJson(Map<String, dynamic> json) =
       _$SessionModelImpl.fromJson;
@@ -179,6 +196,8 @@ abstract class _SessionModel implements SessionModel {
   bool? get isLoggedIn;
   @override
   UserModel? get user;
+  @override
+  double? get oldBalance;
   @override
   @JsonKey(ignore: true)
   _$$SessionModelImplCopyWith<_$SessionModelImpl> get copyWith =>
