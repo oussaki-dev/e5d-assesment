@@ -82,6 +82,7 @@ flutter:
   assets:
     - assets/images/ic_logo.svg
     - assets/images/ic_checked.png
+    - assets/images/ic_add.png
   
   generate: true
 

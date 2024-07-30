@@ -1,6 +1,7 @@
 import 'package:e5d_assesment/core/presentation/views/bottom_sheet.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/add_beneficiary_bottomsheet.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/view/add_beneficiary_button.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list_item.dart';
 import 'package:e5d_assesment/features/topup/presentation/view/topup_widget.dart';
 import 'package:e5d_assesment/main.dart';
@@ -26,7 +27,10 @@ class BeneficiaryListWidget extends StatelessWidget {
       ///
       final calculatedWidth =
           ((constraint.maxWidth * 0.8) / 2) - spacingBetweenItems;
-      loggerNoStack.d("CalculatedWidth $calculatedWidth ");
+      int listSize = _beneficiaries.length;
+      if (_beneficiaries.length < 5) {
+        listSize++;
+      }
 
       return SizedBox(
           height: 110,
@@ -37,8 +41,12 @@ class BeneficiaryListWidget extends StatelessWidget {
               );
             },
             scrollDirection: Axis.horizontal,
-            itemCount: _beneficiaries.length,
+            itemCount: listSize,
             itemBuilder: (context, index) {
+              if(index == listSize-1 && listSize > _beneficiaries.length){
+                  return const AddBeneficiaryButtonWidget();
+              }
+
               return SizedBox(
                 width: calculatedWidth,
                 child: BeneficiaryListItemWidget(

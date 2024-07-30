@@ -24,11 +24,6 @@ class BeneficiaryListItemWidget extends StatelessWidget {
       ),
       300,
     );
-    // showE5DBottomSheet(
-    //   context,
-    //   const AddBeneficiaryWidget(),
-    //   300,
-    // );
   }
 
   @override
