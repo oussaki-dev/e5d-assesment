@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:e5d_assesment/core/network/config/config_notifier.dart';
 import 'package:e5d_assesment/core/network/config/configurations_model.dart';
 import 'package:e5d_assesment/core/domain/base_usecase.dart';
@@ -46,17 +48,15 @@ class TopUpBeneficiaryUseCase
     return monthAmount;
   }
 
-  @override
-  Future<Either<TopUpUiStates, TopUpTransaction>> call(
-      AbstractTopUpRequest request) async {
-    // session shouldn't be expired
+  Either<TopUpUiStates, double> areInputsValid(AbstractTopUpRequest request) {
+// session shouldn't be expired
     if (session?.isLoggedIn == false) {
       return const Left(
         TopUpUiStates.sessionExpired,
       );
     }
 
-    // total to be debited amount + fee
+    // total to be debited = amount + fee
     final totalToPay = request.amount + (config?.transactionFee ?? 0);
 
     // - if the total is less or equal zero , very edge case scenario
@@ -73,7 +73,7 @@ class TopUpBeneficiaryUseCase
     );
     loggerNoStack.d('monthlyTotalTopUpAmount = $monthlyTotalTopUpAmount ');
     loggerNoStack.d('monthlyMaxTopUpThreshold = $monthlyMaxTopUpThreshold ');
-    
+
     // check if maximum reached of AED 3,000 per month for all beneficiaries.
     if (monthlyTotalTopUpAmount >= monthlyMaxTopUpThreshold) {
       return const Left(TopUpUiStates.reachedMonthlyTopUpThreshold);
@@ -100,7 +100,12 @@ class TopUpBeneficiaryUseCase
         return const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser);
       }
     }
+    return Right(totalToPay);
+  }
 
+  @override
+  Future<Either<TopUpUiStates, TopUpTransaction>> call(
+      AbstractTopUpRequest request) async {
     // call the repository
     final result = await repository.topUp(request);
 

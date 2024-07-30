@@ -2,6 +2,7 @@ import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiar
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:e5d_assesment/features/home/presentation/view/mock_data.dart';
+import 'package:e5d_assesment/features/login/domain/model/session_notifier.dart';
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
 import 'package:e5d_assesment/features/transactions/presentation/view/transaction_item_widget.dart';
@@ -21,6 +22,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     beneficiaryState = ref.watch(beneficiaryViewModelProvider);
     _beneficiaryViewModel = ref.read(beneficiaryViewModelProvider.notifier);
+    final session = ref.watch(sessionProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!isGetBeneficiariesCalled) {
@@ -75,7 +77,7 @@ class HomeScreen extends ConsumerWidget {
                 key: const ObjectKey("curren_balance_row"),
                 children: [
                   Text(
-                    '8,000',
+                    session?.user?.balance.toString() ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .headlineLarge
