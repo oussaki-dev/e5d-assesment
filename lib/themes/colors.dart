@@ -12,4 +12,7 @@ class E5DColors {
 
   static const Color color9E9999 = Color(0xff9E9999);
   static const Color color848484 = Color(0xff848484);
+
+  static const Color colorSuccess = Color(0xff399918); 
+  static const Color colorError =  Color(0xffC80036);  
 }

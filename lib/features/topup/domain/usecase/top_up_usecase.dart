@@ -35,9 +35,9 @@ class TopUpBeneficiaryUseCase
     final loginState = ref.read(loginViewModelProvider);
 
     // make sure user is logged in
-    if (loginState.loggedInUser == null) {
-      return const Left(TopUpUiStates.userNotLoggedIn);
-    }
+    // if (loginState.loggedInUser == null) {
+    //   return const Left(TopUpUiStates.userNotLoggedIn);
+    // }
 
     // total to be debited amount + fee
     final total = request.amount + (config?.transactionFee ?? 0);

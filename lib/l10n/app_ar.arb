@@ -27,5 +27,6 @@
   "slogan": "منصة كل يوم للعمال",
   "hint_username": "إسم المستخدم",
   "hint_password": "كلمة المرور",
-  "button_login": "تسجيل الدخول"
+  "button_login": "تسجيل الدخول",
+  "top_up_not_enough_balance": "ليس لديك الرصيد الكافي لإجراد هذه المعاملة"
 }

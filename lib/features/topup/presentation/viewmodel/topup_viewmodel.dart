@@ -2,6 +2,7 @@ import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_mode
 import 'package:e5d_assesment/features/topup/domain/model/top_up_request.dart';
 import 'package:e5d_assesment/features/topup/domain/usecase/top_up_usecase.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_state.dart';
+import 'package:e5d_assesment/features/topup/presentation/state/topup_ui_states.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,7 +16,9 @@ class TopUpViewModel extends _$TopUpViewModel {
   @override
   TopUpState build() {
     topUpUseCase = ref.read(topUpBeneficiaryUseCaseProvider);
-    return const TopUpState(beneficiary: null);
+    return const TopUpState(
+      selectedAmount: 0,
+    );
   }
 
   void updateTopUp(double value) {
@@ -33,10 +36,19 @@ class TopUpViewModel extends _$TopUpViewModel {
       // send error here
     }
 
-    await topUpUseCase?.call(TopUpRequest(
+    final result = await topUpUseCase?.call(TopUpRequest(
       beneficiaryId: state.beneficiary!.id,
       amount: state.selectedAmount,
     ));
+
+    result?.fold((error) {
+      state = state.updateUiState(error);
+    }, (transaction) {
+      state = state.successfulTransaction(
+        transaction,
+        TopUpUiStates.successfulTransaction,
+      );
+    });
   }
 
   void updateBeneficiary(Beneficiary beneficiary) {

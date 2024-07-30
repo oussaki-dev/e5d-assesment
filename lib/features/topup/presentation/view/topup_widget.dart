@@ -1,11 +1,13 @@
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/topup/domain/model/money.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_state.dart';
+import 'package:e5d_assesment/features/topup/presentation/state/topup_ui_states.dart';
 import 'package:e5d_assesment/features/topup/presentation/view/topup_money_label.dart';
 import 'package:e5d_assesment/features/topup/presentation/viewmodel/topup_viewmodel.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TopUpWidget extends ConsumerStatefulWidget {
   final Beneficiary beneficiary;
@@ -27,6 +29,47 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   void _onTopPressed() {
     if (topUpState?.isSelectedAmount() == true) {
       viewModel?.topUp();
+    }
+  }
+
+  Color getButtonBackgroundColor() {
+    if (topUpState?.uiState == TopUpUiStates.successfulTransaction) {
+      return E5DColors.colorSuccess;
+    } else {
+      return topUpState?.isSelectedAmount() == true
+          ? Theme.of(context).primaryColor
+          : E5DColors.primaryColor40Percent;
+    }
+  }
+
+  Widget _getTransactionErrorWidget() {
+    String message = '';
+    switch (topUpState?.uiState) {
+      case TopUpUiStates.noEnoughBalance:
+        message = AppLocalizations.of(context)!.top_up_not_enough_balance;
+        break;
+      case TopUpUiStates.failedTransaction:
+        break;
+
+      case TopUpUiStates.networkIssue:
+        break;
+
+      default:
+    }
+    
+    if (message.isNotEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          message,
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge
+              ?.merge(const TextStyle(color: Colors.white, fontSize: 12)),
+        ),
+      );
+    } else {
+      return const SizedBox();
     }
   }
 
@@ -87,29 +130,38 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
           // Topup button
           SizedBox(
             width: double.infinity,
-            child: TextButton(
-              onPressed: () {
-                _onTopPressed();
-              },
-              style: TextButton.styleFrom(
-                shape: const LinearBorder(),
-                backgroundColor: topUpState?.isSelectedAmount() == true
-                    ? Theme.of(context).primaryColor
-                    : E5DColors.primaryColor40Percent,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 16.0,
-                  horizontal: 24.0,
-                ),
-              ),
-              child: Text(
-                'Top up AED ${topUpState?.selectedAmount} to ${topUpState?.beneficiary?.nickname}'
-                    .toUpperCase(),
-                style: Theme.of(context).textTheme.labelLarge?.merge(
-                      const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+            child: Container(
+              color: E5DColors.colorEF5A6F,
+              child: Column(
+                children: [
+                  _getTransactionErrorWidget(),
+                  SizedBox(
+                    width: double.infinity,
+                    child: TextButton(
+                      onPressed: () {
+                        _onTopPressed();
+                      },
+                      style: TextButton.styleFrom(
+                        shape: const LinearBorder(),
+                        backgroundColor: getButtonBackgroundColor(),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 16.0,
+                          horizontal: 24.0,
+                        ),
+                      ),
+                      child: Text(
+                        'Top up AED ${topUpState?.selectedAmount} to ${topUpState?.beneficiary?.nickname}'
+                            .toUpperCase(),
+                        style: Theme.of(context).textTheme.labelLarge?.merge(
+                              const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                              ),
+                            ),
                       ),
                     ),
+                  )
+                ],
               ),
             ),
           ),

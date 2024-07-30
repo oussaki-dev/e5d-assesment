@@ -27,5 +27,6 @@
   "slogan": "The everyday platform for people at work",
   "hint_username": "Username",
   "hint_password": "Password",
-  "button_login": "Login"
+  "button_login": "Login",
+  "top_up_not_enough_balance": "You don't have enough balance."
 }
