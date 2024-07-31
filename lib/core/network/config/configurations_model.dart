@@ -1,5 +1,3 @@
-import 'package:e5d_assesment/features/topup/domain/model/top_up_transaction.dart';
-import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'configurations_model.freezed.dart';
