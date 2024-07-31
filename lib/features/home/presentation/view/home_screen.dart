@@ -3,6 +3,7 @@ import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:e5d_assesment/features/login/domain/model/session_notifier.dart';
 import 'package:e5d_assesment/features/transactions/presentation/view/transaction_item_widget.dart';
+import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,12 +15,19 @@ class HomeScreen extends ConsumerWidget {
   BeneficiaryState? beneficiaryState;
   BeneficiaryViewModel? _beneficiaryViewModel;
   bool isGetBeneficiariesCalled = false;
+  late SessionNotifier sessionNotifier;
+
+  _logout(BuildContext context) {
+    sessionNotifier.logout();
+    LoginScreenRoute().go(context);
+  }
 
   @override
   Widget build(BuildContext context, ref) {
     beneficiaryState = ref.watch(beneficiaryViewModelProvider);
     _beneficiaryViewModel = ref.read(beneficiaryViewModelProvider.notifier);
     final session = ref.watch(sessionProvider);
+    sessionNotifier = ref.watch(sessionProvider.notifier);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!isGetBeneficiariesCalled) {
@@ -38,20 +46,35 @@ class HomeScreen extends ConsumerWidget {
           children: [
             Row(
               children: [
-                Text(
-                  AppLocalizations.of(context)!.hello(session?.user?.firstName ?? ''),
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineLarge
-                      ?.merge(const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                      )),
+                Row(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!
+                          .hello(session?.user?.firstName ?? ''),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineLarge
+                          ?.merge(const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                          )),
+                    ),
+                    const Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                    )
+                  ],
                 ),
-                const Icon(
-                  Icons.settings,
-                  color: Colors.white,
-                )
+                const Spacer(),
+                TextButton(
+                    onPressed: () => {_logout(context)},
+                    child: const Text(
+                      'Logout',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600
+                      ),
+                    )),
               ],
             ),
             const SizedBox(

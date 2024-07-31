@@ -44,7 +44,7 @@ class BeneficiaryListWidget extends StatelessWidget {
             itemCount: listSize,
             itemBuilder: (context, index) {
               if(index == listSize-1 && listSize > _beneficiaries.length){
-                  return const AddBeneficiaryButtonWidget();
+                  return  const AddBeneficiaryButtonWidget();
               }
 
               return SizedBox(

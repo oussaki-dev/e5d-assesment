@@ -2,6 +2,7 @@ import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 
 enum AddBeneficiaryErrors {
   none,
+  loading,
   networkIssue,
   genericError,
   // down domain specific errors
@@ -14,11 +15,7 @@ enum AddBeneficiaryErrors {
   success;
 }
 
-
 class AddBeneficiaryState {
-  AddBeneficiaryState({this.loadingState, this.uiState});
-  ScreenUiState? loadingState;
+  AddBeneficiaryState({this.uiState});
   AddBeneficiaryErrors? uiState;
 }
-
-

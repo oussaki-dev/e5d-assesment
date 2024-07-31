@@ -29,7 +29,6 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       ),
       beneficiaries: List.empty(),
       addState: AddBeneficiaryState(
-        loadingState: ScreenUiState.idle,
         uiState: AddBeneficiaryErrors.none,
       ),
       removeUiState: ScreenUiState.idle,
@@ -50,14 +49,14 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
     if (state.beneficiaries?.length == maxToAdd) {
       state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
         uiState: AddBeneficiaryErrors.reachedTheMax,
-        loadingState: ScreenUiState.idle,
+        // loadingState: ScreenUiState.idle,
       ));
     }
 
     // Push loading state to the consumers
     state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
-      uiState: AddBeneficiaryErrors.none,
-      loadingState: ScreenUiState.loading,
+      uiState: AddBeneficiaryErrors.loading,
+      // loadingState: ScreenUiState.loading,
     ));
 
     // call the use case and then if success update the local state
@@ -66,17 +65,18 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       loggerNoStack.e(error);
       state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
         uiState: error,
-        loadingState: ScreenUiState.idle,
+        // loadingState: ScreenUiState.idle,
       ));
     }, (beneficiary) {
       // save it in local list of beneficiaries
       // _beneficiaries.add(beneficiary);
       state = state.copyWithNewBeneficiary(
-          beneficiary,
-          AddBeneficiaryState(
-            uiState: AddBeneficiaryErrors.success,
-            loadingState: ScreenUiState.idle,
-          ));
+        beneficiary,
+        AddBeneficiaryState(
+          uiState: AddBeneficiaryErrors.success,
+          // loadingState: ScreenUiState.idle,
+        ),
+      );
       loggerNoStack.i(
           "Beneficiary in successfully $beneficiary in list we have ${state.beneficiaries?.length}");
     });
@@ -87,12 +87,10 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
 
     result?.fold((error) {
       loggerNoStack.e(error);
-      state = state.copyWithGetBeneficiariesErrorState(
-        GetBeneficiariesState(
-          loadingState: ScreenUiState.idle,
-          uiState: error,
-        )
-      );
+      state = state.copyWithGetBeneficiariesErrorState(GetBeneficiariesState(
+        loadingState: ScreenUiState.idle,
+        uiState: error,
+      ));
     }, (beneficiaries) {
       // save it in local list of beneficiaries
       // _beneficiaries.add(beneficiary);

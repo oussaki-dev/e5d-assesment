@@ -26,4 +26,11 @@ class SessionNotifier extends Notifier<SessionModel?> {
       );
     }
   }
+
+  void logout() {
+    state = state!.copyWith(
+      user: null,
+      isLoggedIn: false,
+    );
+  }
 }

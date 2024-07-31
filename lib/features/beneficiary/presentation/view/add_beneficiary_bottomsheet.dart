@@ -7,6 +7,7 @@ import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class AddBeneficiaryWidget extends ConsumerStatefulWidget {
   const AddBeneficiaryWidget({super.key});
@@ -32,9 +33,16 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
     );
   }
 
-  Widget getAddButtonInnerWidget(
-      BuildContext context, ScreenUiState? state) {
-    if (state == ScreenUiState.loading) {
+  String _getTextButton() {
+    if (state?.addState?.uiState == AddBeneficiaryErrors.success) {
+      return AppLocalizations.of(context)!.button_add_beneficiary_success;
+    } else {
+      return AppLocalizations.of(context)!.button_add_beneficiary;
+    }
+  }
+
+  Widget _getAddButtonInnerWidget() {
+    if (state?.addState?.uiState == AddBeneficiaryErrors.loading) {
       return SizedBox(
         height: 30,
         width: 30,
@@ -47,23 +55,31 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
       );
     } else {
       return Text(
-        AppLocalizations.of(context)!.button_add_beneficiary,
+        _getTextButton(),
         style: Theme.of(context).textTheme.labelLarge?.merge(
               const TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600),
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
             ),
       );
     }
   }
 
-  void _onAddButtonPressed(ScreenUiState? state) {
-    if (state != ScreenUiState.loading) {
+  void _onAddButtonPressed() {
+    if (state?.addState?.uiState != AddBeneficiaryErrors.loading) {
       viewModel?.addBeneficiary();
     } else {
       loggerNoStack.i("Add beneficiary is already called ... ");
     }
+  }
+
+  Color _buttonColor() {
+    if (state?.addState?.uiState == AddBeneficiaryErrors.success) {
+      return E5DColors.colorSuccess;
+    }
+    return E5DColors.primaryColor;
   }
 
   @override
@@ -93,6 +109,10 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
         errorWidgets.add(
           buildErrorLabel('Invalid mobile number.'),
         );
+
+      case AddBeneficiaryErrors.success: 
+          context.pop();
+
       default:
     }
 
@@ -160,20 +180,16 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
             width: double.infinity,
             height: 60,
             child: TextButton(
-              onPressed: () =>
-                  {_onAddButtonPressed(state?.addState?.loadingState)},
+              onPressed: () => {_onAddButtonPressed()},
               style: TextButton.styleFrom(
                 shape: const LinearBorder(),
-                backgroundColor: E5DColors.primaryColor,
+                backgroundColor: _buttonColor(),
                 padding: const EdgeInsets.symmetric(
                   vertical: 16.0,
                   horizontal: 24.0,
                 ),
               ),
-              child: getAddButtonInnerWidget(
-                context,
-                state?.addState?.loadingState,
-              ),
+              child: _getAddButtonInnerWidget(),
             ),
           ),
         ],

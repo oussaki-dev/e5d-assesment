@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void showE5DBottomSheet(
-    BuildContext context, Widget customWidget, double maxHeight) {
+showE5DBottomSheet(
+  BuildContext context,
+  Widget customWidget,
+  double maxHeight,
+) {
   // Unfocus the current focus node to dismiss the keyboard if it is open
   FocusManager.instance.primaryFocus?.unfocus();
 
-  showModalBottomSheet(
+  showModalBottomSheet<void>(
     isScrollControlled: true,
     context: context,
     backgroundColor: Colors.white,
@@ -40,10 +43,8 @@ class BottomSheetChildViewContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-
     return Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-
       return SafeArea(
           child: SizedBox(
         width: double.infinity,

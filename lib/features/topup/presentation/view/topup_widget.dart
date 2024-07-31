@@ -122,6 +122,31 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
     }
   }
 
+  Widget getTopUpButtonInnerWidget() {
+    if (topUpState?.uiState == TopUpUiStates.loading) {
+      return SizedBox(
+        height: 30,
+        width: 30,
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.grey[200],
+          valueColor:
+              AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+          strokeWidth: 3.0,
+        ),
+      );
+    } else {
+      return Text(
+        _getButtonText()?.toUpperCase() ?? "",
+        style: Theme.of(context).textTheme.labelLarge?.merge(
+              const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+              ),
+            ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     topUpState = ref.watch(topUpViewModelProvider);
@@ -213,28 +238,5 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
     );
   }
 
-  Widget getTopUpButtonInnerWidget() {
-    if (topUpState?.uiState == TopUpUiStates.loading) {
-      return SizedBox(
-        height: 30,
-        width: 30,
-        child: CircularProgressIndicator(
-          backgroundColor: Colors.grey[200],
-          valueColor:
-              AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
-          strokeWidth: 3.0,
-        ),
-      );
-    } else {
-      return Text(
-        _getButtonText()?.toUpperCase() ?? "",
-        style: Theme.of(context).textTheme.labelLarge?.merge(
-              const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-              ),
-            ),
-      );
-    }
-  }
+  
 }
