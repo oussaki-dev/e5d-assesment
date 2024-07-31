@@ -1,6 +1,5 @@
 import 'package:e5d_assesment/core/network/config/config_notifier.dart';
 import 'package:e5d_assesment/core/network/config/configurations_model.dart';
-import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(
-      const Duration(seconds: 3),
+      const Duration(seconds: 2),
       () {
         // read from localstorage if user is loggedin
 
@@ -29,6 +28,7 @@ class SplashScreen extends StatelessWidget {
                 verifiedTopUpThreshold: 1000,
                 nonVerifiedTopUpThreshold: 500,
                 monthlyMaxTopUpThreshold: 3000,
+                languageCode: 'en'
               ),
             );
 

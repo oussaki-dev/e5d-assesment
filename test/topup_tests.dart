@@ -2,10 +2,9 @@
 /// Against TopUpBeneficiaryUseCase
 ///
 library;
-
 import 'package:dartz/dartz.dart';
 import 'package:e5d_assesment/core/network/config/configurations_model.dart';
-import 'package:e5d_assesment/features/home/presentation/view/mock_data.dart';
+import 'mock_data.dart';
 import 'package:e5d_assesment/features/login/domain/model/session_model.dart';
 import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
 import 'package:e5d_assesment/features/topup/domain/model/top_up_request.dart';

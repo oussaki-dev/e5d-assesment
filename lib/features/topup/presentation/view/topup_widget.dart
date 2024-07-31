@@ -112,7 +112,7 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
     if (topUpState?.uiState == TopUpUiStates.successfulTransaction) {
       Future.microtask(() {
         final amount = topUpStateRead?.transaction?.amount;
-        logger.i('amount = $amount');
+        loggerNoStack.i('amount = $amount');
         TopUpReceiptScreenRoute(
                 amount: amount,
                 beneficiaryName: topUpStateRead?.beneficiary?.nickname ?? '',

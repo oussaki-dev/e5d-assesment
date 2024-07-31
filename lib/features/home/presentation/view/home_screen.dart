@@ -1,3 +1,5 @@
+import 'package:e5d_assesment/core/network/config/config_notifier.dart';
+import 'package:e5d_assesment/core/network/config/configurations_model.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiary_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
@@ -16,6 +18,7 @@ class HomeScreen extends ConsumerWidget {
   BeneficiaryViewModel? _beneficiaryViewModel;
   bool isGetBeneficiariesCalled = false;
   late SessionNotifier sessionNotifier;
+  Configurations? configurations;
 
   _logout(BuildContext context) {
     sessionNotifier.logout();
@@ -28,6 +31,7 @@ class HomeScreen extends ConsumerWidget {
     _beneficiaryViewModel = ref.read(beneficiaryViewModelProvider.notifier);
     final session = ref.watch(sessionProvider);
     sessionNotifier = ref.watch(sessionProvider.notifier);
+    configurations = ref.watch(configProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!isGetBeneficiariesCalled) {
@@ -45,6 +49,7 @@ class HomeScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -66,15 +71,18 @@ class HomeScreen extends ConsumerWidget {
                   ],
                 ),
                 const Spacer(),
-                TextButton(
-                    onPressed: () => {_logout(context)},
-                    child: const Text(
-                      'Logout',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600
-                      ),
-                    )),
+                Column(
+                  children: [
+                    TextButton(
+                        onPressed: () => {_logout(context)},
+                        child: const Text(
+                          'Logout',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w600),
+                        )),
+                    Text(configurations?.languageCode ?? "")
+                  ],
+                )
               ],
             ),
             const SizedBox(

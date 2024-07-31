@@ -1,6 +1,4 @@
 import 'package:e5d_assesment/app.dart';
-import 'package:e5d_assesment/features/login/presentation/view/login_screen.dart';
-import 'package:e5d_assesment/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
@@ -14,5 +12,5 @@ var loggerNoStack = Logger(
 );
 
 void main() {
-  runApp(ProviderScope(child: E5DApp()));
+  runApp(const ProviderScope(child: E5DApp()));
 }
