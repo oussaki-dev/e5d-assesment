@@ -23,6 +23,11 @@ if (flutterVersionName == null) {
     flutterVersionName = "1.0"
 }
 
+def _storePassword = localProperties.getProperty("storePassword")
+def _keyPassword = localProperties.getProperty("keyPassword")
+def _keyAlias = localProperties.getProperty("keyAlias")
+def _storeFile = localProperties.getProperty("storeFile")
+
 android {
     namespace = "com.example.e5d_assesment"
     compileSdk = flutter.compileSdkVersion
@@ -31,6 +36,15 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    signingConfigs {
+        release {
+             keyAlias _keyAlias
+             keyPassword _storePassword
+             storeFile _storeFile ? file(_storeFile) : null
+             storePassword _keyPassword
+         }
     }
 
     defaultConfig {
@@ -58,7 +72,7 @@ android {
               // Enables resource shrinking, which is performed by the
             // Android Gradle plugin.
             shrinkResources true
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.release
         }
     }
 }

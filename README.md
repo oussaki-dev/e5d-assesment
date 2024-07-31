@@ -43,6 +43,8 @@ flutter pub get
 | 🕹 `flutter test` | Runs the unit test cases           |
 | 🕹 `dart pub run build_runner build --delete-conflicting-outputs`      | generate models and routes     |
 | 🕹 `flutter gen-l10n`      | generate localization   |
+| 🕹 `flutter build apk`      | generate a release Android APK file , make sure you configured the keys in the local.properties file  |
+
 
 
 
