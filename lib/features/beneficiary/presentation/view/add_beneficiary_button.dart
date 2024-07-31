@@ -7,6 +7,7 @@ import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class AddBeneficiaryButtonWidget extends StatelessWidget {
   const AddBeneficiaryButtonWidget({
@@ -55,8 +56,7 @@ class AddBeneficiaryButtonWidget extends StatelessWidget {
           _onPressed(context);
         },
         style: TextButton.styleFrom(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           backgroundColor: E5DColors.primaryColor20Percent,
           padding: const EdgeInsets.symmetric(
             vertical: 4.0,

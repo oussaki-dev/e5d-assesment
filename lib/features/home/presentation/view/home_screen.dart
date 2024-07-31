@@ -80,13 +80,13 @@ class HomeScreen extends ConsumerWidget {
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w600),
                         )),
-                    Text(configurations?.languageCode ?? "")
+                    // Text(configurations?.languageCode ?? "")
                   ],
                 )
               ],
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
             Text(
               AppLocalizations.of(context)!.totalBalance,

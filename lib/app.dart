@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+final scafoldKey = GlobalKey<ScaffoldMessengerState>();
+
 class E5DApp extends ConsumerStatefulWidget {
   const E5DApp({super.key});
 
@@ -34,6 +36,7 @@ class _E5DAppState extends ConsumerState<E5DApp> {
       ],
       supportedLocales: AppLocalizations.supportedLocales,
       locale: const Locale('en'),
+      scaffoldMessengerKey: scafoldKey,
       // showPerformanceOverlay: true
     );
   }

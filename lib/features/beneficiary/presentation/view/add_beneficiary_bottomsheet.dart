@@ -1,3 +1,4 @@
+import 'package:e5d_assesment/app.dart';
 import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/state/add_beneficiary_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiary_state.dart';
@@ -19,6 +20,7 @@ class AddBeneficiaryWidget extends ConsumerStatefulWidget {
 }
 
 class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
+  _AddBeneficiaryWidgetState();
   BeneficiaryViewModel? viewModel;
   BeneficiaryState? state;
   List<Widget> errorWidgets = List.empty(growable: true);
@@ -110,11 +112,21 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
           buildErrorLabel('Invalid mobile number.'),
         );
 
-      case AddBeneficiaryErrors.success: 
-          context.pop();
-
       default:
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (state?.addState?.uiState == AddBeneficiaryErrors.success) {
+        scafoldKey.currentState?.showSnackBar(SnackBar(
+          backgroundColor: E5DColors.colorSuccess,
+          content: Text(
+            AppLocalizations.of(context)!.button_add_beneficiary_success,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ));
+        Navigator.pop(context);
+      }
+    });
 
     return Expanded(
       child: Column(
