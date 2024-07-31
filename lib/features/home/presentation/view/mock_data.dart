@@ -52,6 +52,12 @@ final testTransactions = [
       transactionId: '3',
       timestamp: "",
       beneficiary: beneficiaries[0],
-      amount: 900,
-      currency: 'aed')
+      amount: 950,
+      currency: 'aed'),
+  TopUpTransaction(
+      transactionId: '1',
+      timestamp: "",
+      beneficiary: beneficiaries[0],
+      amount: 50,
+      currency: 'aed'),
 ];

@@ -79,11 +79,11 @@ class TopUpBeneficiaryUseCase
       totalSpentThisMonth += t.amount;
     });
 
-    loggerNoStack
-        .d('Total spent for current beneficiary  = $monthlyTotalTopUpAmount ');
-    loggerNoStack.d('Total spent for all beneficiaries = $totalSpentThisMonth');
+    // loggerNoStack
+    //     .d('Total spent for current beneficiary  = $monthlyTotalTopUpAmount ');
+    // loggerNoStack.d('Total spent for all beneficiaries = $totalSpentThisMonth');
 
-    loggerNoStack.d('monthlyMaxTopUpThreshold = $monthlyMaxTopUpThreshold ');
+    // loggerNoStack.d('monthlyMaxTopUpThreshold = $monthlyMaxTopUpThreshold ');
 
     // check if maximum reached of AED 3,000 per month for all beneficiaries.
     if (totalSpentThisMonth >= monthlyMaxTopUpThreshold) {

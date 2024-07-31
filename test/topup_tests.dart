@@ -58,7 +58,7 @@ void main() {
                 transactions: [])),
       );
       expect(
-         usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 20)),
+        usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 20)),
         const Left(TopUpUiStates.noEnoughBalance),
       );
     });
@@ -79,7 +79,7 @@ void main() {
                 transactions: [])),
       );
       expect(
-         usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 10)),
+        usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 10)),
         const Left(TopUpUiStates.noEnoughBalance),
       );
     });
@@ -102,14 +102,14 @@ void main() {
                 transactions: [])),
       );
       expect(
-         usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 10)),
+        usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 10)),
         const Left(TopUpUiStates.noEnoughBalance),
       );
     });
 
     group('When user is not verified', () {
       test(
-          "should return an error when user is not verified and reached monthly threshold ",
+          "should return an error when user is not verified and reached monthly threshold",
           () async {
         final usecase = TopUpBeneficiaryUseCase(
           fakeRepo,
@@ -155,23 +155,23 @@ void main() {
                   isVerified: false,
                   balance: 500,
                   transactions: [
+                    testTransactions[0], // 100 AED
+                    testTransactions[0],
+                    testTransactions[1], // 100 AED
                     testTransactions[0],
                     testTransactions[0],
-                    testTransactions[1],
-                    testTransactions[0],
-                    testTransactions[0],
+                    testTransactions[4], // 50 AED
                   ])),
         );
         expect(
-           usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 100)),
+          usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 75)),
           const Left(TopUpUiStates.reachedMonthlyThresholdNonVerifiedUser),
         );
       });
     });
 
     group('When user is verified', () {
-      test(
-          "Should return an error by toping up he will reach the monthly threshold for current beneficiary ",
+      test("Already reached the monthly threshold for the current beneficiary",
           () async {
         final usecase = TopUpBeneficiaryUseCase(
           fakeRepo,
@@ -191,9 +191,8 @@ void main() {
                   ])),
         );
         expect(
-           usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 100)),
-          const Left(
-              TopUpUiStates.reachedMonthlyThresholdVerifiedUser),
+          usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 100)),
+          const Left(TopUpUiStates.alreadyReachedMonthlyThresholdVerifiedUser),
         );
       });
 
@@ -213,13 +212,13 @@ void main() {
                   isVerified: true,
                   balance: 500,
                   transactions: [
-                    // for test only this transaction has 900 AED
-                    testTransactions[3], // 900 AED
+                    // for test only this transaction has 950 AED
+                    testTransactions[3], // 950 AED
                   ])),
         );
         expect(
-           usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 100)),
-          const Left(TopUpUiStates.alreadyReachedMonthlyThresholdVerifiedUser),
+          usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 75)),
+          const Left(TopUpUiStates.reachedMonthlyThresholdVerifiedUser),
         );
       });
 
