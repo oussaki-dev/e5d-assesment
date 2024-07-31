@@ -1,7 +1,6 @@
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
 import 'package:e5d_assesment/features/topup/domain/model/top_up_transaction.dart';
 import 'package:e5d_assesment/features/topup/presentation/state/topup_ui_states.dart';
-import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
 
 class TopUpState {
   final double _selectedAmount;

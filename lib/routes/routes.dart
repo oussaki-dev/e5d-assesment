@@ -1,9 +1,7 @@
 import 'package:e5d_assesment/features/login/presentation/view/login_screen.dart';
 import 'package:e5d_assesment/features/splash/presentation/splash_screen.dart';
 import 'package:e5d_assesment/features/home/presentation/view/home_screen.dart';
-import 'package:e5d_assesment/features/topup/domain/model/top_up_transaction.dart';
 import 'package:e5d_assesment/features/topup/presentation/view/topup_receipt_screen.dart';
-import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 

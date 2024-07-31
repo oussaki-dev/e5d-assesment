@@ -93,8 +93,9 @@ class TopUpViewModel extends _$TopUpViewModel {
         final session = ref.read(sessionProvider);
         final oldList = session?.user?.transactions;
         List<TopUpTransaction> newTransactions = List.from(oldList!);
-        
-        newTransactions.add(transaction);
+
+        // insert in the top of the list
+        newTransactions.insert(0, transaction);
 
         final newSession = session?.copyWith(
           user: session.user?.copyWith(

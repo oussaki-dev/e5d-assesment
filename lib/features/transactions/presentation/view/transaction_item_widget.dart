@@ -1,4 +1,4 @@
-import 'package:e5d_assesment/features/transactions/domain/model/transaction_model.dart';
+import 'package:e5d_assesment/features/topup/domain/model/top_up_transaction.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +6,7 @@ class TransactionItemWidget extends StatelessWidget {
   const TransactionItemWidget(
       {super.key, required this.transaction, required this.index});
 
-  final Transaction transaction;
+  final TopUpTransaction transaction;
   final int index;
 
   @override
@@ -69,7 +69,7 @@ class TransactionItemWidget extends StatelessWidget {
                           ),
                         )),
                 Text(
-                  '${transaction.amount.currency} ${transaction.amount.value}',
+                  '${transaction.currency} ${transaction.amount}',
                   style: Theme.of(context).textTheme.bodyMedium?.merge(
                         TextStyle(
                           color: Theme.of(context).primaryColor,
