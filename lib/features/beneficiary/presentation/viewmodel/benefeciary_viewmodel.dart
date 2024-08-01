@@ -49,14 +49,12 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
     if (state.beneficiaries?.length == maxToAdd) {
       state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
         uiState: AddBeneficiaryErrors.reachedTheMax,
-        // loadingState: ScreenUiState.idle,
       ));
     }
 
     // Push loading state to the consumers
     state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
       uiState: AddBeneficiaryErrors.loading,
-      // loadingState: ScreenUiState.loading,
     ));
 
     // call the use case and then if success update the local state
@@ -65,7 +63,6 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       loggerNoStack.e(error);
       state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
         uiState: error,
-        // loadingState: ScreenUiState.idle,
       ));
     }, (beneficiary) {
       // save it in local list of beneficiaries
@@ -74,7 +71,6 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
         beneficiary,
         AddBeneficiaryState(
           uiState: AddBeneficiaryErrors.success,
-          // loadingState: ScreenUiState.idle,
         ),
       );
       loggerNoStack.i(
@@ -104,6 +100,10 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       loggerNoStack.i(
           "we've got a list of beneficiaries sized : ${beneficiaries.length}");
     });
+  }
+
+  void resetState() {
+    state = state.reset();
   }
 }
 

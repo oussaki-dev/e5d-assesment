@@ -72,13 +72,24 @@ class BeneficiaryState {
     );
   }
 
-  BeneficiaryState copyWithGetBeneficiariesErrorState(GetBeneficiariesState getBeneficiariesState) {
-     return BeneficiaryState(
+  BeneficiaryState copyWithGetBeneficiariesErrorState(
+      GetBeneficiariesState getBeneficiariesState) {
+    return BeneficiaryState(
       addState: addState,
       addFormBeneficiary: addFormBeneficiary,
       beneficiaries: beneficiaries,
       removeUiState: removeUiState,
       listUiState: getBeneficiariesState,
+    );
+  }
+
+  BeneficiaryState reset() {
+    return BeneficiaryState(
+      addState: AddBeneficiaryState(uiState: AddBeneficiaryErrors.none),
+      addFormBeneficiary: BeneficiaryInput(nickname: '', mobileNumber: ''),
+      beneficiaries: beneficiaries,
+      removeUiState: null,
+      listUiState: null,
     );
   }
 }

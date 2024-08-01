@@ -36,16 +36,14 @@ showE5DBottomSheet(
   );
 }
 
-class BottomSheetChildViewContainer extends ConsumerWidget {
+class BottomSheetChildViewContainer extends StatelessWidget {
   final Widget customWidget;
 
   const BottomSheetChildViewContainer({super.key, required this.customWidget});
 
   @override
-  Widget build(BuildContext context, ref) {
-    return Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) {
-      return SafeArea(
+  Widget build(BuildContext context) {
+    return SafeArea(
           child: SizedBox(
         width: double.infinity,
         child: Column(
@@ -67,6 +65,5 @@ class BottomSheetChildViewContainer extends ConsumerWidget {
           ],
         ),
       ));
-    });
   }
 }

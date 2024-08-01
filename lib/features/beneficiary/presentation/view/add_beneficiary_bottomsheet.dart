@@ -124,6 +124,8 @@ class _AddBeneficiaryWidgetState extends ConsumerState<AddBeneficiaryWidget> {
             style: const TextStyle(color: Colors.white),
           ),
         ));
+        loggerNoStack.d("Called");
+        viewModel?.resetState();
         Navigator.pop(context);
       }
     });

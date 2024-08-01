@@ -31,28 +31,6 @@ class AddBeneficiaryButtonWidget extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          // showModalBottomSheet<void>(
-          //   context: context,
-          //   builder: (BuildContext context) {
-          //     return Container(
-          //       height: 200,
-          //       color: Colors.amber,
-          //       child: Center(
-          //         child: Column(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           mainAxisSize: MainAxisSize.min,
-          //           children: <Widget>[
-          //             const Text('Modal BottomSheet'),
-          //             ElevatedButton(
-          //               child: const Text('Close BottomSheet'),
-          //               onPressed: () => Navigator.pop(context),
-          //             ),
-          //           ],
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // );
           _onPressed(context);
         },
         style: TextButton.styleFrom(
@@ -69,8 +47,8 @@ class AddBeneficiaryButtonWidget extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/ic_add.png',
-              width: 48,
-              height: 48,
+              width: 32,
+              height: 32,
             ),
             const SizedBox(
               height: 4,
