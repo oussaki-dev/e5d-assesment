@@ -324,7 +324,7 @@ void main() {
       });
       expect(
         await usecase.call(request),
-       expected, // including the fee
+        expected, // including the fee
       );
     });
   });
