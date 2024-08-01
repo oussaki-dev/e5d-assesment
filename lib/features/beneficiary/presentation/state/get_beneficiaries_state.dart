@@ -2,6 +2,8 @@ import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 
 enum GetBeneficiariesUiStates {
   none,
+  idle,
+  loading,
   networkIssue,
   genericError,
   // down domain specific errors
@@ -11,8 +13,7 @@ enum GetBeneficiariesUiStates {
 
 
 class GetBeneficiariesState {
-  GetBeneficiariesState({this.loadingState, this.uiState});
-  ScreenUiState? loadingState;
+  GetBeneficiariesState({ this.uiState});
   GetBeneficiariesUiStates? uiState;
 }
 

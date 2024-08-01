@@ -10,7 +10,7 @@ import 'package:e5d_assesment/features/beneficiary/presentation/state/get_benefi
 import 'package:e5d_assesment/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'benefeciary_viewmodel.g.dart';
+part 'beneficiary_viewmodel.g.dart';
 
 @riverpod
 class BeneficiaryViewModel extends _$BeneficiaryViewModel {
@@ -33,8 +33,7 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       ),
       removeUiState: ScreenUiState.idle,
       listUiState: GetBeneficiariesState(
-        loadingState: ScreenUiState.idle,
-        uiState: GetBeneficiariesUiStates.none,
+        uiState: GetBeneficiariesUiStates.idle,
       ),
     );
   }
@@ -87,15 +86,21 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
   }
 
   void getBeneficiaries() async {
+    state = state.copyWith(
+      listUiState: GetBeneficiariesState(
+        uiState: GetBeneficiariesUiStates.loading,
+      ),
+    );
+
     final result = await getBeneficiariesUseCase?.call(NoParams());
 
     result?.fold((error) {
       loggerNoStack.e(error);
       state = state.copyWith(
-          listUiState: GetBeneficiariesState(
-        loadingState: ScreenUiState.idle,
-        uiState: error,
-      ));
+        listUiState: GetBeneficiariesState(
+          uiState: error,
+        ),
+      );
     }, (beneficiaries) {
       // save it in local list of beneficiaries
       // _beneficiaries.add(beneficiary);
@@ -103,7 +108,6 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
       state = state.copyWith(
         beneficiaries: beneficiaries,
         listUiState: GetBeneficiariesState(
-          loadingState: ScreenUiState.idle,
           uiState: GetBeneficiariesUiStates.success,
         ),
       );

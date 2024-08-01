@@ -8,7 +8,7 @@ import 'package:e5d_assesment/features/beneficiary/domain/repository/beneficiary
 import 'package:e5d_assesment/core/network/error/errors.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/state/add_beneficiary_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/state/get_beneficiaries_state.dart';
-import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/beneficiary_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dartz/dartz.dart';
 

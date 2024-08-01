@@ -1,8 +1,10 @@
 import 'package:e5d_assesment/core/network/config/config_notifier.dart';
 import 'package:e5d_assesment/core/network/config/configurations_model.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/state/add_beneficiary_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiary_state.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/state/get_beneficiaries_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary_list.dart';
-import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/beneficiary_viewmodel.dart';
 import 'package:e5d_assesment/features/login/domain/model/session_notifier.dart';
 import 'package:e5d_assesment/features/transactions/presentation/view/transaction_item_widget.dart';
 import 'package:e5d_assesment/main.dart';
@@ -11,6 +13,7 @@ import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends ConsumerWidget {
   HomeScreen({super.key});
@@ -26,6 +29,54 @@ class HomeScreen extends ConsumerWidget {
     LoginScreenRoute().go(context);
   }
 
+  Widget _getBeneficiariesWidget() {
+    if (beneficiaryState?.listUiState?.uiState ==
+        GetBeneficiariesUiStates.loading) {
+      return Row(
+        children: [
+          for (int i = 0; i < 2; i++)
+            Padding(
+              padding: const EdgeInsetsDirectional.only(end: 8),
+              child: Container(
+                width: 155,
+                height: 120,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  shadows: const [
+                    BoxShadow(
+                      color: Color(0x0F000000),
+                      blurRadius: 24,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Shimmer.fromColors(
+                  baseColor: const Color.fromARGB(128, 204, 204, 204),
+                  highlightColor: const Color.fromARGB(25, 204, 204, 204),
+                  child: Container(
+                    decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            )
+        ],
+      );
+    } else {
+      return BeneficiaryListWidget(
+        beneficiaries: beneficiaryState?.beneficiaries ?? List.empty(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context, ref) {
     beneficiaryState = ref.watch(beneficiaryViewModelProvider);
@@ -35,9 +86,9 @@ class HomeScreen extends ConsumerWidget {
     configurations = ref.watch(configProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      loggerNoStack.d('beneficiaryState?.isGetBeneficiariesCalled ${beneficiaryState?.isGetBeneficiariesCalled}');
+      loggerNoStack.d(
+          'beneficiaryState?.isGetBeneficiariesCalled ${beneficiaryState?.isGetBeneficiariesCalled}');
       if (beneficiaryState?.isGetBeneficiariesCalled == false) {
-        
         _beneficiaryViewModel?.setApiCalled();
         _beneficiaryViewModel?.getBeneficiaries();
       }
@@ -148,9 +199,7 @@ class HomeScreen extends ConsumerWidget {
             const SizedBox(
               height: 12,
             ),
-            BeneficiaryListWidget(
-              beneficiaries: beneficiaryState?.beneficiaries ?? List.empty(),
-            ),
+            _getBeneficiariesWidget(),
             const SizedBox(
               height: 12,
             ),

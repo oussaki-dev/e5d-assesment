@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
               config: const Configurations(
                 // let's assume we're getting the configuration from an API...
                 baseUrl:
-                    'https://43f7-2001-8f8-1923-956-3538-ee99-1e2f-6cb6.ngrok-free.app',
+                    'https://9327-147-161-161-88.ngrok-free.app', //TODO set your mock server URL here.
                 transactionFee: 1.0,
                 verifiedTopUpThreshold: 1000,
                 nonVerifiedTopUpThreshold: 500,

@@ -2,7 +2,7 @@ import 'package:e5d_assesment/app.dart';
 import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/state/add_beneficiary_state.dart';
 import 'package:e5d_assesment/features/beneficiary/presentation/state/beneficiary_state.dart';
-import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
+import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/beneficiary_viewmodel.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
