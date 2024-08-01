@@ -61,7 +61,7 @@ where 3000 is the port that the api's are exposed from.
 ------------------------
       Data Layer       |  <- Implements Repository interfaces, handles data sources
 
-
+<img src="https://i.ibb.co/vPJqX2j/Screenshot-2024-08-01-at-4-50-04-PM.png"  width="300"/>
 
 ### Design 
 
