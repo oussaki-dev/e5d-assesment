@@ -130,7 +130,7 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(
-              height: 24,
+              height: 20,
             ),
             Text(
               AppLocalizations.of(context)!.title_beneficiaries,
