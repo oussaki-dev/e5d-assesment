@@ -18,20 +18,19 @@ class E5DApp extends ConsumerStatefulWidget {
 
 class _E5DAppState extends ConsumerState<E5DApp> with WidgetsBindingObserver {
   final _noScreenshot = NoScreenshot.instance;
-  AppLifecycleState? _notification;
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
       case AppLifecycleState.resumed:
-        _noScreenshot.screenshotOff();
+       await _noScreenshot.screenshotOff();
         break;
       case AppLifecycleState.inactive:
-        _noScreenshot.screenshotOff();
+        await _noScreenshot.screenshotOff();
 
         break;
       case AppLifecycleState.paused:
-        _noScreenshot.screenshotOff();
+       await _noScreenshot.screenshotOff();
         break;
       case AppLifecycleState.detached || AppLifecycleState.hidden:
         break;
@@ -41,7 +40,6 @@ class _E5DAppState extends ConsumerState<E5DApp> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _noScreenshot.screenshotOff();
     WidgetsBinding.instance.addObserver(this);
   }
 
