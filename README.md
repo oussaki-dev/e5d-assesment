@@ -61,9 +61,11 @@ flutter pub get
 
 | Username | Password | status | balance |
 | -------- | ---------| ------- | ------ |
-| user1 | User1p@word | not verified | 300
-| user2 | User2p@$$word | verified | 100
-| user3 | User3p@$$word | verified | 5000 
+| user1 | pass1 | verified | 8123.5
+| user2 | pass2 | not verified | 5238.5
+
+You can change the configuration of balance from the mocked service in the repository bellow 
+https://github.com/oussaki-dev/mocked-backend
 
 
 ### The architecture 
@@ -73,10 +75,6 @@ flutter pub get
      Domain Layer      |  <- Contains Use Cases, Entities, and Repository interfaces
 ------------------------
       Data Layer       |  <- Implements Repository interfaces, handles data sources
-
-<img src="https://i.ibb.co/VjzXZCQ/Screenshot-2024-07-26-at-4-21-18-PM.png" alt="Flow diagram">
-
-
 
 ### Design 
 
