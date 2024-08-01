@@ -2,8 +2,10 @@
 /// Against TopUpBeneficiaryUseCase
 ///
 library;
+
 import 'package:dartz/dartz.dart';
 import 'package:e5d_assesment/core/network/config/configurations_model.dart';
+import 'package:e5d_assesment/features/topup/domain/model/top_up_transaction.dart';
 import 'mock_data.dart';
 import 'package:e5d_assesment/features/login/domain/model/session_model.dart';
 import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
@@ -20,14 +22,13 @@ import 'topup_tests.mocks.dart';
 @GenerateMocks([AbstractTopUpRepository])
 void main() {
   final fakeRepo = MockAbstractTopUpRepository();
+  const defaultConfig = Configurations(
+      baseUrl: "",
+      transactionFee: 1,
+      verifiedTopUpThreshold: 1000,
+      nonVerifiedTopUpThreshold: 500,
+      monthlyMaxTopUpThreshold: 3000);
   group('Top up negative cases', () {
-    const defaultConfig = Configurations(
-        baseUrl: "",
-        transactionFee: 1,
-        verifiedTopUpThreshold: 1000,
-        nonVerifiedTopUpThreshold: 500,
-        monthlyMaxTopUpThreshold: 3000);
-
     test("Should return an error when session is expired", () async {
       final usecase = TopUpBeneficiaryUseCase(
         fakeRepo,
@@ -247,6 +248,84 @@ void main() {
           const Left(TopUpUiStates.reachedMonthlyTopUpThreshold),
         );
       });
+    });
+  });
+
+  group('Top up positive cases', () {
+    test("Verified user should top up successfully", () async {
+      final usecase = TopUpBeneficiaryUseCase(
+        fakeRepo,
+        defaultConfig,
+        const SessionModel(
+            isLoggedIn: true,
+            user: UserModel(
+                firstName: '',
+                lastName: '',
+                token: '',
+                refreshToken: '',
+                isVerified: true,
+                balance: 500,
+                transactions: null)),
+      );
+      expect(
+        usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 20.0)),
+        const Right(21.0),
+      );
+    });
+
+    test("Non Verified user should top up successfully", () async {
+      final usecase = TopUpBeneficiaryUseCase(
+        fakeRepo,
+        defaultConfig,
+        const SessionModel(
+            isLoggedIn: true,
+            user: UserModel(
+                firstName: '',
+                lastName: '',
+                token: '',
+                refreshToken: '',
+                isVerified: false,
+                balance: 500,
+                transactions: null)),
+      );
+      expect(
+        usecase.areInputsValid(TopUpRequest(beneficiaryId: '1', amount: 20.0)),
+        const Right(21.0), // including the fee
+      );
+    });
+
+    test("it should be successful when calling the api", () async {
+      final usecase = TopUpBeneficiaryUseCase(
+        fakeRepo,
+        defaultConfig,
+        const SessionModel(
+            isLoggedIn: true,
+            user: UserModel(
+                firstName: '',
+                lastName: '',
+                token: '',
+                refreshToken: '',
+                isVerified: false,
+                balance: 500,
+                transactions: null)),
+      );
+
+      final request = TopUpRequest(beneficiaryId: '1', amount: 20.0);
+      final expected = Right<TopUpUiStates, TopUpTransaction>(TopUpTransaction(
+          transactionId: '1',
+          timestamp: 'timestamp',
+          beneficiary: beneficiaries[0],
+          amount: 20,
+          currency: 'aed'));
+      final answer = Future.value(expected);
+
+      when(fakeRepo.topUp(request)).thenAnswer((_) {
+        return answer;
+      });
+      expect(
+        await usecase.call(request),
+       expected, // including the fee
+      );
     });
   });
 }

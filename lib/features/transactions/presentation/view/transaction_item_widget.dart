@@ -44,7 +44,7 @@ class TransactionItemWidget extends StatelessWidget {
                   height: 4,
                 ),
                 Text(
-                  transaction.beneficiary.mobileNumber ?? "[MOBILE_MISSING]",
+                  transaction.beneficiary.mobileNumber ?? "",
                   maxLines: 1,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyMedium?.merge(
@@ -60,14 +60,15 @@ class TransactionItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('1 Dec',
-                    style: Theme.of(context).textTheme.bodyMedium?.merge(
-                          TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )),
+                // TODO : Implement transactions date.
+                // Text('1 Dec',
+                //     style: Theme.of(context).textTheme.bodyMedium?.merge(
+                //           TextStyle(
+                //             color: Theme.of(context).primaryColor,
+                //             fontSize: 12,
+                //             fontWeight: FontWeight.w500,
+                //           ),
+                //         )),
                 Text(
                   '${transaction.currency} ${transaction.amount}',
                   style: Theme.of(context).textTheme.bodyMedium?.merge(

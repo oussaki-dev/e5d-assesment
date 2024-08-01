@@ -210,7 +210,7 @@ class _$UserModelImpl with DiagnosticableTreeMixin implements _UserModel {
       @JsonKey(name: 'refresh_token') required this.refreshToken,
       @JsonKey(name: 'is_verified') required this.isVerified,
       @JsonKey(name: 'balance') required this.balance,
-      @JsonKey(name: 'error_code') required this.errorCode,
+      @JsonKey(name: 'error_code') this.errorCode,
       @JsonKey(name: 'transactions')
       required final List<TopUpTransaction>? transactions})
       : _transactions = transactions;
@@ -336,7 +336,7 @@ abstract class _UserModel implements UserModel {
       @JsonKey(name: 'refresh_token') required final String? refreshToken,
       @JsonKey(name: 'is_verified') required final bool? isVerified,
       @JsonKey(name: 'balance') required final double? balance,
-      @JsonKey(name: 'error_code') required final String? errorCode,
+      @JsonKey(name: 'error_code') final String? errorCode,
       @JsonKey(name: 'transactions')
       required final List<TopUpTransaction>? transactions}) = _$UserModelImpl;
 

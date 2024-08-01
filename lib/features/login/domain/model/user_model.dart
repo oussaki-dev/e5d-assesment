@@ -14,7 +14,7 @@ class UserModel with _$UserModel {
     @JsonKey(name: 'refresh_token') required String? refreshToken,
     @JsonKey(name: 'is_verified') required bool? isVerified,
     @JsonKey(name: 'balance') required double? balance,
-    @JsonKey(name: 'error_code') required String? errorCode,
+    @JsonKey(name: 'error_code') String? errorCode,
 
     ///
     ///we need this transactions model to calculate
