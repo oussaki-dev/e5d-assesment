@@ -47,13 +47,20 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
   void addBeneficiary() async {
     // first we validate our inputs
     if (state.beneficiaries?.length == maxToAdd) {
-      state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
+      state = state.copyWith(
+          addState: AddBeneficiaryState(
+        uiState: AddBeneficiaryErrors.reachedTheMax,
+      ));
+
+      state = state.copyWith(
+          addState: AddBeneficiaryState(
         uiState: AddBeneficiaryErrors.reachedTheMax,
       ));
     }
 
     // Push loading state to the consumers
-    state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
+    state = state.copyWith(
+        addState: AddBeneficiaryState(
       uiState: AddBeneficiaryErrors.loading,
     ));
 
@@ -61,7 +68,8 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
     final result = await addBeneficiaryUseCase?.call(state.addFormBeneficiary!);
     result?.fold((error) {
       loggerNoStack.e(error);
-      state = state.copyWithAddBeneficiaryJustUiState(AddBeneficiaryState(
+      state = state.copyWith(
+          addState: AddBeneficiaryState(
         uiState: error,
       ));
     }, (beneficiary) {
@@ -83,16 +91,18 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
 
     result?.fold((error) {
       loggerNoStack.e(error);
-      state = state.copyWithGetBeneficiariesErrorState(GetBeneficiariesState(
+      state = state.copyWith(
+          listUiState: GetBeneficiariesState(
         loadingState: ScreenUiState.idle,
         uiState: error,
       ));
     }, (beneficiaries) {
       // save it in local list of beneficiaries
       // _beneficiaries.add(beneficiary);
-      state = state.copyWithGetBeneficiariesState(
-        beneficiaries,
-        GetBeneficiariesState(
+
+      state = state.copyWith(
+        beneficiaries: beneficiaries,
+        listUiState: GetBeneficiariesState(
           loadingState: ScreenUiState.idle,
           uiState: GetBeneficiariesUiStates.success,
         ),
@@ -105,10 +115,8 @@ class BeneficiaryViewModel extends _$BeneficiaryViewModel {
   void resetState() {
     state = state.reset();
   }
+
+  void setApiCalled() {
+    state = state.copyWith(isGetBeneficiariesCalled: true);
+  }
 }
-
-class NoBeneficiaryException implements E5DError {}
-
-class MaxReachedBeneficiariesException implements E5DError {}
-
-class InvalidPhoneNumberException implements E5DError {}

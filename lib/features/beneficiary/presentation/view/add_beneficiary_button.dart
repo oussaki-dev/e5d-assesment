@@ -54,7 +54,7 @@ class AddBeneficiaryButtonWidget extends StatelessWidget {
               height: 4,
             ),
             Text(
-              "Add new",
+              "Add new", // TODO extract to l10n
               maxLines: 1,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyMedium?.merge(

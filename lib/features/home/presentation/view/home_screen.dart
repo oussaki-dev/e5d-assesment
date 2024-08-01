@@ -5,6 +5,7 @@ import 'package:e5d_assesment/features/beneficiary/presentation/view/beneficiary
 import 'package:e5d_assesment/features/beneficiary/presentation/viewmodel/benefeciary_viewmodel.dart';
 import 'package:e5d_assesment/features/login/domain/model/session_notifier.dart';
 import 'package:e5d_assesment/features/transactions/presentation/view/transaction_item_widget.dart';
+import 'package:e5d_assesment/main.dart';
 import 'package:e5d_assesment/routes/routes.dart';
 import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
@@ -34,8 +35,10 @@ class HomeScreen extends ConsumerWidget {
     configurations = ref.watch(configProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!isGetBeneficiariesCalled) {
-        isGetBeneficiariesCalled = true;
+      loggerNoStack.d('beneficiaryState?.isGetBeneficiariesCalled ${beneficiaryState?.isGetBeneficiariesCalled}');
+      if (beneficiaryState?.isGetBeneficiariesCalled == false) {
+        
+        _beneficiaryViewModel?.setApiCalled();
         _beneficiaryViewModel?.getBeneficiaries();
       }
     });
