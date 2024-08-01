@@ -1,5 +1,4 @@
 import 'package:e5d_assesment/core/domain/base_usecase.dart';
-import 'package:e5d_assesment/core/network/error/errors.dart';
 import 'package:e5d_assesment/core/presentation/state/screen_ui_states.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_input_mode.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/usecases/add_beneficiary_usecase.dart';

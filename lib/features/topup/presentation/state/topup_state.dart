@@ -64,4 +64,13 @@ class TopUpState {
       transaction: transaction,
     );
   }
+
+  TopUpState reset() {
+    return const TopUpState(
+      selectedAmount: 0,
+      beneficiary: null,
+      uiState: TopUpUiStates.none,
+      transaction: null,
+    );
+  }
 }

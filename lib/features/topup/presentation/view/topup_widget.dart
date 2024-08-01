@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:e5d_assesment/core/network/config/config_notifier.dart';
 import 'package:e5d_assesment/core/network/config/configurations_model.dart';
 import 'package:e5d_assesment/features/beneficiary/domain/model/beneficiary_model.dart';
@@ -13,10 +14,14 @@ import 'package:e5d_assesment/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 
 class TopUpWidget extends ConsumerStatefulWidget {
   final Beneficiary beneficiary;
-  const TopUpWidget({super.key, required this.beneficiary});
+  const TopUpWidget({
+    super.key,
+    required this.beneficiary,
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() {
@@ -32,7 +37,9 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   final Beneficiary beneficiary;
   Configurations? config;
 
-  _TopUpWidgetState({required this.beneficiary});
+  _TopUpWidgetState({
+    required this.beneficiary,
+  });
 
   void _onTopPressed() {
     if (topUpState?.isSelectedAmount() == true) {
@@ -111,13 +118,16 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
   void _checkOpenReceiptScreen() {
     if (topUpState?.uiState == TopUpUiStates.successfulTransaction) {
       Future.microtask(() {
-        final amount = topUpStateRead?.transaction?.amount;
+        final amount = topUpState?.transaction?.amount;
         loggerNoStack.i('amount = $amount');
+        //reset the state of the topup
+        viewModel?.resetState();
+        context.pop(); // close the bottom sheet
         TopUpReceiptScreenRoute(
                 amount: amount,
                 beneficiaryName: topUpStateRead?.beneficiary?.nickname ?? '',
                 mobileNumber: topUpStateRead?.beneficiary?.mobileNumber ?? '')
-            .go(context);
+            .push(context);
       });
     }
   }
@@ -237,6 +247,4 @@ class _TopUpWidgetState extends ConsumerState<TopUpWidget> {
       ),
     );
   }
-
-  
 }

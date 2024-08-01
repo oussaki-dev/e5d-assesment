@@ -16,7 +16,6 @@ import 'package:e5d_assesment/features/topup/presentation/state/topup_ui_states.
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'beneficiary_test.mocks.dart';
 import 'topup_tests.mocks.dart';
 
 @GenerateMocks([AbstractTopUpRepository])

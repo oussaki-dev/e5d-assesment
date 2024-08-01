@@ -106,4 +106,8 @@ class TopUpViewModel extends _$TopUpViewModel {
       });
     });
   }
+
+  void resetState() {
+    state = state.reset();
+  }
 }
