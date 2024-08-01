@@ -30,9 +30,6 @@ flutter pub get
 | 🕹 `flutter build apk`      | generate a release Android APK file , make sure you configured the keys in the local.properties file  |
 
 
-
-
-
 ### 🕸️ Mocking api's 
 
 Checkout this repo : https://github.com/oussaki-dev/mocked-backend 
@@ -45,7 +42,7 @@ and the app by running `./ngrok http 3000`
 where 3000 is the port that the api's are exposed from.
 
 
-### 🕸️ Update the splash_screen.dart , line : 24 to update the api's base url
+### 🕸️ Update the splash_screen.dart , line : 26 to update the api's base url
 
 
 
