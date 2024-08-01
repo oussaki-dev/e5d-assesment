@@ -57,25 +57,41 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     String message = "";
     switch (state?.uiState) {
       case LoginUiState.userNameRequired:
-        message = "Username is required";
+        message = AppLocalizations.of(context)!.required_username;
         break;
 
       case LoginUiState.passwordRequired:
-        message = "Password is required";
+        message = AppLocalizations.of(context)!.required_password;
         break;
 
       // For security reason we should specify what's invalid between the two
       case LoginUiState.invalidUserNamePassword:
-        message = "Invalid username or password";
+        message = AppLocalizations.of(context)!.invalid_credentials;
         break;
 
       case LoginUiState.genericError:
-        message = "Unexpected issue, please try again.";
+        message = AppLocalizations.of(context)!.unexpected_issue;
         break;
 
       default:
     }
-    return Text(message);
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            message,
+            style: Theme.of(context).textTheme.labelSmall?.merge(
+                  const TextStyle(
+                    color: E5DColors.colorEF5A6F,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
