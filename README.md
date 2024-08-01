@@ -73,3 +73,10 @@ Pallet used : https://colorhunt.co/palette/ef5a6ffff1dbd4bdac536493
 ### screenshots 
 
 
+<img src="https://i.ibb.co/Jt8YvLd/Screenshot-1722514672.png" />
+<img src="https://i.ibb.co/HK2r0wn/Screenshot-1722514745.png" />
+<img src="https://i.ibb.co/wBDD56L/Screenshot-1722514701.png" />
+<img src="https://i.ibb.co/M1yRfmF/Screenshot-1722514695.png" />
+
+[url=https://ibb.co/zx15RBC][img]https://i.ibb.co/XL94sK6/Screenshot-1722514690.png[/img][/url]
+[url=https://ibb.co/wWWJgpT][img]https://i.ibb.co/k883Bqp/Screenshot-1722514684.png[/img][/url]
