@@ -171,9 +171,9 @@ class HomeScreen extends ConsumerWidget {
                     height: 8,
                   );
                 },
-                itemCount: session?.user?.transactions.length ?? 0,
+                itemCount: session?.user?.transactions?.length ?? 0,
                 itemBuilder: (context, index) {
-                  final transaction = session?.user?.transactions[index];
+                  final transaction = session?.user?.transactions?[index];
                   if (transaction != null) {
                     return TransactionItemWidget(
                       transaction: transaction,

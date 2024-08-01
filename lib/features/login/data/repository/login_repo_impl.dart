@@ -1,10 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:e5d_assesment/core/network/error/errors.dart';
+import 'package:e5d_assesment/core/network/network_exceptions.dart';
 import 'package:e5d_assesment/features/login/data/data_sources/abstract_login_source.dart';
 import 'package:e5d_assesment/features/login/data/data_sources/remote/login_api_impl.dart';
 import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
 import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
 import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
+import 'package:e5d_assesment/features/login/presentation/viewmodel/login_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginUserNamePasswordRepositoryProvider =
@@ -19,13 +21,16 @@ class LoginWithUserNamePasswordRepoImpl implements AbstractLoginRepository {
   LoginWithUserNamePasswordRepoImpl(AbstractLoginSource api) : _api = api;
 
   @override
-  Future<Either<E5DError, UserModel>> login(ILoginModel params) async {
+  Future<Either<LoginUiState, UserModel>> login(ILoginModel params) async {
     LoginModel model = params as LoginModel;
     try {
       UserModel user = await _api.login(model);
       return Right(user);
     } on E5DError catch (e) {
-      return Left(e);
+      if (e is NetworkException) {
+        return const Left(LoginUiState.networkIssue);
+      }
+      return const Left(LoginUiState.genericError);
     }
   }
 }

@@ -8,6 +8,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+///
+///Login screen
+///
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -22,25 +25,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   LoginState? state;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  late Widget buttonText;
 
   void _onLoginPressed(BuildContext context) {
     viewModel?.login(LoginStrategy.userNamePassword);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    state = ref.watch(loginViewModelProvider);
-    viewModel = ref.read(loginViewModelProvider.notifier);
-
-    if (state?.uiState == ScreenUiState.success) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        HomeScreenRoute().go(context);
-      });
-    }
-
-    if (state?.uiState == ScreenUiState.loading) {
-      buttonText = SizedBox(
+  Widget _getLoginButton() {
+    if (state?.uiState == LoginUiState.loading) {
+      return SizedBox(
         height: 33,
         width: 33,
         child: CircularProgressIndicator(
@@ -50,23 +42,51 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           strokeWidth: 3.0,
         ),
       );
-    } else if (state?.uiState == ScreenUiState.error) {
-      // show error
-      buttonText = Text(
-        AppLocalizations.of(context)!.button_login,
-        style: Theme.of(context).textTheme.labelLarge?.merge(const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-            )),
-      );
     } else {
-      buttonText = Text(
+      return Text(
         AppLocalizations.of(context)!.button_login,
         style: Theme.of(context).textTheme.labelLarge?.merge(const TextStyle(
               color: Colors.white,
               fontSize: 24,
             )),
       );
+    }
+  }
+
+  Widget _loginErrorsSection() {
+    String message = "";
+    switch (state?.uiState) {
+      case LoginUiState.userNameRequired:
+        message = "Username is required";
+        break;
+
+      case LoginUiState.passwordRequired:
+        message = "Password is required";
+        break;
+
+      // For security reason we should specify what's invalid between the two
+      case LoginUiState.invalidUserNamePassword:
+        message = "Invalid username or password";
+        break;
+
+      case LoginUiState.genericError:
+        message = "Unexpected issue, please try again.";
+        break;
+
+      default:
+    }
+    return Text(message);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    state = ref.watch(loginViewModelProvider);
+    viewModel = ref.read(loginViewModelProvider.notifier);
+
+    if (state?.uiState == LoginUiState.success) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        HomeScreenRoute().go(context);
+      });
     }
 
     return Scaffold(
@@ -126,6 +146,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       ),
                     ),
                   ),
+                  _loginErrorsSection(),
                   Container(
                     padding: const EdgeInsets.only(top: 24),
                     width: double.infinity,
@@ -140,7 +161,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           horizontal: 24.0,
                         ),
                       ),
-                      child: buttonText,
+                      child: _getLoginButton(),
                     ),
                   )
                 ],

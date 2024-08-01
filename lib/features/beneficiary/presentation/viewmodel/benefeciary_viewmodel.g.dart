@@ -7,7 +7,7 @@ part of 'benefeciary_viewmodel.dart';
 // **************************************************************************
 
 String _$beneficiaryViewModelHash() =>
-    r'78c5d92cb4c9f099ea76ab4dc8341c4c1330d914';
+    r'02f70d5046980466ee3dc4736de9de5a6b054934';
 
 /// See also [BeneficiaryViewModel].
 @ProviderFor(BeneficiaryViewModel)

@@ -75,7 +75,7 @@ class TopUpBeneficiaryUseCase
     );
 
     double totalSpentThisMonth = 0;
-    session?.user?.transactions.forEach((t) {
+    session?.user?.transactions?.forEach((t) {
       totalSpentThisMonth += t.amount;
     });
 

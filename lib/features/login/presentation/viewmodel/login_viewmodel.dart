@@ -10,6 +10,7 @@ import 'package:e5d_assesment/features/login/domain/model/session_notifier.dart'
 import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
 import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
 import 'package:e5d_assesment/features/login/domain/usecase/login_default_usecase.dart';
+import 'package:e5d_assesment/features/login/presentation/errors/login_error.dart';
 import 'package:e5d_assesment/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -30,19 +31,33 @@ enum LoginStrategy {
   }
 }
 
+enum LoginUiState {
+  idle,
+  loading,
+  success,
+  networkIssue,
+  genericError,
+  invalidUserNamePassword,
+  userNameRequired,
+  passwordRequired;
+}
+
 class LoginState {
   final ILoginModel? loginModel;
-  final ScreenUiState? uiState;
+  final LoginUiState? uiState;
   final UserModel? loggedInUser;
   const LoginState({this.loginModel, this.uiState, this.loggedInUser});
 
-  LoginState copyWith(ILoginModel? loginModel, ScreenUiState? uiState,
-      UserModel? loggedInUser) {
+  LoginState copyWith(
+      ILoginModel? loginModel, LoginUiState? uiState, UserModel? loggedInUser) {
     return LoginState(
-        loginModel: loginModel, uiState: uiState, loggedInUser: loggedInUser);
+      loginModel: loginModel,
+      uiState: uiState,
+      loggedInUser: loggedInUser,
+    );
   }
 
-  LoginState copyWithUiState(ScreenUiState? uiState) {
+  LoginState copyWithUiState(LoginUiState? uiState) {
     return LoginState(loginModel: loginModel, uiState: uiState);
   }
 }
@@ -57,7 +72,7 @@ class LoginViewModel extends _$LoginViewModel {
   }
 
   void login(LoginStrategy loginStrategy) async {
-    state = state.copyWithUiState(ScreenUiState.loading);
+    state = state.copyWithUiState(LoginUiState.loading);
     switch (loginStrategy) {
       case LoginStrategy.userNamePassword:
         useCase = LoginUsernamePasswordUseCase(ref.watch(
@@ -71,8 +86,9 @@ class LoginViewModel extends _$LoginViewModel {
 
     var result = await useCase?.call(state.loginModel!);
 
-    result?.fold((ifLeft) {
-      state = state.copyWithUiState(ScreenUiState.error);
+    result?.fold((errorUiState) {
+      final loginUiState = errorUiState as LoginUiState;
+      state = state.copyWithUiState(loginUiState);
     }, (model) {
       final userModel = model as UserModel;
       loggerNoStack.i("Logged in successfully $userModel");
@@ -97,9 +113,9 @@ class LoginViewModel extends _$LoginViewModel {
               ),
             );
 
-        state = state.copyWithUiState(ScreenUiState.success);
+        state = state.copyWithUiState(LoginUiState.success);
       } else {
-        state = state.copyWithUiState(ScreenUiState.error);
+        state = state.copyWithUiState(LoginUiState.genericError);
       }
     });
   }

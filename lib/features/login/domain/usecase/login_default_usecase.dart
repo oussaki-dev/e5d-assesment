@@ -1,42 +1,41 @@
 import 'package:dartz/dartz.dart';
 import 'package:e5d_assesment/core/domain/base_usecase.dart';
-import 'package:e5d_assesment/core/network/error/errors.dart';
 import 'package:e5d_assesment/features/login/domain/model/login_model.dart';
 import 'package:e5d_assesment/features/login/domain/model/user_model.dart';
 import 'package:e5d_assesment/features/login/domain/repository/abstract_login_repo.dart';
-import 'package:e5d_assesment/features/login/presentation/errors/login_error.dart';
+import 'package:e5d_assesment/features/login/presentation/viewmodel/login_viewmodel.dart';
 
-
-class LoginUsernamePasswordUseCase extends UseCase<UserModel, LoginModel, E5DError> {
+class LoginUsernamePasswordUseCase
+    extends UseCase<UserModel, LoginModel, LoginUiState> {
   final AbstractLoginRepository repository;
 
-  final minUsernameLength = 4;
-
+  static const String errorCodeInvalidCredentials = 'invalid_creds';
   // injecting the repo for better testing
   LoginUsernamePasswordUseCase(this.repository);
 
   @override
-  Future<Either<E5DError, UserModel>> call(ILoginModel params) async {
+  Future<Either<LoginUiState, UserModel>> call(ILoginModel params) async {
     LoginModel model = params as LoginModel;
-    if (model.userName.isEmpty || model.password.isEmpty) {
-      return Left(LoginInputError(
-        EInputError.invalidUserNamePassword,
-      ));
+
+    if (model.userName.trim().isEmpty) {
+      return const Left(LoginUiState.userNameRequired);
     }
 
-    // check if username is long enough
-    if (model.userName.length < minUsernameLength) {
-      return Left(LoginInputError(
-        EInputError.userNameRequired,
-      ));
+    if (model.password.trim().isEmpty) {
+      return const Left(LoginUiState.passwordRequired);
     }
 
     final result = await repository.login(params);
 
     return result.fold((l) {
       return Left(l);
-    }, (r) async {
-      return Right(r);
+    }, (data) async {
+      if (data.errorCode != null) {
+        if (data.errorCode == errorCodeInvalidCredentials) {
+          return const Left(LoginUiState.invalidUserNamePassword);
+        }
+      }
+      return Right(data);
     });
   }
 }

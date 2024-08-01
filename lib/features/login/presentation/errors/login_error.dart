@@ -9,7 +9,7 @@ enum EInputError {
 
 class LoginInputError extends E5DError {
   final EInputError? inputError;
-   LoginInputError(this.inputError);
+  LoginInputError(this.inputError);
 }
 
 class LoginResponseError extends E5DError {
