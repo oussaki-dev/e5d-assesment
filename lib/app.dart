@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:no_screenshot/no_screenshot.dart';
 
 final scafoldKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -15,7 +16,41 @@ class E5DApp extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _E5DAppState();
 }
 
-class _E5DAppState extends ConsumerState<E5DApp> {
+class _E5DAppState extends ConsumerState<E5DApp> with WidgetsBindingObserver {
+  final _noScreenshot = NoScreenshot.instance;
+  AppLifecycleState? _notification;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        _noScreenshot.screenshotOff();
+        break;
+      case AppLifecycleState.inactive:
+        _noScreenshot.screenshotOff();
+
+        break;
+      case AppLifecycleState.paused:
+        _noScreenshot.screenshotOff();
+        break;
+      case AppLifecycleState.detached || AppLifecycleState.hidden:
+        break;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _noScreenshot.screenshotOff();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final config = ref.watch(configProvider);

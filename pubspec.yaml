@@ -57,6 +57,7 @@ dependencies:
   firebase_crashlytics: ^3.4.9
   firebase_analytics: ^10.8.0
   shimmer: ^3.0.0
+  no_screenshot: ^0.2.0
 
 dev_dependencies:
   flutter_test:
