@@ -5,25 +5,9 @@
 This project is a phone topup app.
 
 <b>Notes</b>: 
-   Because this is a high risky APP that works with money 
-   i prefere not save any sensitive information in the storage 
-   even tho we can save using an AES encryption in a secured storage 
-   but still there is a risk of stealing the keys 
-   to manage session if the app is closed there will be no session
-   the user should login again, 
-   we might introduce a local timer that checks if the user is performing any action 
-   and we increase the session time.
+   - Because this is a high risky APP that works with money i prefere not save any sensitive information in the storage even tho we can save using an AES encryption in a secured storage but still there is a risk of stealing the keys to manage session if the app is closed there will be no sessionthe user should login again, we might introduce a local timer that checks if the user is performing any action and we increase the session time.
 
-
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
+- I had to disable taking screenshots in the main screen where we are having the user and balance info.
 
 ## 👟💻 Getting started
 
@@ -51,10 +35,18 @@ flutter pub get
 
 ### 🕸️ Mocking api's 
 
-| env        | url                                                                                                  |
-| ---------- | ---------------------------------------------------------------------------------------------------- |
-| BaseUrl | https://myapi.com                               |
-| Login     |  |
+Checkout this repo : https://github.com/oussaki-dev/mocked-backend 
+
+
+
+### 🕸️ Mock server in app configuration
+try to use ngrok to create a reverse proxy between the local running mock server 
+and the app by running `./ngrok http 3000` 
+where 3000 is the port that the api's are exposed from.
+
+
+### 🕸️ Update the splash_screen.dart , line : 24 to update the api's base url
+
 
 
 ### 🕸️ Test users
@@ -64,10 +56,6 @@ flutter pub get
 | user1 | pass1 | verified | 8123.5
 | user2 | pass2 | not verified | 5238.5
 
-You can change the configuration of balance from the mocked service in the repository bellow 
-https://github.com/oussaki-dev/mocked-backend
-
-
 ### The architecture 
 
     Presentation Layer |  <- ViewModels interact with the Use Cases
@@ -76,6 +64,12 @@ https://github.com/oussaki-dev/mocked-backend
 ------------------------
       Data Layer       |  <- Implements Repository interfaces, handles data sources
 
+
+
 ### Design 
 
 Pallet used : https://colorhunt.co/palette/ef5a6ffff1dbd4bdac536493
+
+### screenshots 
+
+
