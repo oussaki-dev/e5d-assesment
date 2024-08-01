@@ -153,12 +153,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         ),
                         hintText: AppLocalizations.of(context)!.hint_password,
-                        suffixIcon: const IconButton(
-                          icon: Icon(
-                            Icons.visibility_off,
-                          ),
-                          onPressed: null,
-                        ),
                       ),
                     ),
                   ),
